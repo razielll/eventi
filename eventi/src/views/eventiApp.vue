@@ -1,18 +1,21 @@
 <template>
-  <div class="home">
+<section>
+  <navBar/>
     <img src="../assets/logo.png">
     <h1> Your events everywhere! </h1>
     <eventiList></eventiList>
-  </div>
+  </section>
 </template>
 
 <script>
-import eventiList from "../components/eventiList.vue";
+import eventiList from "@/components/eventiList.vue";
+import navBar from "@/components/navBar.vue";
 
 export default {
   name: "eventi home page",
   components: {
-    eventiList
+    eventiList,
+    navBar
   }
 };
 </script>

@@ -5,6 +5,8 @@ import eventiModule from '@/store/eventiModule.js'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  strict: true,
+
   state: {
 
   },

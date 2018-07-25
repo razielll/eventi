@@ -1,25 +1,27 @@
 <template>
     <section class="eventi-list">
-        <div class="eventi-wrapper" v-for="eventi in eventis" :key="eventi._id"> 
 
-
-
-        </div>
+        <eventiPreview v-for="eventi in eventisToShow" :key="eventi._id" :eventi="eventi"/>
         
-        </section> 
+    </section> 
 </template>
 
 <script>
+import eventiPreview from "./eventiPreview";
 export default {
-created(){
-    this.loadEventis;
-},
-methods:{
-
-},
-computed:{
-
-}
+  name: "eventi-list",
+  created() {
+    // this.loadEventis;
+  },
+  methods: {},
+  computed: {
+    eventisToShow() {
+      return this.$store.getters.eventisToShow;
+    }
+  },
+  components: {
+    eventiPreview
+  }
 };
 </script>
 

@@ -1,12 +1,19 @@
 export default {
     state: {
-        eventi: [],
+        eventis: [],
+        filterBy: {},
     },
     mutations: {
-  
+
+    },
+    getters: {
+        eventisToShow() {
+            return console.log('hellow');
+            ;
+        }
     },
     actions: {
-  
+
     },
 
 }

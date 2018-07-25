@@ -39,6 +39,6 @@ module.exports = (app) => {
         // if (!req.session.loggedinUser.isAdmin) return
         const eventi = req.body;
         eventiService.update(eventi)
-            .then(toy => res.json(eventi))
+            .then(eventi => res.json(eventi))
     })
 }

@@ -1,5 +1,5 @@
 const EVENTI_URL = '/';
-const eventiService = require('../services/toyService')
+const eventiService = require('../services/eventiService')
 
 
 module.exports = (app) => {

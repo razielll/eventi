@@ -22,6 +22,7 @@ function remove(eventiId) {
 
 
 function getById(eventiId) {
+    console.log('got into eventi service with id', eventiId);
     eventiId = new ObjectId(eventiId)
     return mongoService.connect()
         .then(db => {

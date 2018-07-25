@@ -1,6 +1,5 @@
 const eventiService = require('../services/eventiService')
 
-
 module.exports = (app) => {
 
     app.get('/', (req, res) => {
@@ -15,7 +14,6 @@ module.exports = (app) => {
                 res.json(eventi)
             })
     })
-
 
     app.delete('/:eventiId', (req, res) => {
         // if (!req.session.loggedinUser || !req.session.loggedinUser.isAdmin) return

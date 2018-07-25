@@ -1,5 +1,5 @@
 <template>
-    <section class="eventi-list">
+    <section class="eventi-list flex wrap">
 
         <eventiPreview v-for="eventi in eventisToShow" :key="eventi._id" :eventi="eventi"/>
         
@@ -10,9 +10,6 @@
 import eventiPreview from "./eventiPreview";
 export default {
   name: "eventi-list",
-  created() {
-    // this.loadEventis;
-  },
   methods: {},
   computed: {
     eventisToShow() {

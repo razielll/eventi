@@ -4,7 +4,7 @@ const cors = require('cors');
 const app = express()
 
 const addUserRoute = require('./routes/userRoute')
-const addEventiwRoute = require('./routes/eventiRoute')
+const addEventiRoute = require('./routes/eventiRoute')
 
 
 app.use(cors({

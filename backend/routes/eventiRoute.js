@@ -1,4 +1,3 @@
-const EVENTI_URL = '/';
 const eventiService = require('../services/eventiService')
 
 

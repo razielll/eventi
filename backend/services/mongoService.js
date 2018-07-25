@@ -9,11 +9,8 @@ function connectToMongo() {
     if (dbConn) return Promise.resolve(dbConn);
     const MongoClient = require('mongodb').MongoClient;
 
-    // const url = (!process.env.PORT) ?
-    //     'mongodb://localhost:27017/eventi_db' : 'mlab url'
-    if (!process.env.PORT) {
-        const url = 'mongodb://localhost:27017/eventi_db'
-    }
+    const url = (!process.env.PORT) ?
+        'mongodb://localhost:27017/eventi_db' : 'mlab url'
 
     return MongoClient.connect(url)
         .then(client => {

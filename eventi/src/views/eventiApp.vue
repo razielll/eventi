@@ -12,7 +12,7 @@ import eventiList from "@/components/eventiList.vue";
 import navBar from "@/components/navBar.vue";
 
 export default {
-  name: "eventi home page",
+  name: "eventi-home",
   components: {
     eventiList,
     navBar

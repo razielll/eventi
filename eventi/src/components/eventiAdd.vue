@@ -80,7 +80,7 @@
             <div class="field">
               <label class="label">Location</label>
               <div class="control">
-                <GoogleAutocomplete class="input"/> 
+                <GoogleAutocomplete class="input" @onLoactionFount="locationFound"/> 
                 <!-- <input type="text" class="input" v-model="eventi.location.address"> -->
               </div>
             </div>
@@ -133,6 +133,9 @@ export default {
   methods: {
     onFormSubmit() {
       this.$store.dispatch({ type: EVENTI_ADD, eventi: this.eventi });
+    },
+    locationFound(location) {
+      this.eventi.location = location
     }
   },
   components: {

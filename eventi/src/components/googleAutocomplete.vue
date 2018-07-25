@@ -7,27 +7,31 @@
 </template>
 
 <script>
+import { connectGoogleApi } from '../services/mapService';
 export default {
-    name: 'google-autocomplete',
+  name: 'google-autocomplete',
+  props: ['value'],
   mounted() {
-    this.autocomplete = new google.maps.places.Autocomplete(
-      (this.$refs.autocomplete),
-      {types: ['geocode']}
-    );
+    connectGoogleApi().then(() => {
+      this.autocomplete = new google.maps.places.Autocomplete(
+        this.$refs.autocomplete,
+        { types: ['geocode'] }
+      );
 
-    this.autocomplete.addListener('place_changed', () => {
-      let place = this.autocomplete.getPlace();
-      let ac = place.address_components;
-      let lat = place.geometry.location.lat();
-      let lon = place.geometry.location.lng();
-      let city = ac[0]["short_name"];
+      this.autocomplete.addListener('place_changed', () => {
+        let place = this.autocomplete.getPlace();
+        let location = {
+          lat: place.geometry.location.lat(),
+          lon: place.geometry.location.lng(),
+          address: place.formatted_address
+        };
 
-      console.log(`The user picked ${city} with the coordinates ${lat}, ${lon}`);
+        this.$emit('onLoactionFount', location);
+      });
     });
   }
-}
+};
 </script>
 
 <style>
-
 </style>

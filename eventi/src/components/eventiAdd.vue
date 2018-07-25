@@ -80,7 +80,8 @@
             <div class="field">
               <label class="label">Location</label>
               <div class="control">
-                <input type="text" class="input" v-model="eventi.location.address">
+                <GoogleAutocomplete class="input"/> 
+                <!-- <input type="text" class="input" v-model="eventi.location.address"> -->
               </div>
             </div>
 
@@ -106,7 +107,9 @@
 <script>
 import { Datetime } from 'vue-datetime';
 import 'vue-datetime/dist/vue-datetime.css';
+import GoogleAutocomplete from './googleAutocomplete'
 import { EVENTI_ADD } from '../store/eventiModule';
+
 export default {
   name: 'eventiAdd',
   data() {
@@ -133,7 +136,8 @@ export default {
     }
   },
   components: {
-    Datetime
+    Datetime,
+    GoogleAutocomplete
   }
 };
 </script>

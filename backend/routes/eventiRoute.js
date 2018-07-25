@@ -1,4 +1,5 @@
 const eventiService = require('../services/eventiService')
+const ObjectId = require('mongodb').ObjectId;
 
 
 module.exports = (app) => {
@@ -28,6 +29,10 @@ module.exports = (app) => {
     app.post('/eventi', (req, res) => {
         // if (!req.session.loggedinUser.isAdmin) return
         const eventi = req.body;
+        eventi.ownerId = new ObjectId(req.user.id || '5b5849a76329dd4b6b6ca7cc');
+        eventi.feed = [];
+        eventi.goingUsersIds = [];
+        eventi.clapsCount = 0; 
         eventiService.add(eventi)
             .then(eventi => {
                 res.json(eventi)

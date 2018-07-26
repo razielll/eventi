@@ -1,6 +1,5 @@
 import eventiService from '@/services/eventiService.js'
 
-
 export default {
     state: {
         eventis: [],
@@ -21,11 +20,11 @@ export default {
         }
     },
     actions: {
-        addEventi(context, { eventi }) {
-            return eventiService.addeventi({ eventi })
-                .then((res) => {
-                    return context.commit({ type: 'addeventi', eventi: res.data })
-                })
+        addEventi({ commit }, { eventi }) {
+          return eventiService.add(eventi).then(eventi => {
+            commit({ type: 'addeventi', eventi });
+            return eventi;
+          });
         },
         loadEventi(context) {
             return eventiService.loadEventi()
@@ -52,5 +51,4 @@ export default {
             return state.eventis
         }
     },
-
 }

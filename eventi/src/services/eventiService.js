@@ -1,3 +1,4 @@
+
 import axios from 'axios'
 const URL = (process.env.NODE_ENV !== 'development')
     ? '/'
@@ -5,7 +6,8 @@ const URL = (process.env.NODE_ENV !== 'development')
 
 
 function addEventi({ eventi }) {
-    return axios.post(URL, eventi)
+  return axios.post(`${URL}/eventi`, eventi).then(res => res.data)  
+  
 }
 
 function loadEventi() {

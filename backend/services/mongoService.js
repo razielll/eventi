@@ -12,7 +12,7 @@ function connectToMongo() {
     const url = (!process.env.PORT) ?
         'mongodb://localhost:27017/eventi_db' : 'mlab url'
 
-    return MongoClient.connect(url)
+    return MongoClient.connect(url, { useNewUrlParser: true })
         .then(client => {
             console.log('Connected to MongoDB');
             // If we get disconnected (e.g. db is down)

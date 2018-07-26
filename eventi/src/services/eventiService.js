@@ -1,15 +1,17 @@
+
 import axios from 'axios'
 const URL = (process.env.NODE_ENV !== 'development')
-    ? '/'
-    : '//localhost:3000/';
+    ? '/eventi'
+    : '//localhost:3000/eventi';
 
 
 function addEventi({ eventi }) {
-    return axios.post(URL, eventi)
+  return axios.post(`${URL}/edit`, eventi).then(res => res.data)  
+  
 }
 
 function loadEventi() {
-    return axios.get(URL)
+    return axios.get('/')
         .then(res => {
             return res.data
         })
@@ -23,12 +25,12 @@ function getEventiById({ eventiId }) {
 }
 
 function removeEventi(eventiId) {
-    return axios.delete(`${URL}${eventiId}`)
+    return axios.delete(`${URL}/${eventiId}`)
         .catch(err => console.log('You are not an admin!', err))
 }
 
 function updateEventi(eventi) {
-    return axios.put(`${URL}${eventi.id}`, eventi)
+    return axios.put(`${URL}/edit/${eventi.id}`, eventi)
         .then(res => res.data)
 }
 

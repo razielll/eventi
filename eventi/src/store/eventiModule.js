@@ -21,8 +21,8 @@ export default {
     },
     actions: {
         addEventi({ commit }, { eventi }) {
-          return eventiService.add(eventi).then(eventi => {
-            commit({ type: 'addeventi', eventi });
+          return eventiService.addEventi(eventi).then(eventi => {
+            commit({ type: 'addEventi', eventi });
             return eventi;
           });
         },

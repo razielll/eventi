@@ -116,7 +116,6 @@
 import { Datetime } from 'vue-datetime';
 import 'vue-datetime/dist/vue-datetime.css';
 import GoogleAutocomplete from './googleAutocomplete';
-import { EVENTI_ADD } from '../store/eventiModule';
 
 export default {
   name: 'eventiAdd',
@@ -141,7 +140,7 @@ export default {
   methods: {
     onFormSubmit() {
       this.$store
-        .dispatch({ type: EVENTI_ADD, eventi: this.eventi })
+        .dispatch({ type: 'addEventi', eventi: this.eventi })
         .then(() => {
           this.$router.push('/');
         });

@@ -5,6 +5,9 @@
 	<div class="field">
        <p class="control">
     	<input class="input" type="text" v-model="userDisplayName" placeholder="Display name">
+		<span class="icon is-small is-left">
+    		<font-awesome-icon icon="user"></font-awesome-icon>
+    	</span>
     	</p>
     </div>
     <div class="field">

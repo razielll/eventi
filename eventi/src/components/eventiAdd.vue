@@ -22,11 +22,11 @@
             <div class="field is-grouped is-grouped-multiline">
                 <div class="control">
                     <label class="label">Start Time</label>
-                    <Datetime v-model="eventi.startTime" input-class="input"/>    
+                    <Datetime v-model="eventi.startTime" type="datetime" input-class="input"/>    
                 </div>
                 <div class="control">
                     <label class="label">End Time</label>
-                    <Datetime v-model="eventi.endTime" input-class="input"/>    
+                    <Datetime v-model="eventi.endTime" type="datetime" input-class="input"/>    
                 </div>
             </div>
 

@@ -29,10 +29,14 @@ module.exports = (app) => {
     app.post('/eventi', (req, res) => {
         // if (!req.session.loggedinUser.isAdmin) return
         const eventi = req.body;
-        eventi.ownerId = new ObjectId(req.user.id || '5b5849a76329dd4b6b6ca7cc');
+        eventi.ownerId = new ObjectId('5b5849a76329dd4b6b6ca7cc');
         eventi.feed = [];
         eventi.goingUsersIds = [];
         eventi.clapsCount = 0; 
+
+        eventi.startTime = new Date(eventi.startTime).getTime();
+        eventi.endTime = new Date(eventi.endTime).getTime();
+
         eventiService.add(eventi)
             .then(eventi => {
                 res.json(eventi)

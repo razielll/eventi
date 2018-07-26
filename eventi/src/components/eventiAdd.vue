@@ -1,14 +1,21 @@
 <template>
     <section class="eventi-add section">
         <h1 class="title has-text-centered">Add New Event</h1>
-        <form @keyup.enter="onKeyUp">
-
+            <form @submit.prevent>
             <div class="field">
                 <label class="label">Name</label>
                 <div class="control">
-                    <input class="input" type="text" v-model="eventi.name" placeholder="Event or announcement title">
+                    <input 
+                      v-model="eventi.name"
+                      v-validate="'required|min:5'"
+                      :class="{'input': true, 'is-danger': errors.has('name') }"
+                      name="name" type="text"  placeholder="Event or announcement title" />
                 </div>
-                <p class="help">Enter the name of event or announcement</p>
+                <p v-if="errors.has('name')">
+                  <i  class="fa fa-warning"></i>
+                  <span  class="help is-danger">{{ errors.first('name') }}</span>
+                </p>
+                <p v-else class="help">Enter the name of event or announcement</p>
             </div>
 
             <div class="field">
@@ -34,15 +41,15 @@
               <label class="label">Recurring Event</label>
               <div class="control">
                 <label class="radio">
-                  <input type="radio" value="" v-model="eventi.recurringEventi">
+                  <input type="radio" value="" v-model="eventi.recurringEventi" />
                   No
                 </label>
                 <label class="radio">
-                  <input type="radio" value="weekly" v-model="eventi.recurringEventi">
+                  <input type="radio" value="weekly" v-model="eventi.recurringEventi" />
                   Weekly
                 </label>
                 <label class="radio">
-                  <input type="radio" value="monthly" v-model="eventi.recurringEventi">
+                  <input type="radio" value="monthly" v-model="eventi.recurringEventi" />
                   Monthly
                 </label>
               </div>
@@ -89,19 +96,19 @@
             <div class="field">
               <label class="label">Image Url</label>
               <div class="control">
-                <input type="url" class="input" v-model="eventi.gallery">
+                <input type="url" class="input" v-model="eventi.gallery" />
               </div>
             </div>
 
             <div class="field is-grouped">
               <div class="control">
-                <button @click.prevent="onFormSubmit" type="submit" class="button is-link">Submit</button>
+                <a @click="onFormSubmit" class="button is-link">Submit</a>
               </div>
               <!-- <div class="control">
                 <button class="button is-text">Cancel</button>
               </div> -->
             </div>
-        </form>
+            </form>
     </section> 
 </template>
 
@@ -133,7 +140,11 @@ export default {
   },
   methods: {
     onFormSubmit() {
-      this.$store.dispatch({ type: EVENTI_ADD, eventi: this.eventi });
+      this.$store
+        .dispatch({ type: EVENTI_ADD, eventi: this.eventi })
+        .then(() => {
+          this.$router.push('/');
+        });
     },
     locationFound(location) {
       this.eventi.location = location;
@@ -141,7 +152,11 @@ export default {
     onKeyUp(ev) {
       if (ev.target !== this.$refs.locationSearch.$el) {
         ev.preventDefault();
+        return false;
       }
+    },
+    preventFormSubmit(ev) {
+      console.log('ev', ev)
     }
   },
   components: {

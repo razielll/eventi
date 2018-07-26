@@ -21,7 +21,7 @@ export default {
         let place = this.autocomplete.getPlace();
         let location = {
           lat: place.geometry.location.lat(),
-          lon: place.geometry.location.lng(),
+          lng: place.geometry.location.lng(),
           address: place.formatted_address
         };
 

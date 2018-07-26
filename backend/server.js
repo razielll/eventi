@@ -15,9 +15,9 @@ app.use(bodyParser.json())
 // app.use(express.static('dist'))
 
 
-addEventiRoute(app)
 addUserRoute(app)
 
+addEventiRoute(app)
 
 
 const port = process.env.PORT || 3000

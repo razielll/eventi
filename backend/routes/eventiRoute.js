@@ -1,7 +1,6 @@
 const eventiService = require('../services/eventiService')
 const ObjectId = require('mongodb').ObjectId;
 
-
 module.exports = (app) => {
 
     app.get('/', (req, res) => {
@@ -16,7 +15,6 @@ module.exports = (app) => {
                 res.json(eventi)
             })
     })
-
 
     app.delete('/:eventiId', (req, res) => {
         // if (!req.session.loggedinUser || !req.session.loggedinUser.isAdmin) return

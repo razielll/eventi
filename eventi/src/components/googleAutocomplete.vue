@@ -1,7 +1,6 @@
 <template>
     <input ref="autocomplete" 
         placeholder="Search" 
-        class="search-location"
         onfocus="value = ''" 
         type="text" />
 </template>
@@ -26,7 +25,7 @@ export default {
           address: place.formatted_address
         };
 
-        this.$emit('onLoactionFount', location);
+        this.$emit('onLoactionFound', location);
       });
     });
   }

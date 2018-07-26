@@ -1,6 +1,7 @@
 <template>
-    <section class="eventi-add">
-        <form @submit.prevent="onFormSubmit">
+    <section class="eventi-add section">
+        <h1 class="title has-text-centered">Add New Event</h1>
+        <form @keyup.enter="onKeyUp">
 
             <div class="field">
                 <label class="label">Name</label>
@@ -13,12 +14,12 @@
             <div class="field">
                 <label class="label">Description</label>
                 <div class="control">
-                    <textarea class="textarea" v-model="eventi.description" placeholder="Add description"></textarea>
+                    <textarea class="textarea" ref="description" v-model="eventi.description" placeholder="Add description"></textarea>
                 </div>
                 <p class="help">Add description</p>
             </div>
 
-            <div class="field is-grouped">
+            <div class="field is-grouped is-grouped-multiline">
                 <div class="control">
                     <label class="label">Start Time</label>
                     <Datetime v-model="eventi.startTime" input-class="input"/>    
@@ -80,7 +81,7 @@
             <div class="field">
               <label class="label">Location</label>
               <div class="control">
-                <GoogleAutocomplete class="input" @onLoactionFount="locationFound"/> 
+                <GoogleAutocomplete class="input" ref="locationSearch" @onLoactionFound="locationFound"/> 
                 <!-- <input type="text" class="input" v-model="eventi.location.address"> -->
               </div>
             </div>
@@ -94,7 +95,7 @@
 
             <div class="field is-grouped">
               <div class="control">
-                <button type="submit" class="button is-link">Submit</button>
+                <button @click.prevent="onFormSubmit" type="submit" class="button is-link">Submit</button>
               </div>
               <!-- <div class="control">
                 <button class="button is-text">Cancel</button>
@@ -107,7 +108,7 @@
 <script>
 import { Datetime } from 'vue-datetime';
 import 'vue-datetime/dist/vue-datetime.css';
-import GoogleAutocomplete from './googleAutocomplete'
+import GoogleAutocomplete from './googleAutocomplete';
 import { EVENTI_ADD } from '../store/eventiModule';
 
 export default {
@@ -135,7 +136,12 @@ export default {
       this.$store.dispatch({ type: EVENTI_ADD, eventi: this.eventi });
     },
     locationFound(location) {
-      this.eventi.location = location
+      this.eventi.location = location;
+    },
+    onKeyUp(ev) {
+      if (ev.target !== this.$refs.locationSearch.$el) {
+        ev.preventDefault();
+      }
     }
   },
   components: {

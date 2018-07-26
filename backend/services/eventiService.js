@@ -22,7 +22,6 @@ function remove(eventiId) {
 
 
 function getById(eventiId) {
-    console.log('got into eventi service with id', eventiId);
     eventiId = new ObjectId(eventiId)
     return mongoService.connect()
         .then(db => {
@@ -45,7 +44,6 @@ function add(eventi) {
 
 function update(eventi) {
     eventi._id = new ObjectId(eventi._id)
-    console.log('new eventi', eventi)
     return mongoService.connect()
         .then(db => {
             const collection = db.collection('eventi');

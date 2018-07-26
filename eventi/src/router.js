@@ -17,12 +17,12 @@ export default new Router({
         },
 
         {
-            path: '/eventi/:eventiId?',
+            path: '/eventi/edit/:eventiId?',
             name: 'eventi-edit',
             component: eventiAdd
         },
         {
-            path: '/:eventiId',
+            path: '/eventi/:eventiId',
             name: 'eventi-details',
             component: eventiDetails
         },

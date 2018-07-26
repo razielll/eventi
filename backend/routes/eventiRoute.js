@@ -1,6 +1,6 @@
 const eventiService = require('../services/eventiService')
 const ObjectId = require('mongodb').ObjectId;
-
+const URL = '/eventi'
 module.exports = (app) => {
 
     app.get('/', (req, res) => {
@@ -8,7 +8,7 @@ module.exports = (app) => {
             .then(eventis => res.json(eventis))
     })
 
-    app.get('/:eventiId', (req, res) => {
+    app.get(`${URL}/:eventiId`, (req, res) => {
         const eventiId = req.params.eventiId;
         return eventiService.getById(eventiId)
             .then(eventi => {
@@ -16,7 +16,7 @@ module.exports = (app) => {
             })
     })
 
-    app.delete('/:eventiId', (req, res) => {
+    app.delete(`${URL}/:eventiId`, (req, res) => {
         // if (!req.session.loggedinUser || !req.session.loggedinUser.isAdmin) return
         const eventiId = req.params.eventiId;
         eventiService.remove(eventiId)
@@ -24,7 +24,7 @@ module.exports = (app) => {
 
     })
 
-    app.post('/eventi', (req, res) => {
+    app.post(`${URL}/edit/`, (req, res) => {
         // if (!req.session.loggedinUser.isAdmin) return
         const eventi = req.body;
 
@@ -42,7 +42,7 @@ module.exports = (app) => {
             })
     })
 
-    app.put('/eventi/:eventiId', (req, res) => {
+    app.put(`${URL}/edit/:eventiId`, (req, res) => {
         // if (!req.session.loggedinUser.isAdmin) return
         const eventi = req.body;
         eventiService.update(eventi)

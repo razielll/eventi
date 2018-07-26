@@ -1,10 +1,10 @@
 <template>
 <section class="modal">
 	<div class="modal-background"></div>
-	<div class="modal-content">
+	<div class="modal-content" @keyup.esc="$emit('close-modal')">
 	<div class="field">
-       <p class="control">
-    	<input class="input" type="text" v-model="userDisplayName" placeholder="Display name">
+       <p class="control has-icons-left">
+    	<input class="input" type="text" v-model="user.fullName" placeholder="Your name...">
 		<span class="icon is-small is-left">
     		<font-awesome-icon icon="user"></font-awesome-icon>
     	</span>
@@ -12,7 +12,7 @@
     </div>
     <div class="field">
     	<p class="control has-icons-left has-icons-right">
-    	<input class="input" v-model="userEmail" type="email" placeholder="Email">
+    	<input class="input" v-model="user.email" type="email" placeholder="Email...">
     	<span class="icon is-small is-left">
     		<font-awesome-icon icon="envelope"></font-awesome-icon>
     	</span>
@@ -23,14 +23,15 @@
 	</div>
 	<div class="field">
 		<p class="control has-icons-left">
-	    <input class="input" type="password" v-model="userPassword" placeholder="Password">
+	    <input class="input" type="password" v-model="user.password" placeholder="Password!">
 	    <span class="icon is-small is-left">
 	    	<font-awesome-icon icon="lock"></font-awesome-icon>
 	    </span>
 	  	</p>
 	</div>
     <!-- Any other Bulma elements you want -->
-		<a class="button is-success" @click="userLogin">Login</a>
+		<a class="button user-login is-success" @click="userSignup">Signup</a>
+		<a class="button user-login-cancel is-danger" @click="$emit('close-modal')">Cancel</a>
 	</div>
 	<button class="modal-close is-large" aria-label="close" @click="$emit('close-modal')"></button>
 </section>
@@ -41,19 +42,30 @@ export default {
   name: "user-login-modal",
   data() {
     return {
-      userDisplayName: "",
-      userEmail: "",
-      userPassword: ""
+      user: {
+        fullName: "",
+        email: "",
+        password: ""
+      }
     };
   },
   methods: {
-	  userLogin(){
-		  console.log('logging in user');
-		  
-	  }
+    userSignup() {
+      let user = this.user;
+      if (this.user.email && this.user.fullName && this.user.password) {
+        this.$store.dispatch({ type: "userSignup", user });
+      }
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
+.user-login {
+  float: right;
+}
+.user-login-cancel {
+  float: right;
+  margin-right: 5px;
+}
 </style>

@@ -24,7 +24,8 @@
       <router-link to="/" class="navbar-item">eventi</router-link> 
       <a class="navbar-item" v-if="userLoggedIn">user profile</a> 
       <a class="navbar-item" v-if="!userLoggedIn" @click="userLogin = !userLogin">login</a>
-      <userLoginModal :class="{'is-active': userLogin}" @close-modal="closeModal"/>
+      <a class="navbar-item" v-if="!userLoggedIn" @click="userSignup = !userSignup">signup</a>
+      <userSignupModal :class="{'is-active': userSignup}" @close-modal="closeModal"/>
     </div>
   </div>
  
@@ -33,25 +34,25 @@
 </template>
 
 <script>
-import userLoginModal from "./userLogin";
+import userSignupModal from "./userSignup";
 
 export default {
   name: "nav-bar",
   data() {
     return {
       userLoggedIn: null,
-      userLogin: false
+      userLogin: false,
+      userSignup: false
     };
   },
   methods: {
-    closeModal(){
-      console.log('closing modal');
-      this.userLogin = false;
+    closeModal() {
+      this.userSignup = false;
     }
   },
   computed: {},
   components: {
-    userLoginModal
+    userSignupModal
   }
 };
 </script>

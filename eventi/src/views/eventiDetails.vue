@@ -15,7 +15,7 @@
         </div>
       <div class="media-content">
         <p class="title is-4">{{eventi.name}}</p>
-        <p class="subtitle is-6">{{eventi.category.join()}}</p>
+        <p class="subtitle is-6">{{category}}</p>
       </div>
     </div>
       <div class="content">
@@ -39,14 +39,16 @@ export default {
   data() {
     return {
       eventi: {},
-      goingUsers: ""
+      goingUsers: "",
+      category: ""
     };
   },
   created() {
     let eventiId = this.$route.params;
     this.$store.dispatch({ type: "getEventiById", eventiId }).then(eventi => {
-      this.goingUsers = eventi.goingUserId.length;
       this.eventi = eventi;
+      this.category = eventi.category.join();
+      this.goingUsers = eventi.goingUserId.length;
     });
   },
   computed: {}

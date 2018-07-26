@@ -16,7 +16,6 @@ function loadEventi() {
 }
 
 function getEventiById({ eventiId }) {
-    console.log('front service got id', eventiId);
     return axios.get(`${URL}${eventiId}`)
         .then(res => {
             return res.data

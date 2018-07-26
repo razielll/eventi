@@ -25,9 +25,8 @@ export default new Router({
       name: 'eventi-edit',
       component: eventiAdd
     },
-
     {
-      path: 'eventi/:eventiId',
+      path: '/eventi/:eventiId',
       name: 'eventi-details',
       component: eventiDetails
     }

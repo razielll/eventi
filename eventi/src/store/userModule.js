@@ -16,5 +16,10 @@ export default {
         return user;
       });
     }
+  },
+  getters: {
+    userForDisplay(state) {
+      return state.user
+    }
   }
 };

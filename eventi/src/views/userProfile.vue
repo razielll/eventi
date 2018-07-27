@@ -1,44 +1,64 @@
 <template class="hero">
     <section class="user-profile container section" v-if="user">
         <h1 class="title">User Profile</h1>
-        <div class="columns flex-grow-1">
+        <div class="main columns flex-grow-1">
             <div class="sidebar column is-4 box notification is-primary is-marginless">
                 <ul class="columns is-mobile is-block-tablet">
                     <li class="tab column" @click="showProfile = true">Profile</li>
                     <li class="tab column" @click="showProfile = false">My Eventi</li>
                 </ul>
             </div>
-            <div v-if="showProfile" class="my-profile column">
-                <!-- <div class="box"> -->
-                    <article class="media">
-                        <figure class="media-left">
-                            <p class="image is-64x64">
-                              <img :src="user.imageUrl">
+                        
+            <div class="my-profile column">
+                <article class="media">
+                    <figure class="media-left">
+                        <p class="image is-64x64">
+                        <img :src="user.imageUrl">
+                        </p>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>{{user.fullName}}</strong>&nbsp;<small>{{user.email}}</small>
+                                <br/>
+                                {{user.phone}}
                             </p>
-                        </figure>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>
-                                    <strong>{{user.fullName}}</strong>&nbsp;<small>{{user.email}}</small>
-                                    <br/>
-                                    {{user.phone}}
-                                </p>
-                                
-                            </div>
                             
-                            
-                        </div>                        
-                    </article>
-                    <section class="section columns is-multiline">
+                        </div>
+                        
+                        
+                    </div>                        
+                </article>
+                <transition
+                    name="custom-classes-transition"
+                    enter-active-class="animated fadeIn"
+                    leave-active-class="animated fadeOut"
+                >
+                <section v-if="showProfile" class="section">
+                    <h1 class="title">Eventi History</h1>
+                    <div class="columns is-multiline">
                         <div v-for="eventi of user.eventiHistoryData" :key="eventi._id" class="column">
                             <eventiPreview :eventi="eventi"/>
                         </div>
-                    </section>
-                <!-- </div> -->
-            </div>
-            <div v-if="!showProfile" class="my-eventis column">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, impedit.
-            </div>
+                    </div>
+                </section>
+                </transition>
+
+                <transition
+                    name="custom-classes-transition"
+                    enter-active-class="animated fadeIn"
+                    leave-active-class="animated fadeOut"
+                >
+                <section v-if="!showProfile" class="section">
+                    <h1 class="title">My Eventi</h1>
+                    <div class="columns is-multiline">
+                        <div v-for="eventi of user.myEventiData" :key="eventi._id" class="column">
+                            <eventiPreview :eventi="eventi"/>
+                        </div>
+                    </div>
+                </section>
+                </transition>
+            </div>            
         </div>
     </section>    
 </template>
@@ -65,8 +85,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-* {
-  /* outline: 1px solid red; */
+.main {
+  overflow: hidden;
 }
 .user-profile {
   /* height of nav bar*/

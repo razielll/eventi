@@ -8,11 +8,17 @@ module.exports = app => {
     // TODO use aggregation
     let userId = ObjectId('5b5849a76329dd4b6b6ca7cc');
     let user = userService.query(userId);
-    let eventiHistory = eventiService.query({ ownerId: userId });
-
-    Promise.all([user, eventiHistory]).then(([user, eventiHistory]) => {
-      user.eventiHistoryData = eventiHistory;
-      res.json(user);
+    let myEventi = eventiService.query({ ownerId: userId });
+    let eventiHistory = eventiService.query({
+      goingUserId: { $in: [userId] }
     });
+
+    Promise.all([user, myEventi, eventiHistory]).then(
+      ([user, myEventi, eventiHistory]) => {
+        user.myEventiData = myEventi;
+        user.eventiHistoryData = eventiHistory;
+        res.json(user);
+      }
+    );
   });
 };

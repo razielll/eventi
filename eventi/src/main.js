@@ -4,11 +4,10 @@ import router from './router';
 import store from './store';
 import VeeValidate from 'vee-validate';
 import 'bulma/css/bulma.css';
-
+import 'animate.css';
 
 import 'bulma/css/bulma.css';
 // import './registerServiceWorker'
-
 
 Vue.use(VeeValidate);
 

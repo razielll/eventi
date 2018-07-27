@@ -9,7 +9,7 @@ function addEventi({ eventi }) {
 }
 
 function loadEventi() {
-  return axios.get('http://localhost:3000').then(res => {
+return axios.get('http://localhost:3000').then(res => {
     return res.data;
   });
 }

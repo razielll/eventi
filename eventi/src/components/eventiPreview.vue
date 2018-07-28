@@ -20,7 +20,7 @@
         		</div>
       		</div>
       		<div class="content">
-      			<p class="title is-5"> {{shortDescription}} </p>
+      			<p class="title is-6"> {{shortDescription}} </p>
       		    <p class="going-users"> {{goingUsers}} are coming! </p>
       		    <br>
               <p class="hype"><img class="clap-icon" src="../assets/clap.png"/>{{eventi.clapsCount}}</p>
@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import '@/assets/scss/main.scss';
+import "@/assets/scss/main.scss";
 export default {
-  props: ['eventi'],
+  props: ["eventi"],
   computed: {
     goingUsers() {
       return this.eventi.goingUserId.length;
@@ -47,7 +47,7 @@ export default {
     shortDescription() {
       let shortDesc = this.eventi.description;
       this.eventi.description.length > 40
-        ? (shortDesc = shortDesc.slice(0, 40) + '...')
+        ? (shortDesc = shortDesc.slice(0, 40) + "...")
         : (shortDesc = shortDesc);
       return shortDesc;
     }
@@ -57,7 +57,7 @@ export default {
       this.$router.push(`/eventi/${eventi._id}`);
     },
     onClapClick() {
-      this.$store.dispatch({ type: 'incEventiClap', _id: this.eventi._id });
+      this.$store.dispatch({ type: "incEventiClap", _id: this.eventi._id });
     }
   }
 };
@@ -66,10 +66,10 @@ export default {
 <style scoped lang="scss">
 .eventi-preview-wrapper {
   box-shadow: 0px 0px 8px black;
-  max-width: 350px;
+  max-width: 250px;
   transition: all 0.5s;
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
     cursor: pointer;
   }
   .card-footer-item {
@@ -78,7 +78,6 @@ export default {
   }
   .card-footer-item:hover {
     color: #41b883;
-    transform: scale(1.1);
   }
 }
 .eventi-status {

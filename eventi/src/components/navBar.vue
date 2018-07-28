@@ -10,15 +10,18 @@
     <!-- </div> -->
   </div>
   <div class="navbar-menu" id="navBarMenu">
-    <div class="navbar-end">
+    <div class="navbar-end" v-if="!user">
       <router-link to="/" class="navbar-item">eventi</router-link> 
       <a class="navbar-item" v-if="!user" @click="userLogin = !userLogin">login</a>
       <a class="navbar-item" v-if="!user" @click="userSignup = !userSignup">signup</a>
+    </div>
+    <div class="navbar-end" v-if="user">
+      <router-link to="/" class="navbar-item">eventi</router-link> 
       <a class="navbar-item" v-if="user">{{user}} profile</a> 
       <a class="navbar-item" v-if="user" @click="logOut">logout</a> 
+    </div>
       <userLoginModal :class="{'is-active': userLogin}" @close-modal="closeModal" @go-signup="signup"/>
       <userSignupModal :class="{'is-active': userSignup}" @close-modal="closeModal"/>
-    </div>
   </div>
 </nav>
 </template>

@@ -88,8 +88,11 @@
             <div class="field">
               <label class="label">Location</label>
               <div class="control">
-                <GoogleAutocomplete class="input" ref="locationSearch" @onLoactionFound="locationFound"/> 
-                <!-- <input type="text" class="input" v-model="eventi.location.address"> -->
+                <GoogleAutocomplete 
+                  @onLoactionFound="locationFound"
+                  :value="eventi.location.address"
+                  class="input"
+                  ref="locationSearch" /> 
               </div>
             </div>
 
@@ -102,7 +105,7 @@
 
             <div class="field is-grouped">
               <div class="control">
-                <a @click="onFormSubmit" class="button is-link">Submit</a>
+                <a @click="onFormSubmit" class="button is-link">Save</a>
               </div>
               <!-- <div class="control">
                 <button class="button is-text">Cancel</button>
@@ -145,6 +148,11 @@ export default {
           eventiId: this.$route.params.eventiId
         })
         .then(eventi => {
+          // convert timestamps to ISO 8601 string
+          eventi.startTime = new Date(+eventi.startTime).toISOString();
+          eventi.endTime = new Date(+eventi.endTime).toISOString();
+
+          eventi.category = eventi.category[0];
           this.eventi = eventi;
         });
     }

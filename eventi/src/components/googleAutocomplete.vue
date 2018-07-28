@@ -1,7 +1,7 @@
 <template>
     <input ref="autocomplete" 
         placeholder="Search" 
-        onfocus="value = ''" 
+        :value="value"
         type="text" />
 </template>
 

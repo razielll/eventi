@@ -34,15 +34,15 @@ function add(eventi) {
   });
 }
 
-function update(eventi) {
-  eventi._id = new ObjectId(eventi._id);
+function update(_id, updateData) {
+  _id = new ObjectId(_id);
   return mongoService.connect().then(db => {
     const collection = db.collection('eventi');
     return collection
-      .updateOne({ _id: eventi._id }, { $set: eventi })
+      .updateOne({ _id: _id }, { $set: updateData })
       .then(res => {
         console.log('eventi updated');
-        return eventi;
+        return res;
       });
   });
 }

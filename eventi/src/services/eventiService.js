@@ -9,7 +9,7 @@ function addEventi({ eventi }) {
 }
 
 function loadEventi() {
-return axios.get('http://localhost:3000').then(res => {
+  return axios.get('http://localhost:3000').then(res => {
     return res.data;
   });
 }
@@ -27,7 +27,7 @@ function removeEventi(eventiId) {
 }
 
 function updateEventi(eventi) {
-  return axios.put(`${URL}/edit/${eventi.id}`, eventi).then(res => res.data);
+  return axios.put(`${URL}/edit/${eventi._id}`, eventi).then(res => res.data);
 }
 
 export default {

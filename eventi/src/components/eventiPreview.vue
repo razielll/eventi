@@ -28,8 +28,9 @@
       </div>
     </div>
     <footer class="card-footer">
+      <eventiClap @clap-click="onClapClick" :clap-count="eventi.clapsCount" class="card-footer-item"/>
       <a href="#" @click.stop class="card-footer-item">Join</a>
-      <a href="#" @click.stop class="card-footer-item">clap</a>
+      <!-- <a href="#" @click.stop class="card-footer-item">clap</a> -->
       <a href="#" @click.stop class="card-footer-item">Distance</a>
     </footer>
   </div>
@@ -38,27 +39,34 @@
 </template>
 
 <script>
-import "@/assets/scss/main.scss";
+import eventiClap from '@/components/eventiClap.vue';
+import '@/assets/scss/main.scss';
 export default {
-  props: ["eventi"],
+  props: ['eventi'],
   computed: {
     goingUsers() {
       return this.eventi.goingUserId.length;
     },
     shortDescription() {
-      console.log("this eventi desc", this.eventi.description);
+      console.log('this eventi desc', this.eventi.description);
       let shortDesc = this.eventi.description;
       this.eventi.description.length > 40
-        ? (shortDesc = shortDesc.slice(0, 40) + "...")
+        ? (shortDesc = shortDesc.slice(0, 40) + '...')
         : (shortDesc = shortDesc);
       return shortDesc;
     }
   },
   methods: {
     eventiDetails(eventi) {
-      console.log("got eventi id", eventi._id);
+      console.log('got eventi id', eventi._id);
       this.$router.push(`/${eventi._id}`);
+    },
+    onClapClick() {
+      this.$store.dispatch({ type: 'incEventiClap', _id: this.eventi._id });
     }
+  },
+  components: {
+    eventiClap
   }
 };
 </script>
@@ -74,7 +82,7 @@ export default {
   }
   .card-footer-item {
     font-weight: bold;
-    transition: all ease-in .3s;
+    transition: all ease-in 0.3s;
   }
   .card-footer-item:hover {
     color: #41b883;

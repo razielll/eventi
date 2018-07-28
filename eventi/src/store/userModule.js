@@ -1,4 +1,5 @@
 import userService from '@/services/userService';
+import { log } from 'util';
 
 export default {
   state: {
@@ -15,11 +16,15 @@ export default {
         commit({ type: 'loadUser', user });
         return user;
       });
+    },
+    incEventiClap(context, eventiId) {
+      // TODO update user eventi
+      console.log('TODO: update user eventi clap');
     }
   },
   getters: {
     userForDisplay(state) {
-      return state.user
+      return state.user;
     }
   }
 };

@@ -7,7 +7,6 @@
 
 <script>
 import eventiList from "@/components/eventiList.vue";
-import navBar from "@/components/navBar.vue";
 
 export default {
   name: "eventi-home",
@@ -17,7 +16,6 @@ export default {
   computed: {},
   components: {
     eventiList,
-    navBar
   }
 };
 </script>

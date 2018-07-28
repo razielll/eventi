@@ -5,6 +5,17 @@ import store from './store';
 import VeeValidate from 'vee-validate';
 import 'bulma/css/bulma.css';
 import 'animate.css';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faEnvelope,
+  faCheck,
+  faLock,
+  faUser
+} from '@fortawesome/free-solid-svg-icons';
+
+library.add(faLock, faCheck, faEnvelope, faUser);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 import 'bulma/css/bulma.css';
 // import './registerServiceWorker'

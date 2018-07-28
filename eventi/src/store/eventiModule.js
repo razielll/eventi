@@ -11,7 +11,6 @@ export default {
     },
     loadEventi(state, { eventis }) {
       console.log('got eventis');
-
       state.eventis = eventis;
     },
     updateEventi(state, { updateEventi }) {

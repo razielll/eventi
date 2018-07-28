@@ -12,8 +12,8 @@
                       name="name" type="text"  placeholder="Event or announcement title" />
                 </div>
                 <p v-if="errors.has('name')">
-                  <i  class="fa fa-warning"></i>
-                  <span  class="help is-danger">{{ errors.first('name') }}</span>
+                  <i class="fa fa-warning"></i>
+                  <span class="help is-danger">{{ errors.first('name') }}</span>
                 </p>
                 <p v-else class="help">Enter the name of event or announcement</p>
             </div>

@@ -1,9 +1,8 @@
 import userService from '@/services/userService';
-import { log } from 'util';
 
 export default {
   state: {
-    user: null
+    user: {}
   },
   mutations: {
     loadUser(state, { user }) {
@@ -11,6 +10,13 @@ export default {
     }
   },
   actions: {
+    userSignup(context, { user }) {
+      console.log('action got:', user);
+      userService.userSignup(user);
+    },
+    userLogin(context, { user }) {
+      userService.userLogin(user);
+    },
     loadUser({ commit }) {
       return userService.loadUser().then(user => {
         commit({ type: 'loadUser', user });

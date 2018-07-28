@@ -41,7 +41,7 @@ function update(eventi) {
     return collection
       .updateOne({ _id: eventi._id }, { $set: eventi })
       .then(res => {
-        console.log('eventi!!');
+        console.log('eventi updated');
         return eventi;
       });
   });

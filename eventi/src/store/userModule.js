@@ -9,6 +9,11 @@ export default {
             state.user = user
         },
     },
+    getters: {
+        getUser() {
+            return state.user
+        }
+    },
     actions: {
         userSignup(context, { user }) {
             userService.userSignup(user);

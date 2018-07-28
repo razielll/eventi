@@ -29,11 +29,11 @@
             <div class="field is-grouped is-grouped-multiline">
                 <div class="control">
                     <label class="label">Start Time</label>
-                    <Datetime v-model="eventi.startTime" type="datetime" input-class="input"/>    
+                    <Datetime v-model="eventi.startTime" type="datetime" input-class="input" input-id="start-time"/>    
                 </div>
                 <div class="control">
                     <label class="label">End Time</label>
-                    <Datetime v-model="eventi.endTime" type="datetime" input-class="input"/>    
+                    <Datetime v-model="eventi.endTime" type="datetime" input-class="input" input-id="end-time"/>    
                 </div>
             </div>
 
@@ -137,6 +137,18 @@ export default {
       }
     };
   },
+  created() {
+    if (this.$route.params.eventiId) {
+      this.$store
+        .dispatch({
+          type: 'getEventiById',
+          eventiId: this.$route.params.eventiId
+        })
+        .then(eventi => {
+          this.eventi = eventi;
+        });
+    }
+  },
   methods: {
     onFormSubmit() {
       this.$store
@@ -155,9 +167,10 @@ export default {
       }
     },
     preventFormSubmit(ev) {
-      console.log('ev', ev)
+      console.log('ev', ev);
     }
   },
+  computed: {},
   components: {
     Datetime,
     GoogleAutocomplete

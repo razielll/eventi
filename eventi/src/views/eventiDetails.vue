@@ -37,17 +37,17 @@
 
 <script>
 export default {
-  name: "eventi-details",
+  name: 'eventi-details',
   data() {
     return {
       eventi: {},
-      goingUsers: "",
-      category: ""
+      goingUsers: '',
+      category: ''
     };
   },
   created() {
-    let eventiId = this.$route.params;
-    this.$store.dispatch({ type: "getEventiById", eventiId }).then(eventi => {
+    let { eventiId } = this.$route.params;
+    this.$store.dispatch({ type: 'getEventiById', eventiId }).then(eventi => {
       this.eventi = eventi;
       this.category = eventi.category.join();
       this.goingUsers = eventi.goingUserId.length;

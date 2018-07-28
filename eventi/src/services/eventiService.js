@@ -5,21 +5,19 @@ const URL =
     : '//localhost:3000/eventi';
 
 function addEventi({ eventi }) {
-    return axios.post(`${URL}/edit`, eventi).then(res => res.data)
+  return axios.post(`${URL}/edit`, eventi).then(res => res.data);
 }
 
 function loadEventi() {
-    return axios.get('http://localhost:3000/')
-        .then(res => {
-            return res.data
-        })
+  return axios.get('http://localhost:3000/').then(res => {
+    return res.data;
+  });
 }
 
 function getEventiById({ eventiId }) {
-    return axios.get(`${URL}/${eventiId}`)
-        .then(res => {
-            return res.data
-        })
+  return axios.get(`${URL}/${eventiId}`).then(res => {
+    return res.data;
+  });
 }
 
 function removeEventi(eventiId) {
@@ -28,8 +26,8 @@ function removeEventi(eventiId) {
     .catch(err => console.log('You are not an admin!', err));
 }
 
-function updateEventi(eventi) {
-  return axios.put(`${URL}/edit/${eventi._id}`, eventi).then(res => res.data);
+function updateEventi(_id, updateData) {
+  return axios.put(`${URL}/edit/${_id}`, updateData).then(res => res.data);
 }
 
 export default {

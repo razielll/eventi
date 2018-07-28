@@ -13,11 +13,10 @@ export default {
       console.log('got eventis');
       state.eventis = eventis;
     },
-    updateEventi(state, { updateEventi }) {
-      let idx = state.eventis.findIndex(
-        eventi => eventi._id === updateEventi._id
-      );
-      state.eventis.splice(idx, 1, updateEventi);
+    updateEventi(state, { _id, updateData }) {
+      let eventi = state.eventis.find(eventi => eventi._id === _id);
+      Object.assign(eventi, updateData);
+      // state.eventis.splice(idx, 1, updateEventi);
     },
     incEventiClap(state) {}
   },
@@ -42,16 +41,17 @@ export default {
         context.commit({ type: 'removeEventi', eventiId });
       });
     },
-    updateEventi(context, { eventi }) {
-      return eventiService.updateEventi(eventi).then(eventi => {
-        return context.commit({ type: 'updateEventi', updateEventi: eventi });
+    updateEventi(context, { _id, updateData }) {
+      return eventiService.updateEventi(_id, updateData).then(updateResult => {
+        if (updateResult.ok) {
+          return context.commit({ type: 'updateEventi', _id, updateData });
+        }
       });
     },
     incEventiClap({ state, dispatch }, { _id }) {
       const eventi = state.eventis.find(eventi => eventi._id === _id);
-      let updateEventi = JSON.parse(JSON.stringify(eventi));
-      updateEventi.clapsCount++;
-      dispatch({ type: 'updateEventi', eventi: updateEventi });
+      const updateData = { clapsCount: eventi.clapsCount + 1 };
+      dispatch({ type: 'updateEventi', _id, updateData });
     }
   },
   getters: {

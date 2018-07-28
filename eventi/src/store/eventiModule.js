@@ -48,7 +48,12 @@ export default {
         return context.commit({ type: 'updateEventi', updateEventi: eventi });
       });
     },
-    incEventiClap({ commit }, { _id }) {}
+    incEventiClap({ state, dispatch }, { _id }) {
+      const eventi = state.eventis.find(eventi => eventi._id === _id);
+      let updateEventi = JSON.parse(JSON.stringify(eventi));
+      updateEventi.clapsCount++;
+      dispatch({ type: 'updateEventi', eventi: updateEventi });
+    }
   },
   getters: {
     eventisToShow(state) {

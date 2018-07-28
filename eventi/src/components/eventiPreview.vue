@@ -62,9 +62,7 @@ export default {
       this.$router.push(`/${eventi._id}`);
     },
     onClapClick() {
-      let updateEventi = JSON.parse(JSON.stringify(this.eventi));
-      updateEventi.clapsCount++;
-      this.$store.dispatch({ type: 'updateEventi', eventi: updateEventi });
+      this.$store.dispatch({ type: 'incEventiClap', _id: this.eventi._id });
     }
   },
   components: {

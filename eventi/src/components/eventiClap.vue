@@ -1,7 +1,12 @@
 <template>
     <div class="eventi-clap">
-      <button @click.stop="$emit('clap-click')" class="button is-primery clap">clap</button>
-      <span>{{clapCount}}</span>
+      <button 
+          @click.stop="$emit('clap-click')"
+          class="button is-primary is-outlined is-large clap"
+          title="clap">
+        <span class="icon">👏</span>
+        <span>{{clapCount}}</span>
+      </button>
     </div>
 
 </template>

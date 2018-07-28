@@ -8,9 +8,12 @@ export default {
         setUser(state, { user }) {
             state.user = user
         },
+        logout(state, payload) {
+            state.user = null;
+        }
     },
     getters: {
-        getUser() {
+        getUser(state) {
             return state.user
         }
     },

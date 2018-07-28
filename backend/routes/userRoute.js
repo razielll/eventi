@@ -8,13 +8,11 @@ module.exports = (app) => {
         userService.add(user)
             .then(user => res.json(user))
     })
+
+
     app.put(`/login`, (req, res) => {
         const user = req.body
         userService.userLogin(user)
-            .then(user => {
-                console.log('server return:', user);
-                return res.json(user)
-            })
+            .then(user => res.json(user))
     })
-
 }

@@ -12,7 +12,6 @@ function userSignup(user) {
 function userLogin(user) {
     return axios.put(`${URL}login`, user)
         .then(res => {
-            console.log('axios returning then :', res.data)
             return res.data
         })
 }

@@ -46,11 +46,12 @@ export default {
   },
   methods: {
     userLogin() {
-      console.log("trying to login");
       this.$validator.validate().then(result => {
         if (result) {
           let user = this.user;
           this.$store.dispatch({ type: "userLogin", user });
+          this.$emit("close-modal", "login");
+          this.user = {};
         }
       });
     },

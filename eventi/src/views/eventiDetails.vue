@@ -22,12 +22,14 @@
         <p class="title is-4"> {{eventi.description}} </p>
         <p class="subtitle is-5"> {{goingUsers}} are coming! </p>
         <br>
+              <p class="hype"> {{eventi.clapsCount}}<img class="clap-icon" src="../assets/clap.png"/></p>
+
         <time datetime="2016-1-5">11:09 PM - 1 Jan 2016</time>
       </div>
     </div>
     <footer class="card-footer">
-      <a href="#" @click.stop class="card-footer-item">Join</a>
       <a href="#" @click.stop class="card-footer-item"><img class="clap-icon" src="../assets/clap.png"/></a>
+      <a href="#" @click.stop class="card-footer-item">Join</a>
       <a href="#" @click.stop class="card-footer-item">Distance</a>
     </footer>
   </section>
@@ -77,5 +79,8 @@ export default {
 }
 .clap-icon {
   max-width: 50px;
+}
+.hype img.clap-icon {
+  max-width: 25px;
 }
 </style>

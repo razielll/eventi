@@ -2,8 +2,6 @@ const ObjectId = require('mongodb').ObjectId;
 const mongoService = require('./mongoService.js')
 
 function query() {
-
-
     return mongoService.connect()
         .then(db => {
             const collection = db.collection('eventi');
@@ -49,7 +47,7 @@ function update(eventi) {
             const collection = db.collection('eventi');
             return collection.updateOne({ _id: eventi._id }, { $set: eventi })
                 .then(res => {
-                    console.log('eventi!!')
+                    console.log('eventi updated')
                     return eventi;
                 })
         })

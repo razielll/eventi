@@ -11,6 +11,9 @@ export default {
         userSignup(context, { user }) {
             console.log('action got:', user);
             userService.userSignup(user)
+        },
+        userLogin(context, {user}){
+            userService.userLogin(user)
         }
     },
 

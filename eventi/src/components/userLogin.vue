@@ -3,16 +3,6 @@
 	<div class="modal-background"></div>
 
 	<div class="modal-content" @keyup.esc="cancelForm">
-		<div class="field">
-    		<p class="control has-icons-left">
-			<input class="input" v-model="user.fullName" 
-			v-validate="'required|alpha_dash'" type="text" name="username" placeholder="Your name...">
-			<span class="v-validate-error">{{ errors.first('username') }}</span>
-			<span class="icon is-small is-left">
-    			<font-awesome-icon icon="user"></font-awesome-icon>
-    		</span>
-    		</p>
-    	</div>
     	<div class="field">
     		<p class="control has-icons-left has-icons-right">
 				<input class="input" v-model="user.email" v-validate="'required|email'" type="email" name="email">
@@ -35,8 +25,9 @@
 	  		</p>
 		</div>
     <!-- Any other Bulma elements you want -->
-		<a class="button user-signup is-success" @click="userSignup">Signup</a>
-		<a class="button user-signup-cancel is-danger" @click="cancelForm">Cancel</a>
+		<a class="user-to-register is-success" @click="goToUserSignup">register new user</a>
+		<a class="button user-login is-success" @click="userLogin">Login</a>
+		<a class="button user-login-cancel is-danger" @click="cancelForm">Cancel</a>
 	</div>
 	<button class="modal-close is-large" aria-label="close" @click="cancelForm"></button>
 	</section>
@@ -44,41 +35,63 @@
 
 <script>
 export default {
-  name: "user-signup-modal",
+  name: "user-login-modal",
   data() {
     return {
       user: {
-        fullName: "",
         email: "",
         password: ""
       }
     };
   },
   methods: {
-    userSignup() {
+    userLogin() {
+      console.log("trying to login");
       this.$validator.validate().then(result => {
         if (result) {
           let user = this.user;
-          this.$store.dispatch({ type: "userSignup", user }).then(() => {
-            this.user = {};
-            this.$emit("close-modal");
-          });
+            this.$store.dispatch({ type: "userLogin", user })
+            // .then(user => {
+          //   console.log('store returned this user', user);
+
+          // this.$emit("close-modal", "login");
+          //   });
         }
       });
     },
+    goToUserSignup() {
+      this.$emit("go-signup");
+    },
+    // userSignup() {
+    //   this.$validator.validate().then(result => {
+    //     if (result) {
+    //       let user = this.user;
+    //       this.$store.dispatch({ type: "userSignup", user }).then(() => {
+    //         this.user = {};
+    // this.$emit("close-modal");
+    //       });
+    //     }
+    //   });
+    // },
     cancelForm() {
       this.user = {};
-      this.$emit("close-modal", 'signup');
+      this.$emit("close-modal", "login");
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
-.user-signup {
+.user-login {
   float: right;
 }
-.user-signup-cancel {
+.user-to-register {
+  float: left;
+  &:hover {
+    color: white;
+  }
+}
+.user-login-cancel {
   float: right;
   margin-right: 5px;
 }

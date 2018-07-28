@@ -29,7 +29,7 @@ export default {
   methods:{
       eventiDetails(eventi){
           console.log('got eventi id', eventi._id);
-          this.$router.push(`/${eventi._id}`)
+          this.$router.push(`/eventi/${eventi._id}`)
           
       }
   }

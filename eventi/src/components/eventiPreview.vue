@@ -20,15 +20,16 @@
         		</div>
       		</div>
       		<div class="content">
-      			<p class="title is-4"> {{shortDescription}} </p>
-      		    <p class="subtitle is-5"> {{goingUsers}} are coming! </p>
+      			<p class="title is-5"> {{shortDescription}} </p>
+      		    <p class="going-users"> {{goingUsers}} are coming! </p>
       		    <br>
-      		  	<time datetime="2016-1-5">11:09 PM - 1 Jan 2016</time>
+              <p class="hype"><img class="clap-icon" src="../assets/clap.png"/>{{eventi.clapsCount}}</p>
+      		  	<!-- <time datetime="2016-1-5">11:09 PM - 1 Jan 2016</time> -->
       		</div>
     	</div>
 			<footer class="card-footer">
-			<a href="#" @click.stop class="card-footer-item">Join</a>
 			<a href="#" @click.stop class="card-footer-item"><img class="clap-icon" src="../assets/clap.png"/></a>
+			<a href="#" @click.stop class="card-footer-item">Join</a>
 			<a href="#" @click.stop class="card-footer-item">Distance</a>
 			</footer>
   		</div>
@@ -53,7 +54,7 @@ export default {
   },
   methods: {
     eventiDetails(eventi) {
-      this.$router.push(`/${eventi._id}`);
+      this.$router.push(`/eventi/${eventi._id}`);
     }
   }
 };
@@ -73,8 +74,8 @@ export default {
     transition: all ease-in 0.3s;
   }
   .card-footer-item:hover {
-	color: #41b883;
-	transform: scale(1.1)
+    color: #41b883;
+    transform: scale(1.1);
   }
 }
 .eventi-status {
@@ -85,7 +86,14 @@ export default {
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.going-users{
+  margin:0;
+  float:right;
+}
 .clap-icon {
   max-width: 50px;
+}
+.hype img.clap-icon {
+  max-width: 25px;
 }
 </style>

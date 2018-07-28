@@ -1,6 +1,7 @@
 const eventiService = require('../services/eventiService')
 const ObjectId = require('mongodb').ObjectId;
 const URL = '/eventi'
+
 module.exports = (app) => {
 
     app.get('/', (req, res) => {

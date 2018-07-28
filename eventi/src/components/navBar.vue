@@ -25,6 +25,7 @@
       <a class="navbar-item" v-if="userLoggedIn">user profile</a> 
       <a class="navbar-item" v-if="!userLoggedIn" @click="userLogin = !userLogin">login</a>
       <a class="navbar-item" v-if="!userLoggedIn" @click="userSignup = !userSignup">signup</a>
+      <userLoginModal :class="{'is-active': userLogin}" @close-modal="closeModal" @go-signup="signup"/>
       <userSignupModal :class="{'is-active': userSignup}" @close-modal="closeModal"/>
     </div>
   </div>
@@ -34,6 +35,7 @@
 </template>
 
 <script>
+import userLoginModal from "./userLogin";
 import userSignupModal from "./userSignup";
 
 export default {
@@ -46,12 +48,18 @@ export default {
     };
   },
   methods: {
-    closeModal() {
-      this.userSignup = false;
+    closeModal(type) {
+      console.log("got this type:", type);
+      type === "login" ? (this.userLogin = false) : (this.userSignup = false);
+    },
+    signup() {
+      this.userLogin = false;
+      this.userSignup = true;
     }
   },
   computed: {},
   components: {
+    userLoginModal,
     userSignupModal
   }
 };

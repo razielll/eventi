@@ -6,19 +6,18 @@ const URL = (process.env.NODE_ENV !== 'development')
 
 
 function addEventi({ eventi }) {
-  return axios.post(`${URL}/edit`, eventi).then(res => res.data)  
-  
+    return axios.post(`${URL}/edit`, eventi).then(res => res.data)
 }
 
 function loadEventi() {
-    return axios.get('/')
+    return axios.get('http://localhost:3000/')
         .then(res => {
             return res.data
         })
 }
 
 function getEventiById({ eventiId }) {
-    return axios.get(`${URL}${eventiId}`)
+    return axios.get(`${URL}/${eventiId}`)
         .then(res => {
             return res.data
         })

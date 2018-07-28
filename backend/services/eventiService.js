@@ -36,6 +36,19 @@ function add(eventi) {
 
 function update(_id, updateData) {
   _id = new ObjectId(_id);
+
+  // convert  ISO 8601 time to timestamp
+  let { startTime, endTime } = updateData;
+
+  if (startTime) updateData.startTime = new Date(startTime).getTime();
+  if (endTime) updateData.endTime = new Date(endTime).getTime();
+
+  // delete ownerId and going users
+  // this fields contain ObjectId and we don't want to overide them
+  delete updateData.ownerId;
+  delete updateData.goingUserId;
+  delete updateData._id;
+
   return mongoService.connect().then(db => {
     const collection = db.collection('eventi');
     return collection

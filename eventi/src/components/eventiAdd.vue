@@ -58,28 +58,28 @@
             <div class="field">
               <label class="label">Category</label>
               <div class="control">
-                <label class="radio">
-                  <input type="radio" value="lecture" v-model="eventi.category" />
+                <label class="checkbox">
+                  <input type="checkbox" value="lecture" v-model="eventi.category" />
                   Lecture
                 </label>
-                <label class="radio">
-                  <input type="radio" value="party" v-model="eventi.category" />
+                <label class="checkbox">
+                  <input type="checkbox" value="party" v-model="eventi.category" />
                   Party
                 </label>
-                <label class="radio">
-                  <input type="radio" value="gathering" v-model="eventi.category" />
+                <label class="checkbox">
+                  <input type="checkbox" value="gathering" v-model="eventi.category" />
                   Gathering
                 </label>
-                <label class="radio">
-                  <input type="radio" value="sale" v-model="eventi.category" />
+                <label class="checkbox">
+                  <input type="checkbox" value="sale" v-model="eventi.category" />
                   Sale
                 </label>
-                <label class="radio">
-                  <input type="radio" value="needelp" v-model="eventi.category" />
+                <label class="checkbox">
+                  <input type="checkbox" value="needelp" v-model="eventi.category" />
                   Need Help
                 </label>
-                <label class="radio">
-                  <input type="radio" value="lost &amp; found" v-model="eventi.category" />
+                <label class="checkbox">
+                  <input type="checkbox" value="lost &amp; found" v-model="eventi.category" />
                   Lost &amp; found
                 </label>
               </div>
@@ -130,14 +130,15 @@ export default {
         startTime: '',
         endTime: '',
         recurringEventi: '', // weekly ,monthly
-        category: null,
+        category: [],
         gallery: null,
         location: {
           lat: null,
           lng: null,
           address: ''
         }
-      }
+      },
+      isEdit: false
     };
   },
   created() {
@@ -152,15 +153,25 @@ export default {
           eventi.startTime = new Date(+eventi.startTime).toISOString();
           eventi.endTime = new Date(+eventi.endTime).toISOString();
 
-          eventi.category = eventi.category[0];
           this.eventi = eventi;
+
+          this.isEdit = true;
         });
     }
   },
   methods: {
     onFormSubmit() {
+      const action = this.isEdit ? 'updateEventi' : 'addEventi';
+
+      let eventi = JSON.parse(JSON.stringify(this.eventi));
+
       this.$store
-        .dispatch({ type: 'addEventi', eventi: this.eventi })
+        .dispatch({
+          type: action,
+          _id: this.eventi._id,
+          data: eventi,
+          isCommit: false
+        })
         .then(() => {
           this.$router.push('/');
         });

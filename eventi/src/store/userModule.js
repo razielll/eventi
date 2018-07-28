@@ -5,15 +5,21 @@ export default {
         user: {}
     },
     mutations: {
-
+        setUser(state, { user }) {
+            state.user = user
+        }
     },
     actions: {
         userSignup(context, { user }) {
-            console.log('action got:', user);
             userService.userSignup(user)
+                .then(user => context.commit({ type: 'setUser', user }))
         },
-        userLogin(context, {user}){
+        userLogin(context, { user }) {
             userService.userLogin(user)
+                .then(user => {
+                    context.commit({ type: 'setUser', user })
+                })
+
         }
     },
 

@@ -16,13 +16,22 @@ function add(user) {
 
 function userLogin(userLogin) {
     return mongoService.connect()
-        .then(db => {
-            const collection = db.collection('user');
-            let currUser = collection.findOne({ $and: [{ email: userLogin.email }, { password: userLogin.password }] })
-            console.log('mongo returned login user:', currUser);
-            return currUser
-        })
+        .then(db => db.collection('user'))
+        .then(collection => collection.findOne({ $and: [{ email: userLogin.email }, { password: userLogin.password }] }))
 }
+
+
+// function add(user) {
+//     return mongoService.connect()
+//         .then(db => db.collection('user'))
+//         .then(collection => collection.insertOne(user))
+//         .then(result => collection.insertOne(user))
+//         .then(result => user._id = result.insertedId)
+//         .then(user => user)
+// }
+
+
+
 
 
 
@@ -30,3 +39,11 @@ module.exports = {
     add,
     userLogin
 }
+// function userLogin(userLogin) {
+//     return mongoService.connect()
+//         .then(db => {
+//             const collection = db.collection('user');
+//             let currUser = collection.findOne({ $and: [{ email: userLogin.email }, { password: userLogin.password }] })
+//             return currUser
+//         })
+// }

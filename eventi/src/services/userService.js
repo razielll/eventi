@@ -5,15 +5,15 @@ const URL = (process.env.NODE_ENV !== 'development')
 
 
 function userSignup(user) {
-    axios.post(`${URL}signup`, user)
+    return axios.post(`${URL}signup`, user)
         .then(res => res.data)
 }
 
 function userLogin(user) {
-    axios.put(`${URL}login`, user)
+    return axios.put(`${URL}login`, user)
         .then(res => {
-            console.log('back to userService');
-            res.data
+            console.log('axios returning then :', res.data)
+            return res.data
         })
 }
 

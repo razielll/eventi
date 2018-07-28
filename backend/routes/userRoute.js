@@ -11,7 +11,10 @@ module.exports = (app) => {
     app.put(`/login`, (req, res) => {
         const user = req.body
         userService.userLogin(user)
-            .then(user => res.json(user))
+            .then(user => {
+                console.log('server return:', user);
+                return res.json(user)
+            })
     })
 
 }

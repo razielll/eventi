@@ -22,10 +22,12 @@
     </div>
       <div class="content">
         <p class="title is-4"> {{eventi.description}} </p>
+         <div class="side-info">
         <p class="subtitle is-5"> {{goingUsers}} are coming! </p>
+            <a class="button"> map </a>
+        </div>
         <br>
               <p class="hype"> {{eventi.clapsCount}}<img class="clap-icon" src="../assets/clap.png"/></p>
-
         <time datetime="2016-1-5">11:09 PM - 1 Jan 2016</time>
       </div>
     </div>
@@ -63,12 +65,13 @@ export default {
   box-shadow: 0px 0px 8px black;
   margin: 5px auto;
   max-width: 95vw;
+  padding: 5px;
 }
 .eventi-img {
-  max-height: 350px;
+  max-height: 300px;
 }
-.card {
-  padding: 5px;
+.side-info {
+  float: right;
 }
 .eventi-status {
   position: absolute;
@@ -83,5 +86,12 @@ export default {
 }
 .hype img.clap-icon {
   max-width: 25px;
+}
+.card-footer-item {
+  font-weight: bold;
+  transition: all ease-in 0.3s;
+}
+.card-footer-item:hover {
+  color: #41b883;
 }
 </style>

@@ -1,37 +1,29 @@
 <template>
-      <!-- <div class="navbar-menu">
-        <div class="navbar-start">
-            <h1 class="logo navbar-item title is-2"><span class="logo-letter">e</span>venti </h1>
-        </div>
-
-        <div class="navbar-end">
-          <router-link to="/" class="navbar-item">eventi</router-link> 
-          <router-link to="/userProfile" class="navbar-item">user profile</router-link> 
-          <a class="navbar-item button is-primary" v-if="!userLoggedIn">login</a>
-        </div>
-</div> -->
+    
 <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
      <a class="navbar-item logo title"><span class="logo-letter">e</span>venti </a>
-      <!-- <div class="navbar-burger burger" data-target="navBarMenu">
+    <!-- <div class="navbar-burger burger" data-target="navBarMenu">
       <span></span>
       <span></span>
       <span></span> -->
     <!-- </div> -->
   </div>
   <div class="navbar-menu" id="navBarMenu">
-    <div class="navbar-end">
+    <div class="navbar-end" v-if="!user">
       <router-link to="/" class="navbar-item">eventi</router-link> 
-      <a class="navbar-item" v-if="userLoggedIn">user profile</a> 
-      <a class="navbar-item" v-if="!userLoggedIn" @click="userLogin = !userLogin">login</a>
-      <a class="navbar-item" v-if="!userLoggedIn" @click="userSignup = !userSignup">signup</a>
+      <a class="navbar-item" v-if="!user" @click="userLogin = !userLogin">login</a>
+      <a class="navbar-item" v-if="!user" @click="userSignup = !userSignup">signup</a>
+    </div>
+    <div class="navbar-end" v-if="user">
+      <router-link to="/" class="navbar-item">eventi</router-link> 
+      <a class="navbar-item" v-if="user">{{user}} profile</a> 
+      <a class="navbar-item" v-if="user" @click="logOut">logout</a> 
+    </div>
       <userLoginModal :class="{'is-active': userLogin}" @close-modal="closeModal" @go-signup="signup"/>
       <userSignupModal :class="{'is-active': userSignup}" @close-modal="closeModal"/>
-    </div>
   </div>
- 
 </nav>
-
 </template>
 
 <script>
@@ -42,22 +34,31 @@ export default {
   name: "nav-bar",
   data() {
     return {
-      userLoggedIn: null,
       userLogin: false,
       userSignup: false
     };
   },
   methods: {
     closeModal(type) {
-      console.log("got this type:", type);
       type === "login" ? (this.userLogin = false) : (this.userSignup = false);
     },
     signup() {
       this.userLogin = false;
       this.userSignup = true;
+    },
+    logOut() {
+      this.$store.commit({ type: "logout" });
+      this.currUser = null;
     }
   },
-  computed: {},
+  computed: {
+    user() {
+      let user;
+      if (this.$store.getters.getUser) {
+        return (user = this.$store.getters.getUser.fullName);
+      } else return false;
+    }
+  },
   components: {
     userLoginModal,
     userSignupModal

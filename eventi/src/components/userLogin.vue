@@ -46,33 +46,18 @@ export default {
   },
   methods: {
     userLogin() {
-      console.log("trying to login");
       this.$validator.validate().then(result => {
         if (result) {
           let user = this.user;
-            this.$store.dispatch({ type: "userLogin", user })
-            // .then(user => {
-          //   console.log('store returned this user', user);
-
-          // this.$emit("close-modal", "login");
-          //   });
+          this.$store.dispatch({ type: "userLogin", user });
+          this.$emit("close-modal", "login");
+          this.user = {};
         }
       });
     },
     goToUserSignup() {
       this.$emit("go-signup");
     },
-    // userSignup() {
-    //   this.$validator.validate().then(result => {
-    //     if (result) {
-    //       let user = this.user;
-    //       this.$store.dispatch({ type: "userSignup", user }).then(() => {
-    //         this.user = {};
-    // this.$emit("close-modal");
-    //       });
-    //     }
-    //   });
-    // },
     cancelForm() {
       this.user = {};
       this.$emit("close-modal", "login");

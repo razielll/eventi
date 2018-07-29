@@ -1,9 +1,9 @@
 const userService = require('../services/userService');
 const eventiService = require('../services/eventiService');
-
 const ObjectId = require('mongodb').ObjectId;
 
 module.exports = app => {
+
   app.post('/signup', (req, res) => {
     const user = req.body;
     userService.add(user).then(user => res.json(user));
@@ -13,6 +13,7 @@ module.exports = app => {
     const user = req.body;
     userService.userLogin(user).then(user => res.json(user));
   });
+
 
   app.get('/user', (req, res) => {
     // TODO use aggregation
@@ -32,3 +33,4 @@ module.exports = app => {
     );
   });
 };
+

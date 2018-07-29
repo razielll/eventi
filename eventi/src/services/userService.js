@@ -6,14 +6,15 @@ function loadUser() {
 }
 
 function userSignup(user) {
-  axios.post(`${URL}signup`, user).then(res => res.data);
+    return axios.post(`${URL}signup`, user)
+        .then(res => res.data)
 }
 
 function userLogin(user) {
-  axios.put(`${URL}login`, user).then(res => {
-    console.log('back to userService');
-    res.data;
-  });
+    return axios.put(`${URL}login`, user)
+        .then(res => {
+            return res.data
+        })
 }
 
 export default {

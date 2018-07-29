@@ -52,7 +52,7 @@ export default {
     incEventiClap({ state, dispatch }, { _id }) {
       const eventi = state.eventis.find(eventi => eventi._id === _id);
       const updateData = { clapsCount: eventi.clapsCount + 1 };
-      dispatch({ type: 'updateEventi', _id, updateData });
+      dispatch({ type: 'updateEventi', _id, data: updateData });
     }
   },
   getters: {

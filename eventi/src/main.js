@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import VeeValidate from 'vee-validate';
+import axios from 'axios';
 import 'bulma/css/bulma.css';
 import 'animate.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -14,6 +15,8 @@ import {
   faUser,
   faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
+
+axios.defaults.withCredentials = true;
 
 library.add(faLock, faCheck, faEnvelope, faUser, faExclamationTriangle);
 Vue.component('font-awesome-icon', FontAwesomeIcon);

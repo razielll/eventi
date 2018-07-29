@@ -4,8 +4,9 @@ const URL =
     ? '/eventi'
     : '//localhost:3000/eventi';
 
-function addEventi({ eventi }) {
-  return axios.post(`${URL}/edit`, eventi).then(res => res.data);
+function addEventi(data) {
+  console.log('route data:', data);
+  return axios.post(`${URL}/edit`, data).then(res => res.data);
 }
 
 function loadEventi() {

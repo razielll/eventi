@@ -8,14 +8,16 @@
 
 
 <script>
-import navBar from "@/components/navBar";
+import navBar from '@/components/navBar';
+// import {USER_KEY} from '@/service'
 export default {
-  components:{
+  created() {
+    this.$store.dispatch({ type: 'checkLogin' });
+  },
+  components: {
     navBar
   }
-
 };
 </script>
 <style lang="scss">
-
 </style>

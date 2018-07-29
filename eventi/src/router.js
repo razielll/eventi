@@ -5,6 +5,7 @@ import eventi from '@/views/eventiApp.vue';
 import eventiAdd from '@/components/eventiAdd.vue';
 import eventiDetails from '@/views/eventiDetails.vue';
 import userProfile from '@/views/userProfile.vue';
+import store from '@/store';
 
 Vue.use(Router);
 
@@ -18,10 +19,14 @@ export default new Router({
     {
       path: '/user',
       name: 'user-profile',
-      component: userProfile
-      // beforeEnter: (to, from, next) => {
-      //   console.log('to, from, next: ', to, from, next);
-      // }
+      component: userProfile,
+      beforeEnter: (to, from, next) => {
+        store.dispatch({ type: 'checkLogin' }).then(({ userLoggedIn }) => {
+          if (userLoggedIn) {
+            next();
+          }
+        });
+      }
     },
     {
       path: '/eventi/edit/:eventiId?',

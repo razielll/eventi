@@ -24,12 +24,35 @@ function userLogin(userLogin) {
     .connect()
     .then(db => db.collection('user'))
     .then(collection =>
-      collection.findOne({
-        $and: [{ email: userLogin.email }, { password: userLogin.password }]
-      })
+      collection
+        .findOne({
+          $and: [{ email: userLogin.email }, { password: userLogin.password }]
+        })
+        .then(user =>
+          getAllUserData(user._id).then(data => ({ ...user, ...data }))
+        )
     );
 }
 
+function getAllUserData(userId) {
+  return mongoService.connect().then(db => {
+    const eventiCl = db.collection('eventi');
+    userId = userId.toString();
+    let myEventiData = eventiCl.find({ ownerId: userId }).toArray();
+    let eventiHistoryData = eventiCl
+      .find({ goingUserId: { $in: [userId] } })
+      .toArray();
+
+    return Promise.all([myEventiData, eventiHistoryData]).then(
+      ([myEventiData, eventiHistoryData]) => {
+        return {
+          myEventiData,
+          eventiHistoryData
+        };
+      }
+    );
+  });
+}
 // function add(user) {
 //     return mongoService.connect()
 //         .then(db => db.collection('user'))

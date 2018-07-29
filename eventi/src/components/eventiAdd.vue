@@ -204,17 +204,16 @@ export default {
         if (result) {
           const action = this.isEdit ? 'updateEventi' : 'addEventi';
           let eventi = JSON.parse(JSON.stringify(this.eventi));
-
-          this.$store
-            .dispatch({
-              type: action,
-              _id: this.eventi._id,
-              data: eventi,
-              isCommit: false
-            })
-            .then(() => {
-              this.$router.push('/');
-            });
+          console.log(action);
+          this.$store.dispatch({
+            type: action,
+            _id: this.eventi._id,
+            data: eventi,
+            isCommit: false
+          });
+          // .then(() => {
+          //   this.$router.push('/');
+          // });
         } else {
           console.log(result);
         }
@@ -223,12 +222,6 @@ export default {
     locationFound(location) {
       this.eventi.location = location;
     },
-    // onKeyUp(ev) {
-    //   if (ev.target !== this.$refs.locationSearch.$el) {
-    //     ev.preventDefault();
-    //     return false;
-    //   }
-    // },
     preventFormSubmit(ev) {
       console.log('ev', ev);
     }

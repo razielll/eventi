@@ -16,7 +16,9 @@
         	</div>
         		<div class="media-content">
         			<p class="title is-4">{{eventi.name}}</p>
-        			<p class="subtitle is-6">{{eventi.category.join()}}</p>
+        			<p class="subtitle is-6 tags">
+                <span v-for="category of eventi.category" :key="category" class="tag">{{category}}</span>
+              </p>
         		</div>
       		</div>
       		<div class="content">

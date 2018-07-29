@@ -5,7 +5,7 @@
         <span class="eventi-status"> COMING UP</span>
         <h1 class="eventi-title"> {{eventi.name}}</h1>
         <p class="eventi-desc"> {{eventi.description}}</p>
-        <span class="eventi-category"> {{eventi.category.join()}} </span>
+        <span class="eventi-category"> {{eventi.category.join(', ')}} </span>
         <span class="eventi-date"> date </span>
         <span class="eventi-going-people"> {{goingUsers}} people are going </span>
         <div class="action-btns flex space-between">
@@ -18,20 +18,19 @@
 </template>
 
 <script>
-import "@/assets/scss/main.scss";
+import '@/assets/scss/main.scss';
 export default {
-  props: ["eventi"],
+  props: ['eventi'],
   computed: {
     goingUsers() {
       return this.eventi.goingUserId.length;
     }
   },
-  methods:{
-      eventiDetails(eventi){
-          console.log('got eventi id', eventi._id);
-          this.$router.push(`/eventi/${eventi._id}`)
-          
-      }
+  methods: {
+    eventiDetails(eventi) {
+      console.log('got eventi id', eventi._id);
+      this.$router.push(`/eventi/${eventi._id}`);
+    }
   }
 };
 </script>

@@ -11,10 +11,11 @@ import {
   faEnvelope,
   faCheck,
   faLock,
-  faUser
+  faUser,
+  faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faLock, faCheck, faEnvelope, faUser);
+library.add(faLock, faCheck, faEnvelope, faUser, faExclamationTriangle);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 import 'bulma/css/bulma.css';

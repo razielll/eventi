@@ -13,16 +13,16 @@ export default {
       console.log('got eventis');
       state.eventis = eventis;
     },
-    updateEventi(state, { _id, updateData }) {
+    updateEventi(state, { _id, data }) {
       let eventi = state.eventis.find(eventi => eventi._id === _id);
-      Object.assign(eventi, updateData);
+      Object.assign(eventi, data);
       // state.eventis.splice(idx, 1, updateEventi);
     },
     incEventiClap(state) {}
   },
   actions: {
-    addEventi({ commit }, { eventi }) {
-      return eventiService.addEventi(eventi).then(eventi => {
+    addEventi({ commit }, { data }) {
+      return eventiService.addEventi(data).then(eventi => {
         commit({ type: 'addEventi', eventi });
         return eventi;
       });
@@ -41,13 +41,14 @@ export default {
         context.commit({ type: 'removeEventi', eventiId });
       });
     },
-    updateEventi(context, { _id, updateData }) {
-      return eventiService.updateEventi(_id, updateData).then(updateResult => {
-        if (updateResult.ok) {
-          return context.commit({ type: 'updateEventi', _id, updateData });
+    updateEventi({ commit }, { _id, data, isCommit = true }) {
+      return eventiService.updateEventi(_id, data).then(updateResult => {
+        if (updateResult.ok && isCommit) {
+          return commit({ type: 'updateEventi', _id, data });
         }
       });
     },
+
     incEventiClap({ state, dispatch }, { _id }) {
       const eventi = state.eventis.find(eventi => eventi._id === _id);
       const updateData = { clapsCount: eventi.clapsCount + 1 };

@@ -15,7 +15,9 @@
         </div>
       <div class="media-content">
         <p class="title is-4">{{eventi.name}}</p>
-        <p class="subtitle is-6">{{category}}</p>
+        <p class="subtitle is-6 tags">
+          <span v-for="category of eventi.category" :key="category" class="tag">{{category}}</span>
+        </p>
       </div>
     </div>
       <div class="content">
@@ -37,19 +39,18 @@
 
 <script>
 export default {
-  name: "eventi-details",
+  name: 'eventi-details',
   data() {
     return {
       eventi: {},
-      goingUsers: "",
-      category: ""
+      goingUsers: '',
+      category: ''
     };
   },
   created() {
-    let eventiId = this.$route.params;
-    this.$store.dispatch({ type: "getEventiById", eventiId }).then(eventi => {
+    let { eventiId } = this.$route.params;
+    this.$store.dispatch({ type: 'getEventiById', eventiId }).then(eventi => {
       this.eventi = eventi;
-      this.category = eventi.category.join();
       this.goingUsers = eventi.goingUserId.length;
     });
   },

@@ -23,8 +23,9 @@ export default {
         return user;
       });
     },
-    incEventiClap(context, eventiId) {
+    incEventiClap({ state, dispatch }, { _id }) {
       // TODO update user eventi
+
       console.log('TODO: update user eventi clap');
     }
   },

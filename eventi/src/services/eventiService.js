@@ -14,7 +14,7 @@ function loadEventi() {
   });
 }
 
-function getEventiById({ eventiId }) {
+function getEventiById(eventiId) {
   return axios.get(`${URL}/${eventiId}`).then(res => {
     return res.data;
   });

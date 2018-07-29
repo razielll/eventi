@@ -18,7 +18,7 @@ module.exports = app => {
 
   app.get('/user', (req, res) => {
     // TODO use aggregation
-    let userId = ObjectId('5b5849a76329dd4b6b6ca7cc');
+    let userId = ObjectId(req.session.user._id);
     let user = userService.query(userId);
     let myEventi = eventiService.query({ ownerId: userId });
     let eventiHistory = eventiService.query({

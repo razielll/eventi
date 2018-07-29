@@ -4,10 +4,11 @@ const app = require('express')();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
-
+const cookieParser = require('cookie-parser');
 const addUserRoute = require('./routes/userRoute');
 const addEventiRoute = require('./routes/eventiRoute');
 
+app.use(cookieParser());
 app.use(
   cors({
     origin: ['http://localhost:8080'],
@@ -19,7 +20,10 @@ app.use(
     secret: 'puki muki',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: {
+      secure: false
+      // maxAge: 0
+    }
   })
 );
 app.use(bodyParser.json());

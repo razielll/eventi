@@ -2,6 +2,7 @@ const ObjectId = require('mongodb').ObjectId;
 const mongoService = require('./mongoService.js');
 
 function query(userId) {
+  // userId = ObjectId(userId);
   return mongoService.connect().then(db => {
     const collection = db.collection('user');
     return collection.findOne({ _id: userId });
@@ -19,11 +20,15 @@ function add(user) {
 }
 
 function userLogin(userLogin) {
-    return mongoService.connect()
-        .then(db => db.collection('user'))
-        .then(collection => collection.findOne({ $and: [{ email: userLogin.email }, { password: userLogin.password }] }))
+  return mongoService
+    .connect()
+    .then(db => db.collection('user'))
+    .then(collection =>
+      collection.findOne({
+        $and: [{ email: userLogin.email }, { password: userLogin.password }]
+      })
+    );
 }
-
 
 // function add(user) {
 //     return mongoService.connect()
@@ -34,16 +39,11 @@ function userLogin(userLogin) {
 //         .then(user => user)
 // }
 
-
-
-
-
-
 module.exports = {
-    add,
-    userLogin,
-    query
-}
+  add,
+  userLogin,
+  query
+};
 // function userLogin(userLogin) {
 //     return mongoService.connect()
 //         .then(db => {

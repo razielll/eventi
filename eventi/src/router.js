@@ -19,6 +19,9 @@ export default new Router({
       path: '/user',
       name: 'user-profile',
       component: userProfile
+      // beforeEnter: (to, from, next) => {
+      //   console.log('to, from, next: ', to, from, next);
+      // }
     },
     {
       path: '/eventi/edit/:eventiId?',

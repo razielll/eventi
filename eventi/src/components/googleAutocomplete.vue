@@ -25,7 +25,7 @@ export default {
           address: place.formatted_address
         };
 
-        this.$emit('onLoactionFound', location);
+        this.$emit('onLocationFound', location);
       });
     });
   }

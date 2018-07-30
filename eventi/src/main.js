@@ -5,6 +5,7 @@ import store from './store';
 import VeeValidate from 'vee-validate';
 import axios from 'axios';
 import 'bulma/css/bulma.css';
+import 'bulma-checkradio/dist/css/bulma-checkradio.min.css';
 import 'animate.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -13,12 +14,22 @@ import {
   faCheck,
   faLock,
   faUser,
-  faExclamationTriangle
+  faExclamationTriangle,
+  faLocationArrow,
+  faSearch
 } from '@fortawesome/free-solid-svg-icons';
 
 axios.defaults.withCredentials = true;
 
-library.add(faLock, faCheck, faEnvelope, faUser, faExclamationTriangle);
+library.add(
+  faLock,
+  faCheck,
+  faEnvelope,
+  faUser,
+  faExclamationTriangle,
+  faLocationArrow,
+  faSearch
+);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 import 'bulma/css/bulma.css';

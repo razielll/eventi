@@ -17,8 +17,8 @@
     </div>
     <div class="navbar-end" v-if="user">
       <router-link to="/" class="navbar-item">eventi</router-link> 
-      <a class="navbar-item" v-if="user">{{user}} profile</a> 
-      <a class="navbar-item" v-if="user" @click="logOut">logout</a> 
+      <router-link to="/user" class="navbar-item" >{{user}} profile</router-link>
+      <a class="navbar-item"  @click="logOut">logout</a> 
     </div>
       <userLoginModal :class="{'is-active': userLogin}" @close-modal="closeModal" @go-signup="signup"/>
       <userSignupModal :class="{'is-active': userSignup}" @close-modal="closeModal"/>
@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import userLoginModal from "./userLogin";
-import userSignupModal from "./userSignup";
+import userLoginModal from './userLogin';
+import userSignupModal from './userSignup';
 
 export default {
-  name: "nav-bar",
+  name: 'nav-bar',
   data() {
     return {
       userLogin: false,
@@ -40,14 +40,14 @@ export default {
   },
   methods: {
     closeModal(type) {
-      type === "login" ? (this.userLogin = false) : (this.userSignup = false);
+      type === 'login' ? (this.userLogin = false) : (this.userSignup = false);
     },
     signup() {
       this.userLogin = false;
       this.userSignup = true;
     },
     logOut() {
-      this.$store.commit({ type: "logout" });
+      this.$store.commit({ type: 'logout' });
       this.currUser = null;
     }
   },
@@ -69,7 +69,8 @@ export default {
 <style scoped lang="scss">
 nav {
   &.navbar {
-    padding: 0;
+    // padding: 0;
+    align-items: center;
   }
   .logo {
     letter-spacing: 3px;

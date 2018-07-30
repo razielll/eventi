@@ -30,7 +30,9 @@
       		</div>
     	</div>
 			<footer class="card-footer">
-			<a href="#" @click.stop="onClapClick" class="card-footer-item"><img class="clap-icon" src="../assets/clap.png"/></a>
+			<span @click.stop="onClapClick" class="card-footer-item">
+        <img class="clap-icon" src="../assets/clap.png"/>
+      </span>
 			<a href="#" @click.stop class="card-footer-item">Join</a>
 			<a href="#" @click.stop class="card-footer-item">Distance</a>
 			</footer>
@@ -39,9 +41,9 @@
 </template>
 
 <script>
-import "@/assets/scss/main.scss";
+import '@/assets/scss/main.scss';
 export default {
-  props: ["eventi"],
+  props: ['eventi'],
   computed: {
     goingUsers() {
       return this.eventi.goingUserId.length;
@@ -49,7 +51,7 @@ export default {
     shortDescription() {
       let shortDesc = this.eventi.description;
       this.eventi.description.length > 40
-        ? (shortDesc = shortDesc.slice(0, 40) + "...")
+        ? (shortDesc = shortDesc.slice(0, 40) + '...')
         : (shortDesc = shortDesc);
       return shortDesc;
     }
@@ -59,7 +61,17 @@ export default {
       this.$router.push(`/eventi/${eventi._id}`);
     },
     onClapClick() {
-      this.$store.dispatch({ type: "incEventiClap", _id: this.eventi._id });
+      if (this.$route.name === 'user-profile') {
+        this.$store.dispatch({
+          type: 'incEventiClapFromUserProfile',
+          eventi: this.eventi
+        });
+      } else {
+        this.$store.dispatch({
+          type: 'incEventiClap',
+          _id: this.eventi._id
+        });
+      }
     }
   }
 };

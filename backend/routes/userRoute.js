@@ -1,5 +1,6 @@
 const userService = require('../services/userService');
 const eventiService = require('../services/eventiService');
+const isAuthenticated = require('../services/authService').isAuthenticated;
 const ObjectId = require('mongodb').ObjectId;
 
 module.exports = app => {
@@ -16,9 +17,9 @@ module.exports = app => {
     });
   });
 
-  app.get('/user', (req, res) => {
+  app.get('/user', isAuthenticated, (req, res) => {
     // TODO use aggregation
-    let userId = ObjectId(req.session.user._id);
+    let userId = req.session.user._id;
     let user = userService.query(userId);
     let myEventi = eventiService.query({ ownerId: userId });
     let eventiHistory = eventiService.query({

@@ -7,7 +7,11 @@ function load(key) {
   return JSON.parse(str);
 }
 
+function remove(key) {
+  sessionStorage.removeItem(key);
+}
 export default {
   store,
-  load
+  load,
+  remove
 };

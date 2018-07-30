@@ -1,6 +1,7 @@
 import userService from '@/services/userService';
 import { USER_KEY } from '@/services/userService';
 import storageService from '@/services/storageService';
+import router from '@/router';
 
 export default {
   state: {
@@ -15,6 +16,15 @@ export default {
     },
     logout(state, payload) {
       state.user = null;
+    },
+    removeUser(state) {
+      state.user = null;
+    },
+    incEventiClapFromUserProfile(state, { eventi }) {
+      let eventiToUpdate = state.user.eventiHistoryData.find(
+        ({ _id }) => _id === eventi._id
+      );
+      eventiToUpdate.clapsCount++;
     }
   },
   actions: {
@@ -36,10 +46,26 @@ export default {
       }
     },
     loadUser({ commit }) {
-      return userService.loadUser().then(user => {
+      let user = storageService.load(USER_KEY) || null;
+      // load user data from storage
+      if (user) {
         commit({ type: 'loadUser', user });
-        return user;
-      });
+      }
+      // then load fresh data from server if available
+      return userService
+        .loadUser()
+        .then(user => {
+          storageService.store(USER_KEY, user);
+          commit({ type: 'loadUser', user });
+          return user;
+        })
+        .catch(({ response }) => {
+          if (response.status === 401) {
+            storageService.remove(USER_KEY, null);
+            commit({ type: 'removeUser' });
+            router.push('/');
+          }
+        });
     },
     checkLogin({ commit }) {
       let loggedInUser = storageService.load(USER_KEY) || null;
@@ -50,6 +76,9 @@ export default {
         isLoggedIn.userLoggedIn = false;
       }
       return Promise.resolve(isLoggedIn);
+    },
+    incEventiClapFromUserProfile({ commit }, { eventi }) {
+      commit({ type: 'incEventiClapFromUserProfile', eventi });
     }
   },
   getters: {

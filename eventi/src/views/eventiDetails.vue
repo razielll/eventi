@@ -34,12 +34,19 @@
     <footer class="card-footer">
       <a href="#" @click.stop class="card-footer-item"><img class="clap-icon" src="../assets/clap.png"/></a>
       <a href="#" @click.stop class="card-footer-item">Join</a>
-      <a href="#" @click.stop class="card-footer-item">Distance</a>
+      <a href="#" @click.stop class="card-footer-item">
+        <span class="icon is-medium">
+          <font-awesome-icon icon="location-arrow" size="2x"/>
+        </span>
+        <span>{{distance}}<span class="is-size-7">Km</span></span>
+      </a>
     </footer>
   </section>
 </template>
 
 <script>
+import geoService from '@/services/geoService';
+
 export default {
   name: 'eventi-details',
   data() {
@@ -56,7 +63,13 @@ export default {
       this.goingUsers = eventi.goingUserId.length;
     });
   },
-  computed: {}
+  computed: {
+    distance() {
+      let { lat, lng } = this.$store.getters.getPosition;
+      let { location } = this.eventi;
+      return geoService.distance(lat, lng, location.lat, location.lng);
+    }
+  }
 };
 </script>
 

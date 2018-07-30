@@ -33,8 +33,13 @@
 			<span @click.stop="onClapClick" class="card-footer-item">
         <img class="clap-icon" src="../assets/clap.png"/>
       </span>
-			<span href="#" @click.stop class="card-footer-item">Join</span>
-			<span href="#" @click.stop class="card-footer-item">Distance</span>
+			<span @click.stop class="card-footer-item">Join</span>
+			<span @click.stop class="card-footer-item">
+        <span class="icon">
+          <font-awesome-icon icon="location-arrow"/>
+        </span>
+        <span>{{distance}}<span class="is-size-7">Km</span></span>
+      </span>
 			</footer>
   		</div>
 	</section>
@@ -42,6 +47,8 @@
 
 <script>
 import '@/assets/scss/main.scss';
+import geoService from '@/services/geoService';
+
 export default {
   props: ['eventi'],
   computed: {
@@ -54,6 +61,11 @@ export default {
         ? (shortDesc = shortDesc.slice(0, 40) + '...')
         : (shortDesc = shortDesc);
       return shortDesc;
+    },
+    distance() {
+      let { lat, lng } = this.$store.getters.getPosition;
+      let { location } = this.eventi;
+      return geoService.distance(lat, lng, location.lat, location.lng);
     }
   },
   methods: {

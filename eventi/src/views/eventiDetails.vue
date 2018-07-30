@@ -16,7 +16,7 @@
       <div class="media-content">
         <p class="title is-4">{{eventi.name}}</p>
         <p class="subtitle is-6 tags">
-          <span class="tag">{{eventi.category}}</span>
+            <span class="tag has-text-white" :class="eventi.category">{{eventi.category}}</span>
         </p>
       </div>
     </div>

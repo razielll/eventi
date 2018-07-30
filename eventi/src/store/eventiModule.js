@@ -23,9 +23,10 @@ export default {
   },
   actions: {
     addEventi({ commit }, { data }) {
-      console.log('action data:', data);
       return eventiService.addEventi(data).then(eventi => {
-        commit({ type: 'addEventi', eventi });
+        // commit({ type: 'addEventi', eventi });
+        console.log(eventi);
+        // TODO show msg and redirect to home page
         return eventi;
       });
     },
@@ -43,10 +44,12 @@ export default {
         context.commit({ type: 'removeEventi', eventiId });
       });
     },
-    updateEventi({ commit }, { _id, data, isCommit = true }) {
+    updateEventi({ commit }, { _id, data }) {
       return eventiService.updateEventi(_id, data).then(updateResult => {
-        if (updateResult.ok && isCommit) {
-          return commit({ type: 'updateEventi', _id, data });
+        if (updateResult.ok) {
+          console.log('eventi updated');
+          // TODO flash message
+          // return commit({ type: 'updateEventi', _id, data });
         }
       });
     },

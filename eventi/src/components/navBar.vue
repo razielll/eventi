@@ -2,7 +2,7 @@
     
 <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-     <a class="navbar-item logo title"><span class="logo-letter">e</span>venti </a>
+     <router-link to="/" class="navbar-item logo title"><span class="logo-letter">e</span>venti </router-link>
     <!-- <div class="navbar-burger burger" data-target="navBarMenu">
       <span></span>
       <span></span>
@@ -17,6 +17,7 @@
     </div>
     <div class="navbar-end" v-if="user">
       <router-link to="/" class="navbar-item">eventi</router-link> 
+      <router-link to="/eventi/edit" class="navbar-item">New Eventi</router-link> 
       <router-link to="/user" class="navbar-item" >{{user}} profile</router-link>
       <a class="navbar-item"  @click="logOut">logout</a> 
     </div>

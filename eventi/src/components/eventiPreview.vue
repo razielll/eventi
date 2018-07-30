@@ -17,7 +17,7 @@
         		<div class="media-content">
         			<p class="title is-4">{{eventi.name}}</p>
         			<p class="subtitle is-6 tags">
-                <span v-for="category of eventi.category" :key="category" class="tag">{{category}}</span>
+                <span class="tag">{{eventi.category}}</span>
               </p>
         		</div>
       		</div>
@@ -33,8 +33,8 @@
 			<span @click.stop="onClapClick" class="card-footer-item">
         <img class="clap-icon" src="../assets/clap.png"/>
       </span>
-			<a href="#" @click.stop class="card-footer-item">Join</a>
-			<a href="#" @click.stop class="card-footer-item">Distance</a>
+			<span href="#" @click.stop class="card-footer-item">Join</span>
+			<span href="#" @click.stop class="card-footer-item">Distance</span>
 			</footer>
   		</div>
 	</section>

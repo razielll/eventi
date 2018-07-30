@@ -50,10 +50,13 @@ export default {
       });
     },
 
-    incEventiClap({ state, dispatch }, { _id }) {
+    incEventiClap({ state, commit }, { _id }) {
       const eventi = state.eventis.find(eventi => eventi._id === _id);
       const updateData = { clapsCount: eventi.clapsCount + 1 };
-      dispatch({ type: 'updateEventi', _id, data: updateData });
+
+      return eventiService.incEventiClap(_id, updateData).then(res => {
+        commit({ type: 'updateEventi', _id, data: updateData });
+      });
     }
   },
   getters: {

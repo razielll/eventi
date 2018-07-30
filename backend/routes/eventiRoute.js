@@ -58,4 +58,20 @@ module.exports = app => {
       .update(_id, updateData)
       .then(updateResult => res.json(updateResult));
   });
+
+  app.put(`${URL}/incEventiClap/:eventiId`, (req, res) => {
+    const updateData = req.body;
+    const _id = req.params.eventiId;
+    //check that user only sends clapsCount
+    if (
+      Object.keys(updateData).length === 1 ||
+      updateData.hasOwnProperty('clapsCount')
+    ) {
+      eventiService
+        .update(_id, updateData)
+        .then(updateResult => res.json(updateResult));
+    } else {
+      res.status(400).send('bad request');
+    }
+  });
 };

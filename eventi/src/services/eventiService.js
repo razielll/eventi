@@ -31,10 +31,17 @@ function updateEventi(_id, updateData) {
   return axios.put(`${URL}/edit/${_id}`, updateData).then(res => res.data);
 }
 
+function incEventiClap(_id, updateData) {
+  return axios
+    .put(`${URL}/incEventiClap/${_id}`, updateData)
+    .then(res => res.data);
+}
+
 export default {
   addEventi,
   loadEventi,
   removeEventi,
   updateEventi,
-  getEventiById
+  getEventiById,
+  incEventiClap
 };

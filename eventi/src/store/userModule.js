@@ -29,9 +29,11 @@ export default {
         context.commit({ type: 'setUser', user });
       });
     },
-    incEventiClap(context, eventiId) {
-      // TODO update user eventi
-      console.log('TODO: update user eventi clap');
+    incEventiClap({ state, commit }, { _id }) {
+      if (state.user._id) {
+        // userService.
+        console.log('TODO: update claps on user');
+      }
     },
     loadUser({ commit }) {
       return userService.loadUser().then(user => {
@@ -44,8 +46,6 @@ export default {
       if (loggedInUser) {
         commit({ type: 'setUser', user: loggedInUser });
         return Promise.resolve({ userLoggedIn: true });
-      } else {
-        Promise.reject({ userLoggedIn: false });
       }
     }
   },

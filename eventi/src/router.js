@@ -24,6 +24,8 @@ export default new Router({
         store.dispatch({ type: 'checkLogin' }).then(({ userLoggedIn }) => {
           if (userLoggedIn) {
             next();
+          } else {
+            // TODO show msg or ... when user cant access page
           }
         });
       }

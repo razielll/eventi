@@ -43,10 +43,13 @@ export default {
     },
     checkLogin({ commit }) {
       let loggedInUser = storageService.load(USER_KEY) || null;
+      let isLoggedIn = { userLoggedIn: true };
       if (loggedInUser) {
         commit({ type: 'setUser', user: loggedInUser });
-        return Promise.resolve({ userLoggedIn: true });
+      } else {
+        isLoggedIn.userLoggedIn = false;
       }
+      return Promise.resolve(isLoggedIn);
     }
   },
   getters: {

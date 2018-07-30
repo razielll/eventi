@@ -25,7 +25,8 @@ export default new Router({
           if (userLoggedIn) {
             next();
           } else {
-            // TODO show msg or ... when user cant access page
+            // TODO show flash message
+            next('/');
           }
         });
       }

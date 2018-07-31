@@ -5,12 +5,47 @@
             <div class="columns filters">
                 <div class="column is-8-tablet">
                 <div class="buttons">
-                    <button @click="filterByCategory('lecture')" class="button">Lecture</button>
-                    <button @click="filterByCategory('party')" class="button">Party</button>
-                    <button @click="filterByCategory('gathering')" class="button">Gathering</button>
-                    <button @click="filterByCategory('sale')" class="button">Sale</button>
-                    <button @click="filterByCategory('need help')" class="button">Need Help</button>
-                    <button @click="filterByCategory('lost & found')" class="button">Lost &amp; Found</button>
+                    <button 
+                        @click="filterByCategory(null)"
+                        class="button"
+                        >All
+                    </button>
+                    <button 
+                        @click="filterByCategory('lecture')" 
+                        class="button lecture"
+                        :class="{active : activeCategory === 'lecture'}"
+                        >Lecture
+                    </button>
+                    <button 
+                        @click="filterByCategory('party')" 
+                        class="button party"
+                        :class="{active : activeCategory === 'party'}"
+                        >Party
+                    </button>
+                    <button 
+                        @click="filterByCategory('gathering')" 
+                        class="button gathering"
+                        :class="{active : activeCategory === 'gathering'}"
+                        >Gathering
+                    </button>
+                    <button 
+                        @click="filterByCategory('sale')" 
+                        class="button sale"
+                        :class="{active : activeCategory === 'sale'}"
+                        >Sale
+                    </button>
+                    <button 
+                        @click="filterByCategory('needhelp')" 
+                        class="button needhelp"
+                        :class="{active : activeCategory === 'needhelp'}"
+                        >Need Help
+                    </button>
+                    <button 
+                        @click="filterByCategory('lostfound')" 
+                        class="button lostfound"
+                        :class="{active : activeCategory === 'lostfound'}"
+                        >Lost &amp; Found
+                    </button>
                 </div>
                 </div>
                 <div class="column">
@@ -40,8 +75,14 @@
 <script>
 export default {
   name: 'eventi-filter',
+  data() {
+    return {
+      activeCategory: null
+    };
+  },
   methods: {
     filterByCategory(category) {
+      this.activeCategory = category;
       this.$store.dispatch({ type: 'filterByCategory', category });
     }
   }

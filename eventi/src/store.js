@@ -2,23 +2,24 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import eventiModule from '@/store/eventiModule.js'
 import userModule from '@/store/userModule.js'
-
+import chatModule from '@/store/chatModule.js'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  strict: true,
+	strict: true,
 
-  state: {
+	state: {
 
-  },
-  mutations: {
+	},
+	mutations: {
 
-  },
-  actions: {
+	},
+	actions: {
 
-  },
-  modules: {
-    eventiModule,
-    userModule
-  }
+	},
+	modules: {
+		eventiModule,
+		userModule,
+		chatModule
+	}
 })

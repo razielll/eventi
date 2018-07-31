@@ -72,7 +72,7 @@ export default {
 .logo {
   letter-spacing: 8px;
   color: rgb(75, 75, 75);
-  margin: 0;
+  margin: 0 !important;
   transition: all 0.25s;
   &:hover {
     color: #41b883;
@@ -88,6 +88,7 @@ export default {
   }
 }
 .navbar-menu {
+  padding: 0;
   text-align: center;
   transition: all 0.25s;
   & a {

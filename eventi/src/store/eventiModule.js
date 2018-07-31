@@ -1,4 +1,5 @@
 import eventiService from '@/services/eventiService.js';
+import { log } from 'util';
 
 export default {
 	state: {
@@ -81,6 +82,6 @@ export default {
 	getters: {
 		eventisToShow(state) {
 			return state.eventis;
-		}
+		},
 	}
 };

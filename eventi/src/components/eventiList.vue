@@ -1,8 +1,6 @@
 <template>
     <section class="eventi-list flex wrap">
-
         <eventiPreview v-for="eventi in eventisToShow" :key="eventi._id" :eventi="eventi"/>
-        
     </section> 
 </template>
 

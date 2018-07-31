@@ -174,10 +174,10 @@ export default {
         category: null,
         gallery: null,
         location: {
-          lat: null,
-          lng: null,
-          address: ''
-        }
+          coordinates: [],
+          type: 'Point'
+        },
+        address: ''
       },
       isEdit: false
     };
@@ -222,7 +222,8 @@ export default {
       });
     },
     locationFound(location) {
-      this.eventi.location = location;
+      this.eventi.location.coordinates = [location.lng, location.lat];
+      this.eventi.address = location.address;
     },
     preventFormSubmit(ev) {
       console.log('ev', ev);
@@ -230,8 +231,10 @@ export default {
   },
   computed: {
     locationError() {
-      let { lat, lng, address } = this.eventi.location;
-      return !(lat || lng || address);
+      // let { lat, lng, address } = this.eventi.location;
+      let hasAdress = !!this.eventi.address;
+      let hasCordinates = this.eventi.location.coordinates.length === 2;
+      return !(hasAdress, hasCordinates);
     },
     categoryImgUrl() {
       return this.eventi.gallery

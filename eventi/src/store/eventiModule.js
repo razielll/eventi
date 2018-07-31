@@ -1,4 +1,5 @@
 import eventiService from '@/services/eventiService.js';
+import geoService from '@/services/geoService';
 
 export default {
   state: {
@@ -35,15 +36,20 @@ export default {
         return eventi;
       });
     },
-    loadEventi({ commit, rootState, state }) {
-      let { lng, lat } = rootState.position;
+    async loadEventi({ commit, rootState, state }) {
+      console.log('loadEventi');
+      let position = await geoService.getPosition();
+
+      let { latitude: lat, longitude: lng } = position.coords;
       let { distance, category } = state.filterBy;
 
-      return eventiService
-        .loadEventi({ lng, lat, distance, category })
-        .then(res => {
-          commit({ type: 'loadEventi', eventis: res });
-        });
+      let eventis = await eventiService.loadEventi({
+        lng,
+        lat,
+        distance,
+        category
+      });
+      commit({ type: 'loadEventi', eventis });
     },
     getEventiById(context, { eventiId }) {
       console.log('store got id', eventiId);

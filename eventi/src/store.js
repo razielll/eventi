@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import eventiModule from '@/store/eventiModule.js';
 import userModule from '@/store/userModule.js';
+import { log } from 'util';
 
 Vue.use(Vuex);
 
@@ -18,9 +19,12 @@ export default new Vuex.Store({
   },
   actions: {
     setPosition({ commit }, { lat, lng }) {
+      console.log('setPosition');
       commit({ type: 'setPosition', lat, lng });
+      return Promise.resolve({ lat, lng });
     }
   },
+
   getters: {
     getPosition(state) {
       return state.position;

@@ -86,7 +86,7 @@ export default {
   data() {
     return {
       category: null,
-      distance: '500'
+      distance: '5000'
     };
   },
   methods: {

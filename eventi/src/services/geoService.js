@@ -1,10 +1,13 @@
-export function getPosition(success, handleLocationError) {
+// import { resolve } from 'path';
+
+function getPosition() {
   if (!navigator.geolocation) {
     console.log('HTML5 Geolocation is not supported in your browser.');
     return;
   }
-
-  navigator.geolocation.getCurrentPosition(success, handleLocationError);
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
 }
 
 function distance(lat1, lon1, lat2, lon2, unit = 'K') {

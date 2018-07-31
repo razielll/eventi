@@ -34,4 +34,20 @@ module.exports = app => {
       }
     );
   });
+
+  app.put('/joinEventi/:userId', (req, res) => {
+    const userId = req.params
+    const eventiId = req.body
+    return userService.addEventiToUser(userId, eventiId)
+      .then(user => res.json(user))
+  })
+
+
+  app.put(`/leaveEventi/:userId`, (req, res) => {
+    const userId = req.params
+    const eventis = req.body
+    return userService.leaveEventi(userId, eventis)
+      .then(user => res.json(user))
+  })
+
 };

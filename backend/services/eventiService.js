@@ -77,10 +77,33 @@ function update(_id, updateData) {
   });
 }
 
+function eventiAddUser({ eventiId }, { userId }) {
+  const _id = new ObjectId(eventiId)
+  // console.log('working on eventi:', eventiId);
+  return mongoService.connect()
+    .then(db => db.collection('eventi'))
+    .then(collection => collection.updateOne({ _id }, { $addToSet: { goingUserId: userId } }))
+}
+
+function eventiRemoveUser({ eventiId }, { userId }) {
+  const _id = new ObjectId(eventiId)
+  // console.log('backend eventi Service got evId uId', eventiId, userId);
+  return mongoService.connect()
+    .then(db => db.collection('eventi'))
+    .then(collection => collection.updateOne({ _id }, { $pull: { goingUserId: userId } }))
+
+}
+// { $pull: { fruits: { $in: [ "apples", "oranges" ] }, vegetables: "carrots" } },
+
+//working in mongo
+// db.getCollection('eventi').updateOne({_id:ObjectId("5b5850336329dd4b6b6ca7d1")}, { $addToSet: { goingUserId: "igor" } })
+
 module.exports = {
   query,
   remove,
   getById,
   add,
-  update
+  update,
+  eventiAddUser,
+  eventiRemoveUser
 };

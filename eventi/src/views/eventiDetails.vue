@@ -26,10 +26,10 @@
         <p class="subtitle is-5"> {{goingUsers}} are coming! </p>
             <a class="button"> map </a>
         </div>
-        <br>
               <p class="hype"> {{eventi.clapsCount}}<img class="clap-icon" src="../assets/clap.png"/></p>
-        <time datetime="2016-1-5">11:09 PM - 1 Jan 2016</time>
+        <!-- <time datetime="2016-1-5">11:09 PM - 1 Jan 2016</time> -->
       </div>
+	  <chat-cmp :eventiMessages="eventi.messages" @save-message="saveMessage"/>
     </div>
     <footer class="card-footer">
       <a href="#" @click.stop class="card-footer-item"><img class="clap-icon" src="../assets/clap.png"/></a>
@@ -45,23 +45,31 @@
 </template>
 
 <script>
+import chatCmp from "@/components/eventiFeed";
 import geoService from '@/services/geoService';
 
 export default {
-  name: 'eventi-details',
+  name: "eventi-details",
   data() {
     return {
       eventi: {},
-      goingUsers: '',
-      category: ''
+      goingUsers: "",
+      category: ""
     };
   },
   created() {
     let { eventiId } = this.$route.params;
-    this.$store.dispatch({ type: 'getEventiById', eventiId }).then(eventi => {
+    this.$store.dispatch({ type: "getEventiById", eventiId }).then(eventi => {
       this.eventi = eventi;
       this.goingUsers = eventi.goingUserId.length;
     });
+  },
+  methods: {
+    saveMessage(msg) {
+      console.log("got emit!", msg);
+      let _id = this.eventi._id;
+      this.$store.dispatch({ type: "saveMessage", msg, _id });
+    }
   },
   computed: {
     distance() {
@@ -69,11 +77,47 @@ export default {
       let [eventiLng, eventiLat] = this.eventi.location.coordinates;
       return geoService.distance(lat, lng, eventiLat, eventiLng);
     }
-  }
+  },
+    components: {
+	chatCmp
+  },
 };
 </script>
 
+
+
+
+
+
+
 <style scoped lang="scss">
+.card-content {
+  padding: 0.5rem;
+  & .media {
+    margin-bottom: 0.3rem;
+    & .media-content span.tag {
+      margin-bottom: 0;
+    }
+  }
+  & .content p.description {
+    margin-bottom: 0;
+  }
+}
+.card-footer-item {
+  padding: 0;
+  font-weight: bold;
+  transition: all ease-in 0.2s;
+  & .clap-icon {
+    max-width: 50px;
+    padding: 0.25rem;
+  }
+  &:hover {
+    color: #41b883;
+  }
+}
+.content .title.is-4 {
+  margin: 0;
+}
 .eventi-details {
   box-shadow: 0px 0px 8px black;
   margin: 5px auto;
@@ -96,15 +140,5 @@ export default {
 }
 .clap-icon {
   max-width: 50px;
-}
-.hype img.clap-icon {
-  max-width: 25px;
-}
-.card-footer-item {
-  font-weight: bold;
-  transition: all ease-in 0.3s;
-}
-.card-footer-item:hover {
-  color: #41b883;
 }
 </style>

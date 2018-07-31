@@ -68,18 +68,18 @@
 </template>
 
 <script>
-import eventiPreview from '@/components/eventiPreview.vue';
+import eventiPreview from "@/components/eventiPreview.vue";
 
 export default {
   data() {
     return { showProfile: true };
   },
   created() {
-    this.$store.dispatch({ type: 'loadUser' });
+    this.$store.dispatch({ type: "loadUser" });
   },
   computed: {
     user() {
-      return this.$store.getters.userForDisplay;
+      return this.$store.getters.getUser;
     }
   },
   components: {
@@ -89,9 +89,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.main {
-  //   overflow: hidden;
-}
 .user-profile {
   /* height of nav bar*/
   min-height: calc(100vh - 78px);

@@ -21,18 +21,25 @@ function add(user) {
 }
 
 function userLogin(userLogin) {
-  return mongoService
-    .connect()
+  return mongoService.connect()
     .then(db => db.collection('user'))
-    .then(collection =>
-      collection
-        .findOne({
-          $and: [{ email: userLogin.email }, { password: userLogin.password }]
-        })
-        .then(user =>
-          getAllUserData(user._id).then(data => ({ ...user, ...data }))
-        )
-    );
+    .then(collection => collection.findOne({ $and: [{ email: userLogin.email }, { password: userLogin.password }] }))
+}
+
+function addEventiToUser({ userId }, { eventiId }) {
+  // console.log('backend userService join eventi got', userId, eventiId);
+  const _id = new ObjectId(userId)
+  return mongoService.connect()
+    .then(db => db.collection('user'))
+    .then(collection => collection.updateOne({ _id }, { $addToSet: { eventiHistory: eventiId } }))
+}
+
+function leaveEventi({ userId }, eventis) {
+  // console.log('backend userService leave eventi got', userId, eventis);
+  const _id = new ObjectId(userId)
+  return mongoService.connect()
+    .then(db => db.collection('user'))
+    .then(collection => collection.updateOne({ _id }, { $set: { eventiHistory: eventis } }))
 }
 
 function getAllUserData(userId) {
@@ -66,13 +73,7 @@ function getAllUserData(userId) {
 module.exports = {
   add,
   userLogin,
-  query
-};
-// function userLogin(userLogin) {
-//     return mongoService.connect()
-//         .then(db => {
-//             const collection = db.collection('user');
-//             let currUser = collection.findOne({ $and: [{ email: userLogin.email }, { password: userLogin.password }] })
-//             return currUser
-//         })
-// }
+  query,
+  addEventiToUser,
+  leaveEventi
+}

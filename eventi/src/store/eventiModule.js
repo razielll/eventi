@@ -3,7 +3,10 @@ import eventiService from '@/services/eventiService.js';
 export default {
   state: {
     eventis: [],
-    filterBy: {}
+    filterBy: {
+      distance: 500,
+      category: null
+    }
   },
   mutations: {
     addEventi(state, { eventi }) {
@@ -18,6 +21,9 @@ export default {
       Object.assign(eventi, data);
       // state.eventis.splice(idx, 1, updateEventi);
     },
+    setFilterBy(state, { category, distance }) {
+      Object.assign(state.filterBy, { category, distance });
+    },
     incEventiClap(state) {}
   },
   actions: {
@@ -29,10 +35,15 @@ export default {
         return eventi;
       });
     },
-    loadEventi(context) {
-      return eventiService.loadEventi().then(res => {
-        context.commit({ type: 'loadEventi', eventis: res });
-      });
+    loadEventi({ commit, rootState, state }) {
+      let { lng, lat } = rootState.position;
+      let { distance, category } = state.filterBy;
+
+      return eventiService
+        .loadEventi({ lng, lat, distance, category })
+        .then(res => {
+          commit({ type: 'loadEventi', eventis: res });
+        });
     },
     getEventiById(context, { eventiId }) {
       console.log('store got id', eventiId);
@@ -68,6 +79,16 @@ export default {
       return eventiService.loadEventi({ category }).then(eventis => {
         commit({ type: 'loadEventi', eventis });
       });
+    },
+    distanceChange({ commit, rootState }, { distance }) {
+      let { lng, lat } = rootState.position;
+      return eventiService.loadEventi({ distance, lng, lat }).then(eventis => {
+        commit({ type: 'loadEventi', eventis });
+      });
+    },
+    setFilterBy({ dispatch, commit }, { category, distance }) {
+      commit({ type: 'setFilterBy', category, distance });
+      dispatch({ type: 'loadEventi' });
     }
   },
   getters: {

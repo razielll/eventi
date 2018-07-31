@@ -6,54 +6,62 @@
                 <div class="column is-8-tablet">
                 <div class="buttons">
                     <button 
-                        @click="filterByCategory(null)"
+                        @click="onFilterChange(null)"
                         class="button"
                         >All
                     </button>
                     <button 
-                        @click="filterByCategory('lecture')" 
+                        @click="onFilterChange('lecture')" 
                         class="button lecture"
-                        :class="{active : activeCategory === 'lecture'}"
+                        :class="{active : category === 'lecture'}"
                         >Lecture
                     </button>
                     <button 
-                        @click="filterByCategory('party')" 
+                        @click="onFilterChange('party')" 
                         class="button party"
-                        :class="{active : activeCategory === 'party'}"
+                        :class="{active : category === 'party'}"
                         >Party
                     </button>
                     <button 
-                        @click="filterByCategory('gathering')" 
+                        @click="onFilterChange('gathering')" 
                         class="button gathering"
-                        :class="{active : activeCategory === 'gathering'}"
+                        :class="{active : category === 'gathering'}"
                         >Gathering
                     </button>
                     <button 
-                        @click="filterByCategory('sale')" 
+                        @click="onFilterChange('sale')" 
                         class="button sale"
-                        :class="{active : activeCategory === 'sale'}"
+                        :class="{active : category === 'sale'}"
                         >Sale
                     </button>
                     <button 
-                        @click="filterByCategory('needhelp')" 
+                        @click="onFilterChange('needhelp')" 
                         class="button needhelp"
-                        :class="{active : activeCategory === 'needhelp'}"
+                        :class="{active : category === 'needhelp'}"
                         >Need Help
                     </button>
                     <button 
-                        @click="filterByCategory('lostfound')" 
+                        @click="onFilterChange('lostfound')" 
                         class="button lostfound"
-                        :class="{active : activeCategory === 'lostfound'}"
+                        :class="{active : category === 'lostfound'}"
                         >Lost &amp; Found
                     </button>
                 </div>
                 </div>
                 <div class="column">
                 <div class="field">
-                    <input class="is-checkradio" id="distance-1" type="radio" name="exampleRadioInline" checked="checked">
+                    <input 
+                        value="500"
+                        v-model="distance"
+                        @change="onDistanceChange"
+                        class="is-checkradio" id="distance-1" type="radio" :checked="distance === 500">
                     <label for="distance-1">500m</label>
-                    <input class="is-checkradio" id="distance-2" type="radio" name="exampleRadioInline">
-                    <label for="distance-2">1000m</label>
+                    <input 
+                        value="5000"
+                        v-model="distance"
+                        @change="onDistanceChange"
+                        class="is-checkradio" id="distance-2" type="radio" :checked="distance === 5000">
+                    <label for="distance-2">5000m</label>
                 </div>
                 </div>
                 <div class="column">
@@ -77,13 +85,29 @@ export default {
   name: 'eventi-filter',
   data() {
     return {
-      activeCategory: null
+      category: null,
+      distance: '500'
     };
   },
   methods: {
+    onFilterChange(selectedCategory) {
+      this.category = selectedCategory;
+      this.$store.dispatch({
+        type: 'setFilterBy',
+        distance: +this.distance,
+        category: this.category
+      });
+    },
     filterByCategory(category) {
       this.activeCategory = category;
-      this.$store.dispatch({ type: 'filterByCategory', category });
+      this.$store.dispatch({ type: 'setFilterBy', category });
+    },
+    onDistanceChange() {
+      this.$store.dispatch({
+        type: 'setFilterBy',
+        distance: +this.distance,
+        category: this.category
+      });
     }
   }
 };

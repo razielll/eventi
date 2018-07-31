@@ -13,16 +13,7 @@ import geoService from '@/services/geoService';
 
 export default {
   created() {
-    // this.$store.dispatch({ type: 'checkLogin' });
-    // geoService.getPosition(
-    //   position => {
-    //     let { latitude: lat, longitude: lng } = position.coords;
-    //     this.$store.dispatch({ type: 'setPosition', lat, lng });
-    //   },
-    //   err => {
-    //     console.log('geoLocation err:', err);
-    //   }
-    // );
+    this.$store.dispatch({ type: 'initStore' });
   },
   components: {
     navBar

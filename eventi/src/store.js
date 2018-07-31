@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import eventiModule from '@/store/eventiModule.js';
 import userModule from '@/store/userModule.js';
-import { log } from 'util';
+import geoService from '@/services/geoService';
 
 Vue.use(Vuex);
 
@@ -18,10 +18,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setPosition({ commit }, { lat, lng }) {
-      console.log('setPosition');
+    async initStore({ commit, dispatch }) {
+      let position = await geoService.getPosition();
+      let { latitude: lat, longitude: lng } = position.coords;
+
       commit({ type: 'setPosition', lat, lng });
-      return Promise.resolve({ lat, lng });
+
+      dispatch({ type: 'loadEventi' });
     }
   },
 

@@ -1,5 +1,4 @@
 import eventiService from '@/services/eventiService.js';
-import geoService from '@/services/geoService';
 
 export default {
   state: {
@@ -36,20 +35,21 @@ export default {
         return eventi;
       });
     },
-    async loadEventi({ commit, rootState, state }) {
+    loadEventi({ commit, rootState, state }) {
       console.log('loadEventi');
-      let position = await geoService.getPosition();
-
-      let { latitude: lat, longitude: lng } = position.coords;
       let { distance, category } = state.filterBy;
+      let { lng, lat } = rootState.position;
 
-      let eventis = await eventiService.loadEventi({
-        lng,
-        lat,
-        distance,
-        category
-      });
-      commit({ type: 'loadEventi', eventis });
+      return eventiService
+        .loadEventi({
+          lng,
+          lat,
+          distance,
+          category
+        })
+        .then(eventis => {
+          commit({ type: 'loadEventi', eventis });
+        });
     },
     getEventiById(context, { eventiId }) {
       console.log('store got id', eventiId);
@@ -86,12 +86,12 @@ export default {
         commit({ type: 'loadEventi', eventis });
       });
     },
-    distanceChange({ commit, rootState }, { distance }) {
-      let { lng, lat } = rootState.position;
-      return eventiService.loadEventi({ distance, lng, lat }).then(eventis => {
-        commit({ type: 'loadEventi', eventis });
-      });
-    },
+    // distanceChange({ commit, rootState }, { distance }) {
+    //   let { lng, lat } = rootState.position;
+    //   return eventiService.loadEventi({ distance, lng, lat }).then(eventis => {
+    //     commit({ type: 'loadEventi', eventis });
+    //   });
+    // },
     setFilterBy({ dispatch, commit }, { category, distance }) {
       commit({ type: 'setFilterBy', category, distance });
       dispatch({ type: 'loadEventi' });

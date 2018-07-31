@@ -98,10 +98,6 @@ export default {
         category: this.category
       });
     },
-    filterByCategory(category) {
-      this.activeCategory = category;
-      this.$store.dispatch({ type: 'setFilterBy', category });
-    },
     onDistanceChange() {
       this.$store.dispatch({
         type: 'setFilterBy',

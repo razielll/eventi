@@ -2,6 +2,8 @@ const ObjectId = require('mongodb').ObjectId;
 const mongoService = require('./mongoService.js');
 
 function query(userId) {
+  // userId = ObjectId(userId);
+  userId = new ObjectId(userId);
   return mongoService.connect().then(db => {
     const collection = db.collection('user');
     return collection.findOne({ _id: userId });
@@ -40,8 +42,25 @@ function leaveEventi({ userId }, eventis) {
     .then(collection => collection.updateOne({ _id }, { $set: { eventiHistory: eventis } }))
 }
 
+function getAllUserData(userId) {
+  return mongoService.connect().then(db => {
+    const eventiCl = db.collection('eventi');
+    userId = userId.toString();
+    let myEventiData = eventiCl.find({ ownerId: userId }).toArray();
+    let eventiHistoryData = eventiCl
+      .find({ goingUserId: { $in: [userId] } })
+      .toArray();
 
-
+    return Promise.all([myEventiData, eventiHistoryData]).then(
+      ([myEventiData, eventiHistoryData]) => {
+        return {
+          myEventiData,
+          eventiHistoryData
+        };
+      }
+    );
+  });
+}
 // function add(user) {
 //     return mongoService.connect()
 //         .then(db => db.collection('user'))
@@ -50,11 +69,6 @@ function leaveEventi({ userId }, eventis) {
 //         .then(result => user._id = result.insertedId)
 //         .then(user => user)
 // }
-
-
-
-
-
 
 module.exports = {
   add,

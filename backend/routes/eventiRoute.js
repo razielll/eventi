@@ -1,11 +1,15 @@
 const eventiService = require('../services/eventiService');
 const chatService = require('../services/chatService');
+const isAuthenticated = require('../services/authService').isAuthenticated;
+
 const ObjectId = require('mongodb').ObjectId;
 const URL = '/eventi';
 
 module.exports = app => {
 	app.get('/', (req, res) => {
-		eventiService.query().then(eventis => res.json(eventis));
+		console.log('Got query:', req.query);
+		const query = req.query;
+		eventiService.query(query).then(eventis => res.json(eventis));
 	});
 
 	app.get(`${URL}/:eventiId`, (req, res) => {
@@ -23,28 +27,46 @@ module.exports = app => {
 			.then(() => res.end(`event ${eventiId} Deleted `));
 	});
 
-	app.post(`${URL}/edit/`, (req, res) => {
+	app.post(`${URL}/edit/`, isAuthenticated, (req, res) => {
 		// if (!req.session.loggedinUser.isAdmin) return
 		const eventi = req.body;
 
 		// normalize eventi object
-		eventi.ownerId = new ObjectId('5b5849a76329dd4b6b6ca7cc');
+		eventi.ownerId = req.session.user._id;
 		eventi.feed = [];
-		eventi.goingUsersIds = [];
+		eventi.goingUserId = [];
 		eventi.clapsCount = 0;
 		eventi.startTime = new Date(eventi.startTime).getTime();
 		eventi.endTime = new Date(eventi.endTime).getTime();
-		return eventiService.add(eventi).then(eventi => {
+
+		eventiService.add(eventi).then(eventi => {
 			res.json(eventi);
 		});
 	});
 
-	app.put(`${URL}/edit/:eventiId`, (req, res) => {
+	app.put(`${URL}/edit/:eventiId`, isAuthenticated, (req, res) => {
 		// if (!req.session.loggedinUser.isAdmin) return
 		const updateData = req.body;
 		const _id = req.params.eventiId;
-		return eventiService.update(_id, updateData)
+		eventiService
+			.update(_id, updateData)
 			.then(updateResult => res.json(updateResult));
+	});
+
+	app.put(`${URL}/incEventiClap/:eventiId`, (req, res) => {
+		const updateData = req.body;
+		const _id = req.params.eventiId;
+		//check that user only sends clapsCount
+		if (
+			Object.keys(updateData).length === 1 ||
+			updateData.hasOwnProperty('clapsCount')
+		) {
+			eventiService
+				.update(_id, updateData)
+				.then(updateResult => res.json(updateResult));
+		} else {
+			res.status(400).send('bad request');
+		}
 	});
 
 	app.put(`${URL}/:eventiId`, (req, res) => {
@@ -62,9 +84,7 @@ module.exports = app => {
 				// console.log('removeed user from DB')
 				return res.json(userRemoved)
 			})
-
 	})
-
 
 	//chat save message
 	app.put(`${URL}/:eventiId/saveMessage`, (req, res) => {
@@ -75,5 +95,4 @@ module.exports = app => {
 		return chatService.saveMessage(eventiId, msg)
 
 	})
-
 };

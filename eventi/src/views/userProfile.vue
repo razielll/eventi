@@ -1,15 +1,19 @@
 <template class="hero">
     <section class="user-profile container section" v-if="user">
         <h1 class="title">User Profile</h1>
-        <div class="main columns flex-grow-1">
-            <div class="sidebar column is-4 box notification is-primary is-marginless">
-                <ul class="columns is-mobile is-block-tablet">
-                    <li class="tab column" @click="showProfile = true">Profile</li>
-                    <li class="tab column" @click="showProfile = false">My Eventi</li>
+        <div class="main columns flex-grow-1 is-marginless">
+            <div class="sidebar column is-3">
+                <ul class="columns is-mobile is-block-tablet is-marginless">
+                    <li class="box column is-size-5" 
+                        :class="{'has-background-primary': showProfile}"
+                        @click="showProfile = true">Profile</li>
+                    <li class="box column is-size-5" 
+                        :class="{'has-background-primary': !showProfile}"
+                        @click="showProfile = false">My Eventi</li>
                 </ul>
             </div>
                         
-            <div class="my-profile column">
+            <div class="my-profile column box">
                 <article class="media">
                     <figure class="media-left">
                         <p class="image is-64x64">
@@ -86,7 +90,7 @@ export default {
 
 <style scoped lang="scss">
 .main {
-  overflow: hidden;
+  //   overflow: hidden;
 }
 .user-profile {
   /* height of nav bar*/
@@ -94,20 +98,24 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.sidebar .tab {
+.sidebar {
+  padding-top: 0;
+}
+.sidebar .box {
   background-color: #fff;
   color: #4a4a4a;
   padding: 1.25rem;
   cursor: pointer;
   transition: 0.2s;
+  margin-bottom: 0;
 }
-.sidebar .tab:hover {
+.sidebar .box:hover {
   background-color: darken(#fff, 5);
   color: darken(#4a4a4a, 5);
 }
 
 @media screen and (min-width: 769px) {
-  .sidebar .tab:first-child {
+  .sidebar .box:first-child {
     margin-bottom: 1.5rem;
   }
 }

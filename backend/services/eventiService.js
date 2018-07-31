@@ -2,9 +2,26 @@ const ObjectId = require('mongodb').ObjectId;
 const mongoService = require('./mongoService.js');
 
 function query(query = {}) {
+  // build query for mongodb
+
+  let mongodbQuery = {
+    location: {
+      $near: {
+        $geometry: {
+          type: 'Point',
+          coordinates: [+query.lng, +query.lat]
+        },
+        $maxDistance: +query.distance
+      }
+    }
+  };
+
+  if (query.category) {
+    mongodbQuery.category = query.category;
+  }
   return mongoService.connect().then(db => {
     const collection = db.collection('eventi');
-    return collection.find(query).toArray();
+    return collection.find(mongodbQuery).toArray();
   });
 }
 

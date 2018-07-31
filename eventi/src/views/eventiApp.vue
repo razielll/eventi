@@ -12,9 +12,9 @@ import "@/assets/scss/main.scss";
 import eventiList from "@/components/eventiList.vue";
 
 export default {
-  name: "eventi-home",
+  name: 'eventi-home',
   created() {
-    this.$store.dispatch({ type: "loadEventi" });
+    // this.$store.dispatch({ type: 'loadEventi' });
   },
   computed: {},
   components: {

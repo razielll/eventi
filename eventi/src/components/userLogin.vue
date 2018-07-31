@@ -37,7 +37,7 @@
 
 <script>
 export default {
-  name: "user-login-modal",
+  name: 'user-login-modal',
   data() {
     return {
       user: {
@@ -51,18 +51,18 @@ export default {
       this.$validator.validate().then(result => {
         if (result) {
           let user = this.user;
-          this.$store.dispatch({ type: "userLogin", user });
-          this.$emit("close-modal", "login");
+          this.$store.dispatch({ type: 'userLogin', user });
+          this.$emit('close-modal', 'login');
           this.user = {};
         }
       });
     },
     goToUserSignup() {
-      this.$emit("go-signup");
+      this.$emit('go-signup');
     },
     cancelForm() {
       this.user = {};
-      this.$emit("close-modal", "login");
+      this.$emit('close-modal', 'login');
     }
   }
 };

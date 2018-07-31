@@ -1,147 +1,149 @@
 <template>
     <section class="eventi-add section">
         <h1 class="title has-text-centered">Add New Event</h1>
-            <form @submit.prevent>
-            <div class="field">
-                <label class="label">Name</label>
+          <div class="columns is-centered">
+            <form @submit.prevent class="column is-half-tablet">
+              <div class="field">
+                  <label class="label">Name</label>
+                  <div class="control">
+                      <input 
+                        v-model="eventi.name"
+                        v-validate="'required|min:5'"
+                        :class="{'input': true, 'is-danger': errors.has('name') }"
+                        name="name" type="text"  placeholder="Event or announcement title" />
+                  </div>
+                  <p v-if="errors.has('name')" class="help is-danger">
+                    <span class="icon is-small">
+                      <font-awesome-icon icon="exclamation-triangle" />
+                    </span>
+                    <span>{{ errors.first('name') }}</span>
+                  </p>
+                  <p v-else class="help">Enter the name of event or announcement</p>
+              </div>
+
+              <div class="field">
+                  <label class="label">Description</label>
+                  <div class="control">
+                      <textarea class="textarea" ref="description" v-model="eventi.description" placeholder="Add description"></textarea>
+                  </div>
+                  <p class="help">Add description</p>
+              </div>
+
+              <div class="field is-grouped is-grouped-multiline">
+                  <div class="control">
+                      <label class="label">Start Time</label>
+                      <Datetime 
+                        v-model="eventi.startTime"
+                        v-validate="'required'"
+                        name="start-time"
+                        type="datetime"
+                        input-class="input"
+                        input-id="start-time"/>    
+                  </div>
+                  <div class="control">
+                      <label class="label">End Time</label>
+                      <Datetime 
+                        v-model="eventi.endTime"
+                        hidden-name="end-time"
+                        type="datetime"
+                        input-class="input"
+                        input-id="end-time"/>    
+                  </div>
+              </div>
+
+              <div class="field">
+                <label class="label">Recurring Event</label>
                 <div class="control">
-                    <input 
-                      v-model="eventi.name"
-                      v-validate="'required|min:5'"
-                      :class="{'input': true, 'is-danger': errors.has('name') }"
-                      name="name" type="text"  placeholder="Event or announcement title" />
+                  <label class="radio">
+                    <input type="radio" value="" v-model="eventi.recurringEventi" />
+                    No
+                  </label>
+                  <label class="radio">
+                    <input type="radio" value="weekly" v-model="eventi.recurringEventi" />
+                    Weekly
+                  </label>
+                  <label class="radio">
+                    <input type="radio" value="monthly" v-model="eventi.recurringEventi" />
+                    Monthly
+                  </label>
                 </div>
-                <p v-if="errors.has('name')" class="help is-danger">
+              </div>
+
+              <div class="field">
+                <label class="label">Category</label>
+                <div class="control">
+                  <label class="radio">
+                    <input type="radio" name="category" v-validate="'required'" value="lecture" v-model="eventi.category" />
+                    Lecture
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="category" value="party" v-model="eventi.category" />
+                    Party
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="category" value="gathering" v-model="eventi.category" />
+                    Gathering
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="category" value="sale" v-model="eventi.category" />
+                    Sale
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="category" value="needelp" v-model="eventi.category" />
+                    Need Help
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="category" value="lostfound" v-model="eventi.category" />
+                    Lost &amp; found
+                  </label>
+                  <p v-if="errors.has('category')" class="help is-danger">
+                    <span class="icon is-small">
+                      <font-awesome-icon icon="exclamation-triangle" />
+                    </span>
+                    <span>{{ errors.first('category') }}</span>
+                  </p>
+                </div>
+              </div>
+              
+              <div class="field">
+                <label class="label">Location</label>
+                <div class="control">
+                  <GoogleAutocomplete 
+                    @onLocationFound="locationFound"
+                    :value="eventi.location.address"
+                    class="input"
+                  /> 
+                </div>
+                <p v-if="locationError" class="help is-danger">
                   <span class="icon is-small">
                     <font-awesome-icon icon="exclamation-triangle" />
                   </span>
-                  <span>{{ errors.first('name') }}</span>
-                </p>
-                <p v-else class="help">Enter the name of event or announcement</p>
-            </div>
-
-            <div class="field">
-                <label class="label">Description</label>
-                <div class="control">
-                    <textarea class="textarea" ref="description" v-model="eventi.description" placeholder="Add description"></textarea>
-                </div>
-                <p class="help">Add description</p>
-            </div>
-
-            <div class="field is-grouped is-grouped-multiline">
-                <div class="control">
-                    <label class="label">Start Time</label>
-                    <Datetime 
-                      v-model="eventi.startTime"
-                      v-validate="'required'"
-                      name="start-time"
-                      type="datetime"
-                      input-class="input"
-                      input-id="start-time"/>    
-                </div>
-                <div class="control">
-                    <label class="label">End Time</label>
-                    <Datetime 
-                      v-model="eventi.endTime"
-                      hidden-name="end-time"
-                      type="datetime"
-                      input-class="input"
-                      input-id="end-time"/>    
-                </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Recurring Event</label>
-              <div class="control">
-                <label class="radio">
-                  <input type="radio" value="" v-model="eventi.recurringEventi" />
-                  No
-                </label>
-                <label class="radio">
-                  <input type="radio" value="weekly" v-model="eventi.recurringEventi" />
-                  Weekly
-                </label>
-                <label class="radio">
-                  <input type="radio" value="monthly" v-model="eventi.recurringEventi" />
-                  Monthly
-                </label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Category</label>
-              <div class="control">
-                <label class="checkbox">
-                  <input type="checkbox" name="category" v-validate="'required'" value="lecture" v-model="eventi.category" />
-                  Lecture
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="category" value="party" v-model="eventi.category" />
-                  Party
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="category" value="gathering" v-model="eventi.category" />
-                  Gathering
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="category" value="sale" v-model="eventi.category" />
-                  Sale
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="category" value="needelp" v-model="eventi.category" />
-                  Need Help
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="category" value="lostfound" v-model="eventi.category" />
-                  Lost &amp; found
-                </label>
-                <p v-if="errors.has('category')" class="help is-danger">
-                  <span class="icon is-small">
-                    <font-awesome-icon icon="exclamation-triangle" />
-                  </span>
-                  <span>{{ errors.first('category') }}</span>
+                  <span>Location is required</span>
                 </p>
               </div>
-            </div>
-            
-            <div class="field">
-              <label class="label">Location</label>
-              <div class="control">
-                <GoogleAutocomplete 
-                  @onLocationFound="locationFound"
-                  :value="eventi.location.address"
-                  class="input"
-                /> 
-              </div>
-              <p v-if="locationError" class="help is-danger">
-                <span class="icon is-small">
-                  <font-awesome-icon icon="exclamation-triangle" />
-                </span>
-                <span>Location is required</span>
-              </p>
-            </div>
 
-            <div class="field is-grouped is-grouped-multiline">
-              <div class="control">
-                <label class="label">Image Url</label>
-                <input type="url" class="input" v-model="eventi.gallery" />
-                <p class="help">If you don't have one a default image will be provided</p>
+              <div class="field is-grouped is-grouped-multiline">
+                <div class="control">
+                  <label class="label">Image Url</label>
+                  <input type="url" class="input" v-model="eventi.gallery" />
+                  <p class="help">If you don't have one a default image will be provided</p>
+                </div>
+                <figure v-if="eventi.category" class="category-img control image is-128x128">
+                  <img :src="categoryImgUrl">
+                </figure>
               </div>
-              <figure v-if="eventi.category.length" class="category-img control image is-128x128">
-                <img :src="categoryImgUrl">
-              </figure>
-            </div>
 
-            <div class="field is-grouped">
-              <div class="control">
-                <a @click="onFormSubmit" class="button is-link">Save</a>
+              <div class="field is-grouped">
+                <div class="control">
+                  <a @click="onFormSubmit" class="button is-link">Save</a>
+                </div>
+                <!-- <div class="control">
+                  <button class="button is-text">Cancel</button>
+                </div> -->
+                <p class="help is-danger " v-if="errors.count()">Please fill all required fields</p>
               </div>
-              <!-- <div class="control">
-                <button class="button is-text">Cancel</button>
-              </div> -->
-              <p class="help is-danger " v-if="errors.count()">Please fill all required fields</p>
-            </div>
             </form>
+          </div>
     </section> 
 </template>
 
@@ -169,13 +171,13 @@ export default {
         startTime: new Date().toISOString(),
         endTime: '',
         recurringEventi: '', // weekly ,monthly
-        category: [],
+        category: null,
         gallery: null,
         location: {
-          lat: null,
-          lng: null,
-          address: ''
-        }
+          coordinates: [],
+          type: 'Point'
+        },
+        address: ''
       },
       isEdit: false
     };
@@ -204,51 +206,47 @@ export default {
         if (result) {
           const action = this.isEdit ? 'updateEventi' : 'addEventi';
           let eventi = JSON.parse(JSON.stringify(this.eventi));
-
-          this.$store
-            .dispatch({
-              type: action,
-              _id: this.eventi._id,
-              data: eventi,
-              isCommit: false
-            })
-            .then(() => {
-              this.$router.push('/');
-            });
+          console.log(action);
+          this.$store.dispatch({
+            type: action,
+            _id: this.eventi._id,
+            data: eventi,
+            isCommit: false
+          });
+          // .then(() => {
+          //   this.$router.push('/');
+          // });
         } else {
           console.log(result);
         }
       });
     },
     locationFound(location) {
-      this.eventi.location = location;
+      this.eventi.location.coordinates = [location.lng, location.lat];
+      this.eventi.address = location.address;
     },
-    // onKeyUp(ev) {
-    //   if (ev.target !== this.$refs.locationSearch.$el) {
-    //     ev.preventDefault();
-    //     return false;
-    //   }
-    // },
     preventFormSubmit(ev) {
       console.log('ev', ev);
     }
   },
   computed: {
     locationError() {
-      let { lat, lng, address } = this.eventi.location;
-      return !(lat || lng || address);
+      // let { lat, lng, address } = this.eventi.location;
+      let hasAdress = !!this.eventi.address;
+      let hasCordinates = this.eventi.location.coordinates.length === 2;
+      return !(hasAdress, hasCordinates);
     },
     categoryImgUrl() {
       return this.eventi.gallery
         ? this.eventi.gallery
-        : categoryImgMap[this.eventi.category[0]];
+        : categoryImgMap[this.eventi.category];
     }
   },
   watch: {
     'eventi.category'(newCategory, oldCategory) {
       console.log('new', newCategory);
       console.log('old', oldCategory);
-      this.eventi.gallery = categoryImgMap[newCategory[0]];
+      this.eventi.gallery = categoryImgMap[newCategory];
     }
   },
   components: {

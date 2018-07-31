@@ -16,7 +16,7 @@
       <div class="media-content">
         <p class="title is-4">{{eventi.name}}</p>
         <p class="subtitle is-6 tags">
-          <span v-for="category of eventi.category" :key="category" class="tag">{{category}}</span>
+            <span class="tag has-text-white" :class="eventi.category">{{eventi.category}}</span>
         </p>
       </div>
     </div>
@@ -34,13 +34,20 @@
     <footer class="card-footer">
       <a href="#" @click.stop class="card-footer-item"><img class="clap-icon" src="../assets/clap.png"/></a>
       <a href="#" @click.stop class="card-footer-item">Join</a>
-      <a href="#" @click.stop class="card-footer-item">Distance</a>
+      <a href="#" @click.stop class="card-footer-item">
+        <span class="icon is-medium">
+          <font-awesome-icon icon="location-arrow" size="2x"/>
+        </span>
+        <span>{{distance}}<span class="is-size-7">Km</span></span>
+      </a>
     </footer>
   </section>
 </template>
 
 <script>
 import chatCmp from "@/components/eventiFeed";
+import geoService from '@/services/geoService';
+
 export default {
   name: "eventi-details",
   data() {
@@ -57,7 +64,6 @@ export default {
       this.goingUsers = eventi.goingUserId.length;
     });
   },
-  computed: {},
   methods: {
     saveMessage(msg) {
       console.log("got emit!", msg);
@@ -65,9 +71,16 @@ export default {
       this.$store.dispatch({ type: "saveMessage", msg, _id });
     }
   },
-  components: {
-    chatCmp
-  }
+  computed: {
+    distance() {
+      let { lat, lng } = this.$store.getters.getPosition;
+      let [eventiLng, eventiLat] = this.eventi.location.coordinates;
+      return geoService.distance(lat, lng, eventiLat, eventiLng);
+    }
+  },
+    components: {
+	chatCmp
+  },
 };
 </script>
 

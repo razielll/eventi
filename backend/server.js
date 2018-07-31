@@ -1,5 +1,5 @@
 const app = require('express')();
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -23,8 +23,27 @@ io.on('connection', function (socket) {
 	});
 
 });
-
 server.listen(33333);
+
+
+app.use(cookieParser());
+app.use(
+	cors({
+		origin: ['http://localhost:8080'],
+		credentials: true // enable set cookie
+	})
+);
+app.use(
+	session({
+		secret: 'puki muki',
+		resave: false,
+		saveUninitialized: true,
+		cookie: {
+			secure: false,
+			maxAge: 600000
+		}
+	})
+);
 
 
 const addUserRoute = require('./routes/userRoute')
@@ -39,15 +58,15 @@ app.use(session({
 	cookie: { secure: true }
 }))
 
-
+app.use(bodyParser.json())
 
 app.use(cors({
 	origin: ['http://localhost:8080'],
 	credentials: true // enable set cookie
 }));
-app.use(bodyParser.json())
 // app.use(express.static('dist'))
 
+addUserRoute(app);
 
 addUserRoute(app)
 addEventiRoute(app)
@@ -55,7 +74,7 @@ addEventiRoute(app)
 
 
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
 	console.log(`App server litening on port ${port}!`)

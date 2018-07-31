@@ -66,8 +66,8 @@ export default {
   computed: {
     distance() {
       let { lat, lng } = this.$store.getters.getPosition;
-      let { location } = this.eventi;
-      return geoService.distance(lat, lng, location.lat, location.lng);
+      let [eventiLng, eventiLat] = this.eventi.location.coordinates;
+      return geoService.distance(lat, lng, eventiLat, eventiLng);
     }
   }
 };

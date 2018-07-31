@@ -15,7 +15,7 @@
     	</div>
     	<div class="field">
     		<p class="control has-icons-left has-icons-right">
-				<input class="input" v-model="user.email" v-validate="'required|email'" type="email" name="email">
+				<input class="input" v-model="user.email" v-validate="'required|email'" type="email" name="email" placeholder="email">
 				<span class="v-validate-error">{{ errors.first('email') }}</span>
     			<span class="icon is-small is-left">
     			<font-awesome-icon icon="envelope"></font-awesome-icon>

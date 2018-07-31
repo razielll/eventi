@@ -5,7 +5,8 @@
 	<div class="modal-content" @keyup.esc="cancelForm">
     	<div class="field">
     		<p class="control has-icons-left has-icons-right">
-				<input class="input" v-model="user.email" v-validate="'required|email'" type="email" name="email">
+				<input class="input" v-model="user.email" v-validate="'required|email'" 
+        type="email" name="email" placeholder="email" value="asto1387@gmail.com">
 				<span class="v-validate-error">{{ errors.first('email') }}</span>
     			<span class="icon is-small is-left">
     			<font-awesome-icon icon="envelope"></font-awesome-icon>
@@ -17,7 +18,8 @@
 		</div>
 		<div class="field">
 			<p class="control has-icons-left">
-				<input class="input" v-model="user.password" v-validate="'required|min:6'" type="password" name="password" placeholder="password">
+				<input class="input" v-model="user.password" v-validate="'required|min:6'" 
+        type="password" name="password" placeholder="password" value="randompass">
 				<span class="v-validate-error">{{ errors.first('password') }}</span>
 	    		<span class="icon is-small is-left">
 	    		<font-awesome-icon icon="lock"></font-awesome-icon>
@@ -39,8 +41,8 @@ export default {
   data() {
     return {
       user: {
-        email: "",
-        password: ""
+        email: "asto1387@gmail.com",
+        password: "randompass"
       }
     };
   },

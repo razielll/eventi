@@ -1,27 +1,29 @@
 <template>
-    
+	
 <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-     <a class="navbar-item logo title"><span class="logo-letter">e</span>venti </a>
-    <!-- <div class="navbar-burger burger" data-target="navBarMenu">
-      <span></span>
-      <span></span>
-      <span></span> -->
-    <!-- </div> -->
+	 <p class="navbar-item logo title"><span class="logo-letter">e</span>venti </p>
+	 
+	<a role="button" class="navbar-burger" :class="{'is-active': toggledBurger}" 
+	@click="toggledBurger = !toggledBurger" data-target="nav-bar-menu"> 
+		<span></span>
+		<span></span>
+		<span></span>
+   </a>
   </div>
-  <div class="navbar-menu" id="navBarMenu">
-    <div class="navbar-end" v-if="!user">
-      <router-link to="/" class="navbar-item">eventi</router-link> 
-      <a class="navbar-item" v-if="!user" @click="userLogin = !userLogin">login</a>
-      <a class="navbar-item" v-if="!user" @click="userSignup = !userSignup">signup</a>
-    </div>
-    <div class="navbar-end" v-if="user">
-      <router-link to="/" class="navbar-item">eventi</router-link> 
-      <a class="navbar-item" v-if="user">{{user}} profile</a> 
-      <a class="navbar-item" v-if="user" @click="logOut">logout</a> 
-    </div>
-      <userLoginModal :class="{'is-active': userLogin}" @close-modal="closeModal" @go-signup="signup"/>
-      <userSignupModal :class="{'is-active': userSignup}" @close-modal="closeModal"/>
+  <div class="navbar-menu" :class="{'is-active': toggledBurger}" id="nav-bar-menu">
+	<div class="navbar-end" v-if="!user">
+	  <router-link to="/" class="navbar-item">eventi</router-link> 
+	  <a class="navbar-item" v-if="!user" @click="userLogin = !userLogin">login</a>
+	  <a class="navbar-item" v-if="!user" @click="userSignup = !userSignup">signup</a>
+	</div>
+	<div class="navbar-end" v-if="user">
+	  <router-link to="/" class="navbar-item">eventi</router-link> 
+	  <router-link to="/user" class="navbar-item" v-if="user">{{user}} profile</router-link> 
+	  <a class="navbar-item" v-if="user" @click="logOut">logout</a> 
+	</div>
+	  <userLoginModal :class="{'is-active': userLogin}" @close-modal="closeModal" @go-signup="signup"/>
+	  <userSignupModal :class="{'is-active': userSignup}" @close-modal="closeModal"/>
   </div>
 </nav>
 </template>
@@ -34,6 +36,7 @@ export default {
   name: "nav-bar",
   data() {
     return {
+      toggledBurger: false,
       userLogin: false,
       userSignup: false
     };
@@ -48,7 +51,6 @@ export default {
     },
     logOut() {
       this.$store.commit({ type: "logout" });
-      this.currUser = null;
     }
   },
   computed: {
@@ -67,43 +69,48 @@ export default {
 </script>
 
 <style scoped lang="scss">
-nav {
-  &.navbar {
-    padding: 0;
+.logo {
+  letter-spacing: 8px;
+  color: rgb(75, 75, 75);
+  margin: 0;
+  transition: all 0.25s;
+  &:hover {
+    color: #41b883;
   }
-  .logo {
-    letter-spacing: 3px;
-    color: rgb(75, 75, 75);
-    margin: 0;
-    &:hover {
-      color: #41b883;
-    }
-  }
-  .logo-letter {
-    text-align: center;
+  & .logo-letter {
+    text-align: right;
     line-height: 30px;
-    // display: inline-block;
     width: 35px;
     height: 35px;
     border-radius: 50%;
     background-color: rgb(75, 75, 75);
     color: white;
   }
-
-  .navbar-menu a {
-    display: inline-block;
-    transition: 0.3s;
+}
+.navbar-menu {
+  text-align: center;
+  transition: all 0.25s;
+  & a {
     font-weight: bold;
     color: #2c3e50;
-
+    padding: 0.5rem;
     &.router-link-exact-active {
       color: #42b983;
     }
     &:hover {
-      transform: scale(1.3);
       color: #41b883;
-      padding: 1em;
     }
+  }
+}
+@media screen and (max-width: 1087px) {
+  .navbar-menu.is-active {
+    opacity: 1;
+    height: 100%;
+  }
+  .navbar-menu:not(.is-active) {
+    opacity: 0;
+    display: block;
+    height: 0;
   }
 }
 </style>

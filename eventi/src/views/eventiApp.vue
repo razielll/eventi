@@ -1,11 +1,14 @@
 <template>
-<section>
-    <h1> Your events everywhere! </h1>
+<section class="home">
+    <h1 class="title is-2"> Most popular eventis </h1>
     <eventiList></eventiList>
+    <h1 class="title is-2"> Eventis close to you </h1>
+
   </section>
 </template>
 
 <script>
+import "@/assets/scss/main.scss";
 import eventiList from "@/components/eventiList.vue";
 
 export default {
@@ -15,7 +18,14 @@ export default {
   },
   computed: {},
   components: {
-    eventiList,
+    eventiList
   }
 };
 </script>
+<style>
+h1.title.is-2 {
+  margin-left: 1rem;
+  font-family: ubuntu;
+  margin-bottom: 0;
+}
+</style>

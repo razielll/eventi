@@ -56,7 +56,7 @@ export default {
       this.goingUsers = eventi.goingUserId.length;
     });
   },
-  computed: {}
+  computed: {},
 };
 </script>
 

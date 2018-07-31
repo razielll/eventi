@@ -33,8 +33,7 @@ module.exports = app => {
     eventi.clapsCount = 0;
     eventi.startTime = new Date(eventi.startTime).getTime();
     eventi.endTime = new Date(eventi.endTime).getTime();
-
-    eventiService.add(eventi).then(eventi => {
+    return eventiService.add(eventi).then(eventi => {
       res.json(eventi);
     });
   });
@@ -43,8 +42,26 @@ module.exports = app => {
     // if (!req.session.loggedinUser.isAdmin) return
     const updateData = req.body;
     const _id = req.params.eventiId;
-    eventiService
-      .update(_id, updateData)
+    return eventiService.update(_id, updateData)
       .then(updateResult => res.json(updateResult));
   });
+
+  app.put(`${URL}/:eventiId`, (req, res) => {
+    const eventiId = req.params
+    const userId = req.body
+    return eventiService.eventiAddUser(eventiId, userId)
+      .then(updatedEventi => res.json(updatedEventi))
+  })
+
+  app.put(`${URL}/removeUser/:eventiId`, (req, res) => {
+    const eventiId = req.params
+    const userId = req.body
+    return eventiService.eventiRemoveUser(eventiId, userId)
+      .then(userRemoved => {
+        // console.log('removeed user from DB')
+        return res.json(userRemoved)
+      })
+
+  })
+
 };

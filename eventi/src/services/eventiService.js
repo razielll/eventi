@@ -30,10 +30,22 @@ function updateEventi(_id, updateData) {
   return axios.put(`${URL}/edit/${_id}`, updateData).then(res => res.data);
 }
 
+function eventiAddUser(eventiId, userId) {
+  return axios.put(`${URL}/${eventiId}`, { userId })
+    .then(res => res.data)
+}
+
+function eventiRemvoeUser(eventiId, userId) {
+  return axios.put(`${URL}/removeUser/${eventiId}`, { userId })
+    .then(res => res.data)
+}
+
 export default {
   addEventi,
   loadEventi,
   removeEventi,
   updateEventi,
-  getEventiById
+  getEventiById,
+  eventiAddUser,
+  eventiRemvoeUser
 };

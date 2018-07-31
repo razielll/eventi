@@ -13,6 +13,11 @@ export default {
         },
         logout(state, payload) {
             state.user = null;
+        },
+        updateUserEventi(state, payload) {
+            // console.log('update user attendance got payload', payload);
+            (payload.eventiId) ? state.user.eventiHistory.push(payload.eventiId) :
+                state.user.eventiHistory = payload.eventis
         }
     },
     actions: {
@@ -36,11 +41,28 @@ export default {
                 return user;
             });
         },
+        addUser(context, { data }) {
+            // console.log('module user add eventi got payload', data);
+            userService.addEventiToUser(data.userId, data.eventiId)
+                .then(eventiAdded => {
+                    if (eventiAdded.ok) {
+                        let eventiId = data.eventiId
+                        context.commit({ type: 'updateUserEventi', eventiId })
+                    }
+                })
+        },
+        removeUser(context, payload) {
+            // console.log('module user leave eventi got', payload)
+            let eventis = payload.eventis.filter(eventiId => eventiId !== payload.data.eventiId)
+            return userService.userLeaveEventi(payload.data.userId, eventis)
+                .then(updated => {
+                    if (updated.ok) {
+                        context.commit({ type: "updateUserEventi", eventis })
+                    }
+                })
+        },
     },
     getters: {
-        userForDisplay(state) {
-            return state.user;
-        },
         getUser(state) {
             return state.user
         },

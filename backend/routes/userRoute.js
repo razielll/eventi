@@ -18,6 +18,8 @@ module.exports = app => {
   app.get('/user', (req, res) => {
     // TODO use aggregation
     let userId = ObjectId('5b5849a76329dd4b6b6ca7cc');
+    // console.log('got user', userId);
+
     let user = userService.query(userId);
     let myEventi = eventiService.query({ ownerId: userId });
     let eventiHistory = eventiService.query({
@@ -32,5 +34,21 @@ module.exports = app => {
       }
     );
   });
+
+  app.put('/joinEventi/:userId', (req, res) => {
+    const userId = req.params
+    const eventiId = req.body
+    return userService.addEventiToUser(userId, eventiId)
+      .then(user => res.json(user))
+  })
+
+
+  app.put(`/leaveEventi/:userId`, (req, res) => {
+    const userId = req.params
+    const eventis = req.body
+    return userService.leaveEventi(userId, eventis)
+      .then(user => res.json(user))
+  })
+
 };
 

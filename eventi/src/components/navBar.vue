@@ -1,5 +1,5 @@
 <template>
-	
+	<section>
 <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
             <router-link to="/" class="navbar-item logo title">
@@ -16,32 +16,35 @@
 		<span></span>
 		<span></span>
    </a>
-  </div>
-  <div class="navbar-menu" :class="{'is-active': toggledBurger}" id="nav-bar-menu">
-	<div class="navbar-end" v-if="!user">
-	  <router-link to="/" class="navbar-item">eventi</router-link> 
-	  <a class="navbar-item" @click="userLogin = !userLogin">login</a>
-	  <a class="navbar-item" @click="userSignup = !userSignup">signup</a>
-	</div>
-	<div class="navbar-end" v-if="user">
-	  <router-link to="/" class="navbar-item">eventi</router-link> 
-	  <router-link to="/eventi/edit" class="navbar-item">New Eventi</router-link>
-	  <router-link to="/user" class="navbar-item">{{user}} profile</router-link> 
-	  <a class="navbar-item" @click="logOut">logout</a> 
-	</div>
-	  <userLoginModal :class="{'is-active': userLogin}" @close-modal="closeModal" @go-signup="signup"/>
-	  <userSignupModal :class="{'is-active': userSignup}" @close-modal="closeModal"/>
-  </div>
-</nav>
+			</div>
+        <div class="navbar-menu" id="navBarMenu" :class="{'is-active': toggledBurger}" >
+            <div class="navbar-end" v-if="!user">
+                <router-link to="/" class="navbar-item">eventi</router-link>
+                <a class="navbar-item" @click="userLogin = !userLogin">login</a>
+                <a class="navbar-item" @click="userSignup = !userSignup">signup</a>
+            </div>
+            <div class="navbar-end" v-if="user">
+                <router-link to="/" class="navbar-item">eventi</router-link>
+                <router-link to="/eventi/edit" class="navbar-item">New Eventi</router-link>
+                <router-link to="/user" class="navbar-item">{{user}} profile</router-link>
+                <a class="navbar-item" @click="logOut">logout</a>
+            </div>
+            <userLoginModal :class="{'is-active': userLogin}" @close-modal="closeModal" @go-signup="signup" />
+            <userSignupModal :class="{'is-active': userSignup}" @close-modal="closeModal" />
+        </div>
+
+    </nav>
+    <eventi-filter/>
+	</section>
 </template>
 
 <script>
-import userLoginModal from './userLogin';
-import userSignupModal from './userSignup';
-import eventiFilter from './eventiFilter';
+import userLoginModal from "./userLogin";
+import userSignupModal from "./userSignup";
+import eventiFilter from "./eventiFilter";
 
 export default {
-  name: 'nav-bar',
+  name: "nav-bar",
   data() {
     return {
       toggledBurger: false,
@@ -51,7 +54,7 @@ export default {
   },
   methods: {
     closeModal(type) {
-      type === 'login' ? (this.userLogin = false) : (this.userSignup = false);
+      type === "login" ? (this.userLogin = false) : (this.userSignup = false);
     },
     signup() {
       this.userLogin = false;
@@ -59,6 +62,7 @@ export default {
     },
     logOut() {
       this.$store.commit({ type: "logout" });
+      this.currUser = null;
     }
   },
   computed: {
@@ -106,22 +110,19 @@ nav {
     background-color: rgb(75, 75, 75);
     color: white;
   }
-}
-.navbar-menu {
-  padding: 0;
-  text-align: center;
-  transition: all 0.25s;
-  & a {
+  .navbar-menu a {
+    padding: 0;
+    text-align: center;
+    transition: all 0.25s;
     font-weight: bold;
     color: #2c3e50;
-    position: relative;
     margin: 0 5px;
     text-transform: capitalize;
     &.router-link-exact-active {
       color: #42b983;
     }
     &:after {
-      content: '';
+      content: "";
       height: 3px;
       width: 0;
       position: absolute;
@@ -133,7 +134,7 @@ nav {
     &:hover {
       color: #41b883;
     }
-	   &:hover::after {
+    &:hover::after {
       width: 100%;
     }
   }

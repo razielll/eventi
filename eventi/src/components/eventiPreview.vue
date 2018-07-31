@@ -42,25 +42,14 @@
         </span>
         <span>{{distance}}<span class="is-size-7">Km</span></span>
       </span>
-
-			<!-- <footer class="card-footer">
-			<a href="#" @click.stop="onClapClick" class="card-footer-item"><img class="clap-icon" src="../assets/clap.png"/></a>
-			<a href="#" @click.stop class="card-footer-item" @click="joinEventiToggle(eventi._id)">
-		{{isSignedForEventi? 'Leave' : 'Join'}}
-		</a>
-			<a href="#" @click.stop class="card-footer-item">Distance</a>
-			</footer>
- -->
-
-
-
+</footer>
   		</div>
 	</section>
 </template>
 
 <script>
-import '@/assets/scss/main.scss';
-import geoService from '@/services/geoService';
+import "@/assets/scss/main.scss";
+import geoService from "@/services/geoService";
 
 export default {
   props: ["eventi"],
@@ -74,7 +63,7 @@ export default {
     shortDescription() {
       let shortDesc = this.eventi.description;
       this.eventi.description.length > 40
-        ? (shortDesc = shortDesc.slice(0, 40) + '...')
+        ? (shortDesc = shortDesc.slice(0, 40) + "...")
         : (shortDesc = shortDesc);
       return shortDesc;
     },
@@ -83,8 +72,8 @@ export default {
       if (loggedInUser && loggedInUser.eventiHistory) {
         return loggedInUser.eventiHistory.includes(this.eventi._id);
       }
-	  return false;
-	},
+      return false;
+    },
     distance() {
       let { lat, lng } = this.$store.getters.getPosition;
       let [eventiLng, eventiLat] = this.eventi.location.coordinates;
@@ -96,18 +85,18 @@ export default {
       this.$router.push(`/eventi/${eventi._id}`);
     },
     onClapClick() {
-    if (this.$route.name === 'user-profile') {
+      if (this.$route.name === "user-profile") {
         this.$store.dispatch({
-          type: 'incEventiClapFromUserProfile',
+          type: "incEventiClapFromUserProfile",
           eventi: this.eventi
         });
-    } else {
+      } else {
         this.$store.dispatch({
-          type: 'incEventiClap',
+          type: "incEventiClap",
           _id: this.eventi._id
         });
-	}
-	},
+      }
+    },
     joinEventiToggle(eventiId) {
       let user = this.$store.getters.getUser;
       if (!user._id) return;

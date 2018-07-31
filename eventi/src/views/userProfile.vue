@@ -89,9 +89,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.main {
-  //   overflow: hidden;
-}
 .user-profile {
   /* height of nav bar*/
   min-height: calc(100vh - 78px);

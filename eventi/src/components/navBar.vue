@@ -34,47 +34,14 @@
         </div>
 
     </nav>
-    <hr>
-    <div class="container">
-      <div class="columns filters">
-        <div class="column is-8-tablet">
-          <div class="buttons">
-            <button class="button">Lecture</button>
-            <button class="button">Party</button>
-            <button class="button">Gathering</button>
-            <button class="button">Sale</button>
-            <button class="button">Need Help</button>
-            <button class="button">Lost &amp; Found</button>
-          </div>
-        </div>
-        <div class="column">
-          <div class="field">
-            <input class="is-checkradio" id="distance-1" type="radio" name="exampleRadioInline" checked="checked">
-            <label for="distance-1">500m</label>
-            <input class="is-checkradio" id="distance-2" type="radio" name="exampleRadioInline">
-            <label for="distance-2">1000m</label>
-          </div>
-        </div>
-        <div class="column">
-          <div class="field">
-            <p class="control has-icons-left has-icons-right">
-              <input class="input" type="search" placeholder="Search for location">
-              <span class="icon is-small is-left">
-                <font-awesome-icon icon="search"/>
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <hr>
+    <eventi-filter/>
     </section>
 </template>
 
 <script>
 import userLoginModal from './userLogin';
 import userSignupModal from './userSignup';
+import eventiFilter from './eventiFilter';
 
 export default {
   name: 'nav-bar',
@@ -107,7 +74,8 @@ export default {
   },
   components: {
     userLoginModal,
-    userSignupModal
+    userSignupModal,
+    eventiFilter
   }
 };
 </script>

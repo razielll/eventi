@@ -9,10 +9,12 @@ function addEventi(data) {
   return axios.post(`${URL}/edit`, data).then(res => res.data);
 }
 
-function loadEventi() {
-  return axios.get('http://localhost:3000/').then(res => {
-    return res.data;
-  });
+function loadEventi(query) {
+  return axios
+    .get('http://localhost:3000/', { params: { ...query } })
+    .then(res => {
+      return res.data;
+    });
 }
 
 function getEventiById(eventiId) {

@@ -1,5 +1,4 @@
 import eventiService from '@/services/eventiService.js';
-import router from '@/router';
 
 export default {
   state: {
@@ -64,6 +63,11 @@ export default {
     incEventiClapFromUserProfile(context, { eventi }) {
       const updateData = { clapsCount: eventi.clapsCount + 1 };
       return eventiService.incEventiClap(eventi._id, updateData);
+    },
+    filterByCategory({ commit }, { category }) {
+      return eventiService.loadEventi({ category }).then(eventis => {
+        commit({ type: 'loadEventi', eventis });
+      });
     }
   },
   getters: {

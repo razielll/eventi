@@ -6,7 +6,9 @@ const URL = '/eventi';
 
 module.exports = app => {
   app.get('/', (req, res) => {
-    eventiService.query().then(eventis => res.json(eventis));
+    console.log('Got query:', req.query);
+    const query = req.query;
+    eventiService.query(query).then(eventis => res.json(eventis));
   });
 
   app.get(`${URL}/:eventiId`, (req, res) => {

@@ -9,10 +9,10 @@ function connectToMongo() {
   if (dbConn) return Promise.resolve(dbConn);
   const MongoClient = require('mongodb').MongoClient;
 
-  const url = !process.env.PORT
-    ? 'mongodb://localhost:27017/eventi_db'
-    : 'mongodb://userEventi:W0o6Kahq@ds261521.mlab.com:61521/eventi_db';
-
+  // const url = !process.env.PORT
+  //   ? 'mongodb://localhost:27017/eventi_db'
+  //   : 'mongodb://userEventi:W0o6Kahq@ds261521.mlab.com:61521/eventi_db';
+  const url = 'mongodb://userEventi:W0o6Kahq@ds261521.mlab.com:61521/eventi_db';
   return MongoClient.connect(
     url,
     { useNewUrlParser: true }

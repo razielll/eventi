@@ -21,7 +21,7 @@ function query(query = {}) {
   }
   return mongoService.connect().then(db => {
     const collection = db.collection('eventi');
-    return collection.find(mongodbQuery).toArray();
+    return collection.find().toArray();
   });
 }
 
@@ -78,20 +78,25 @@ function update(_id, updateData) {
 }
 
 function eventiAddUser({ eventiId }, { userId }) {
-  const _id = new ObjectId(eventiId)
+  const _id = new ObjectId(eventiId);
   // console.log('working on eventi:', eventiId);
-  return mongoService.connect()
+  return mongoService
+    .connect()
     .then(db => db.collection('eventi'))
-    .then(collection => collection.updateOne({ _id }, { $addToSet: { goingUserId: userId } }))
+    .then(collection =>
+      collection.updateOne({ _id }, { $addToSet: { goingUserId: userId } })
+    );
 }
 
 function eventiRemoveUser({ eventiId }, { userId }) {
-  const _id = new ObjectId(eventiId)
+  const _id = new ObjectId(eventiId);
   // console.log('backend eventi Service got evId uId', eventiId, userId);
-  return mongoService.connect()
+  return mongoService
+    .connect()
     .then(db => db.collection('eventi'))
-    .then(collection => collection.updateOne({ _id }, { $pull: { goingUserId: userId } }))
-
+    .then(collection =>
+      collection.updateOne({ _id }, { $pull: { goingUserId: userId } })
+    );
 }
 // { $pull: { fruits: { $in: [ "apples", "oranges" ] }, vegetables: "carrots" } },
 

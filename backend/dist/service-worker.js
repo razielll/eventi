@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.f3d44705cbc85942594b63c0c6652481.js"
+  "/precache-manifest.5d116be43efd96cea221b0d2ab3895a0.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "eventi"});

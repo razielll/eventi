@@ -15,6 +15,7 @@ import eventiFilter from '@/components/eventiFilter';
 export default {
   created() {
     this.$store.dispatch({ type: 'initStore' });
+    this.$store.dispatch({ type: 'checkLogin' });
   },
   components: {
     navBar,

@@ -33,20 +33,25 @@ export default {
   actions: {
     userSignup(context, { user }) {
       userService.userSignup(user).then(user => {
+        storageService.store(USER_KEY, user);
         context.commit({ type: 'setUser', user });
       });
     },
     userLogin(context, { user }) {
-      userService
-        .userLogin(user)
-        .then(user => {
-          storageService.store(USER_KEY, user);
-          context.commit({ type: 'setUser', user });
-        })
-        .catch(err => {
-          console.log(err);
-          throw err;
-        });
+      console.log('got user', user);
+
+      return userService.userLogin(user).then(user => {
+        if (!user) {
+          throw 'no user found';
+          return;
+        }
+        storageService.store(USER_KEY, user);
+        context.commit({ type: 'setUser', user });
+      });
+      // .catch(err => {
+      //   console.log(err);
+      //   throw err;
+      // });
     },
     loadUser({ commit }) {
       let user = storageService.load(USER_KEY) || null;

@@ -40,7 +40,6 @@
 <script>
 import userLoginModal from './userLogin';
 import userSignupModal from './userSignup';
-import eventiFilter from './eventiFilter';
 
 export default {
   name: 'nav-bar',
@@ -66,16 +65,14 @@ export default {
   },
   computed: {
     user() {
-      let user;
       if (this.$store.getters.getUser) {
-        return (user = this.$store.getters.getUser.fullName);
+        return this.$store.getters.getUser.fullName;
       } else return false;
     }
   },
   components: {
     userLoginModal,
-    userSignupModal,
-    eventiFilter
+    userSignupModal
   }
 };
 </script>

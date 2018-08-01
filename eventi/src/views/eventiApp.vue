@@ -30,6 +30,6 @@ export default {
 h1.title.is-2 {
   margin-left: 1rem;
   font-family: ubuntu;
-  margin-bottom: 0;
+  /* margin-bottom: 0; */
 }
 </style>

@@ -43,7 +43,7 @@ Vue.use(VueSocketIo, SocketInstance, store);
 Vue.use(VeeValidate);
 
 Vue.config.productionTip = false;
-
+Vue.config.devtools = true;
 new Vue({
   router,
   store,

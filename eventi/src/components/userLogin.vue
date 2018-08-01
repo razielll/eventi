@@ -49,10 +49,10 @@
 <script>
 window.fbAsyncInit = function() {
   FB.init({
-    appId: 691429734541960,
+    appId: '691429734541960',
     cookie: true,
     xfbml: true,
-    version: 'v2.11'
+    version: 'v3.1'
   });
 
   FB.AppEvents.logPageView();
@@ -75,8 +75,8 @@ export default {
   data() {
     return {
       user: {
-        email: 'puki.muki@gmail.com',
-        password: '123456'
+        email: '',
+        password: ''
       },
       fbSignInParams: {
         scope: 'email,user_likes',
@@ -104,26 +104,27 @@ export default {
     },
 
     onSignInSuccess(response) {
+      console.log('res', response);
       FB.api('/me?fields=id,name,picture,email', dude => {
-        var loginDetails = { email: dude.email, password: dude.id };
+        console.log('dude', dude);
+        let user = { email: dude.email, password: dude.id };
         this.$store
-          .dispatch({ type: 'userLogin', loginDetails })
+          .dispatch({ type: 'userLogin', user })
           .then(_ => {
             this.$emit('close-modal', 'login');
-            // this.$router.push('/');
           })
           .catch(err => {
-            var signupDetails = {
-              fullname: dude.name,
+            let user = {
+              fullName: dude.name,
               email: dude.email,
               password: dude.id,
               imageUrl: dude.picture.data.url
             };
+
             this.$store
-              .dispatch({ type: 'userSignup', signupDetails })
+              .dispatch({ type: 'userSignup', user })
               .then(_ => {
                 this.$emit('close-modal', 'login');
-                // this.$router.push('/');
               })
               .catch(err => console.log(err));
           });

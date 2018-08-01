@@ -6,42 +6,42 @@
                 <div class="column is-8-tablet">
                 <div class="buttons">
                     <button 
-                        @click="onFilterChange(null)"
+                        @click.stop="onFilterChange(null)"
                         class="button"
                         >All
                     </button>
                     <button 
-                        @click="onFilterChange('lecture')" 
+                        @click.stop="onFilterChange('lecture')" 
                         class="button lecture"
                         :class="{active : category === 'lecture'}"
                         >Lecture
                     </button>
                     <button 
-                        @click="onFilterChange('party')" 
+                        @click.stop="onFilterChange('party')" 
                         class="button party"
                         :class="{active : category === 'party'}"
                         >Party
                     </button>
                     <button 
-                        @click="onFilterChange('gathering')" 
+                        @click.stop="onFilterChange('gathering')" 
                         class="button gathering"
                         :class="{active : category === 'gathering'}"
                         >Gathering
                     </button>
                     <button 
-                        @click="onFilterChange('sale')" 
+                        @click.stop="onFilterChange('sale')" 
                         class="button sale"
                         :class="{active : category === 'sale'}"
                         >Sale
                     </button>
                     <button 
-                        @click="onFilterChange('needhelp')" 
+                        @click.stop="onFilterChange('needhelp')" 
                         class="button needhelp"
                         :class="{active : category === 'needhelp'}"
                         >Need Help
                     </button>
                     <button 
-                        @click="onFilterChange('lostfound')" 
+                        @click.stop="onFilterChange('lostfound')" 
                         class="button lostfound"
                         :class="{active : category === 'lostfound'}"
                         >Lost &amp; Found

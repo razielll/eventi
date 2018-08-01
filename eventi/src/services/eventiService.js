@@ -7,7 +7,7 @@ function addEventi(data) {
 }
 
 function loadEventi(query) {
-  return axios.get(`/`, { params: { ...query } }).then(res => {
+  return axios.get(`${URL}/eventi`, { params: { ...query } }).then(res => {
     return res.data;
   });
 }

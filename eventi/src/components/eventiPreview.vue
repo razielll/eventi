@@ -36,7 +36,7 @@
 			<span @click.stop class="card-footer-item" @click="joinEventiToggle(eventi._id)">
 		{{isSignedForEventi? 'Leave' : 'Join'}}
 			</span>
-			<span @click.stop class="card-footer-item">
+			<span @click.stop class="card-footer-item distance">
         <span class="icon">
           <font-awesome-icon icon="location-arrow"/>
         </span>
@@ -141,12 +141,17 @@ export default {
   padding: 0;
   font-weight: bold;
   transition: all ease-in 0.2s;
+  cursor: pointer;
   & .clap-icon {
     max-width: 50px;
     padding: 0.25rem;
   }
   &:hover {
     color: #41b883;
+  }
+  &.distance {
+    background-color: #41b883;
+    color: #fff;
   }
 }
 .eventi-preview-wrapper {

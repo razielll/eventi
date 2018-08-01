@@ -1,48 +1,86 @@
 <template>
 	<section class="modal">
-	<div class="modal-background"></div>
+    <div class="modal-background"></div>
 
-	<div class="modal-content" @keyup.esc="cancelForm">
-    	<div class="field">
-    		<p class="control has-icons-left has-icons-right">
-				<input class="input" v-model="user.email" v-validate="'required|email'" 
-        type="email" name="email" placeholder="email" value="asto1387@gmail.com">
-				<span class="v-validate-error">{{ errors.first('email') }}</span>
-    			<span class="icon is-small is-left">
-    			<font-awesome-icon icon="envelope"></font-awesome-icon>
-    			</span>
-    			<span class="icon is-small is-right">
-    			<font-awesome-icon icon="check"></font-awesome-icon>
-    			</span>
-  			</p>
-		</div>
-		<div class="field">
-			<p class="control has-icons-left">
-				<input class="input" v-model="user.password" v-validate="'required|min:6'" 
-        type="password" name="password" placeholder="password" value="randompass">
-				<span class="v-validate-error">{{ errors.first('password') }}</span>
-	    		<span class="icon is-small is-left">
-	    		<font-awesome-icon icon="lock"></font-awesome-icon>
-	    		</span>
-	  		</p>
-		</div>
-    <!-- Any other Bulma elements you want -->
-		<a class="user-to-register is-success" @click="goToUserSignup">register new user</a>
-		<a class="button user-login is-success" @click="userLogin">Login</a>
-		<a class="button user-login-cancel is-danger" @click="cancelForm">Cancel</a>
-	</div>
-	<button class="modal-close is-large" aria-label="close" @click="cancelForm"></button>
-	</section>
+    <div class="modal-content" @keyup.esc="cancelForm">
+        <div class="field">
+            <p class="control has-icons-left has-icons-right">
+                <input class="input" v-model="user.email" v-validate="'required|email'" type="email" name="email" placeholder="email" value="asto1387@gmail.com">
+                <span class="v-validate-error">{{ errors.first('email') }}</span>
+                <span class="icon is-small is-left">
+                    <font-awesome-icon icon="envelope"></font-awesome-icon>
+                </span>
+                <span class="icon is-small is-right">
+                    <font-awesome-icon icon="check"></font-awesome-icon>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" v-model="user.password" v-validate="'required|min:6'" type="password" name="password" placeholder="password"
+                    value="randompass">
+                <span class="v-validate-error">{{ errors.first('password') }}</span>
+                <span class="icon is-small is-left">
+                    <font-awesome-icon icon="lock"></font-awesome-icon>
+                </span>
+            </p>
+        </div>
+        <div class="field is-grouped">
+          <p class="control">
+            <a class="user-to-register is-success" @click="goToUserSignup">register new user</a>
+          </p>
+          <p class="control push-left">
+            <a class="button user-login is-success" @click="userLogin">Login</a>
+          </p>
+          <p class="control">
+            <a class="button user-login-cancel is-danger" @click="cancelForm">Cancel</a>
+          </p>
+          <p class="control">
+            <fb-signin-button class="button is-info" :params="fbSignInParams" @success="onSignInSuccess" @error="onSignInError">
+                Sign in with Facebook
+            </fb-signin-button>
+          </p>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" @click="cancelForm"></button>
+</section>
 </template>
 
 <script>
+window.fbAsyncInit = function() {
+  FB.init({
+    appId: 691429734541960,
+    cookie: true,
+    xfbml: true,
+    version: 'v2.11'
+  });
+
+  FB.AppEvents.logPageView();
+};
+
+(function(d, s, id) {
+  var js,
+    fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {
+    return;
+  }
+  js = d.createElement(s);
+  js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js';
+  fjs.parentNode.insertBefore(js, fjs);
+})(document, 'script', 'facebook-jssdk');
+
 export default {
   name: 'user-login-modal',
   data() {
     return {
       user: {
-        email: "asto1387@gmail.com",
-        password: "randompass"
+        email: 'puki.muki@gmail.com',
+        password: '123456'
+      },
+      fbSignInParams: {
+        scope: 'email,user_likes',
+        return_scopes: true
       }
     };
   },
@@ -63,26 +101,46 @@ export default {
     cancelForm() {
       this.user = {};
       this.$emit('close-modal', 'login');
+    },
+
+    onSignInSuccess(response) {
+      FB.api('/me?fields=id,name,picture,email', dude => {
+        var loginDetails = { email: dude.email, password: dude.id };
+        this.$store
+          .dispatch({ type: 'userLogin', loginDetails })
+          .then(_ => {
+            this.$emit('close-modal', 'login');
+            // this.$router.push('/');
+          })
+          .catch(err => {
+            var signupDetails = {
+              fullname: dude.name,
+              email: dude.email,
+              password: dude.id,
+              imageUrl: dude.picture.data.url
+            };
+            this.$store
+              .dispatch({ type: 'userSignup', signupDetails })
+              .then(_ => {
+                this.$emit('close-modal', 'login');
+                // this.$router.push('/');
+              })
+              .catch(err => console.log(err));
+          });
+      });
+    },
+    onSignInError(error) {
+      console.log('OH NOES', error);
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
-.user-login {
-  float: right;
-}
-.user-to-register {
-  float: left;
-  &:hover {
-    color: white;
-  }
-}
-.user-login-cancel {
-  float: right;
-  margin-right: 5px;
-}
 .v-validate-error {
   color: white;
+}
+.push-left {
+  margin-left: auto;
 }
 </style>

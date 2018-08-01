@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <navBar />
-      <eventiFilter />>
+      <eventiFilter />
     <router-view/>
   </div>
 </template>

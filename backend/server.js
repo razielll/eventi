@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const fs = require('fs');
+const https = require('https');
 
 const app = express();
 
@@ -53,8 +55,6 @@ app.use(bodyParser.json());
 app.use(express.static('dist'));
 
 addUserRoute(app);
-
-addUserRoute(app);
 addEventiRoute(app);
 
 const port = process.env.PORT || 3000;
@@ -62,3 +62,11 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App server litening on port ${port}!`);
 });
+
+// var options = {
+//   key: fs.readFileSync('./localhost.key'),
+//   cert: fs.readFileSync('./localhost.cert'),
+//   requestCert: false,
+//   rejectUnauthorized: false
+// };
+// https.createServer(options, app).listen(8443);

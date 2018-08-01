@@ -1,5 +1,5 @@
 <template>
-    <section class="eventi-filter">
+    <section class="eventi-filter ">
         <hr>
         <div class="container">
             <div class="columns filters">

@@ -1,10 +1,10 @@
 <template>
-    <section class="eventi-list flex wrap">
+    <section class="">
         <transition-group
-          class="eventi-list flex wrap"
+          class="eventi-list"
           enter-active-class="animated fadeIn"
           leave-active-class="animated fadeOut"
-        >
+          tag="div">
           <eventiPreview v-for="eventi in eventisToShow" :key="eventi._id" :eventi="eventi"/>
         </transition-group>
     </section> 
@@ -26,5 +26,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.eventi-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  width: 100%;
+  gap: 20px;
+}
 </style>

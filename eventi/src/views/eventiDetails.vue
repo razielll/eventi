@@ -9,7 +9,8 @@
 
         </div>
         <div class="column">
-            <div class="map" style="background: red; height: 100%"></div>
+            <eventi-map :location="location" />
+            <!-- <div class="map" ref="eventiMap" style="background: red; height: 100%"></div> -->
         </div>
     </div>
     <div class="columns">
@@ -70,6 +71,7 @@
 <script>
 import chatCmp from '@/components/eventiFeed';
 import geoService from '@/services/geoService';
+import eventiMap from '@/components/eventiMap';
 
 export default {
   name: 'eventi-details',
@@ -102,10 +104,15 @@ export default {
     },
     galleryImage() {
       return `url(${this.eventi.gallery})`;
+    },
+    location() {
+      let [lng, lat] = this.eventi.location.coordinates;
+      return { lng, lat };
     }
   },
   components: {
-    chatCmp
+    chatCmp,
+    eventiMap
   }
 };
 </script>

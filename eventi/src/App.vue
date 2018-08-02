@@ -38,11 +38,6 @@ export default {
     this.$store.dispatch({ type: 'initStore' });
     this.$store.dispatch({ type: 'checkLogin' });
   },
-  computed: {
-    test() {
-      debugger;
-    }
-  },
   components: {
     navBar,
     eventiFilter

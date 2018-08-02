@@ -1,9 +1,9 @@
 <template>
     <section class="eventi-filter has-background-white">
         <hr>
-        <div class="container">
-            <div class="columns filters">
-                <div class="column is-8-tablet">
+        <div class="container filter-container">
+            <div class="columns filters is-marginless">
+                <div class="column is-7">
                 <div class="buttons">
                     <button 
                         @click.stop="onFilterChange(null)"
@@ -64,7 +64,7 @@
                     <label for="distance-2">5000m</label>
                 </div>
                 </div>
-                <div class="column">
+                <div class="column is-2">
                 <div class="field">
                     <p class="control has-icons-left has-icons-right">
                     <input class="input" type="search" placeholder="Search for location">
@@ -114,6 +114,10 @@ export default {
   position: sticky;
   top: 65px;
   z-index: 10;
+}
+.filter-container {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .filters {
   align-items: center;

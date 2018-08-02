@@ -124,6 +124,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
 }
 .card-content {
   padding: 0.5rem;

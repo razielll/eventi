@@ -11,7 +11,7 @@
 	  		<div class="media">
 			<div class="media-left">
 				<figure class="image is-48x48">
-					<img src="https://bulma.io/images/placeholders/96x96.png" alt="creator image">
+					<img :src="avatarImg" alt="creator image">
 				</figure>
 			</div>
 				<div class="media-content">
@@ -78,6 +78,9 @@ export default {
       let { lat, lng } = this.$store.getters.getPosition;
       let [eventiLng, eventiLat] = this.eventi.location.coordinates;
       return geoService.distance(lat, lng, eventiLat, eventiLng);
+    },
+    avatarImg() {
+      return `http://i.pravatar.cc/48?u=${Math.random()}`;
     }
   },
   methods: {
@@ -128,6 +131,10 @@ export default {
 }
 .card-content {
   padding: 0.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   & .media {
     margin-bottom: 0.3rem;
     & .media-content span.tag {

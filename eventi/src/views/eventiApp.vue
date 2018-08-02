@@ -2,7 +2,6 @@
 <section class="home container">
     <h1 class="title is-2"> Most popular eventis </h1>
     <eventiList></eventiList>
-    <h1 class="title is-2"> Eventis close to you </h1>
 
   </section>
 </template>

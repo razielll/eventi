@@ -3,10 +3,9 @@
     <div class="columns">
         <div class="column is-8">
             <div class="image is-3by1 gallery" :style="{'background-image': galleryImage}">
-                <span class="eventi-status card-header-title">COMING UP</span>
+				<p class="eventi-status">{{ eventi.startTime | moment("ddd, hA") }} :
+				 						{{ eventi.startTime | moment("from") }}</p>
             </div>
-
-
         </div>
         <div class="column">
             <eventi-map :location="location" />
@@ -34,7 +33,7 @@
                             </div>
                         </div>
                         <div class="content">
-                            <h2 class="title is-5"> {{goingUsers}} are coming! </h2>
+                            <h2 class="title is-5"> {{goingUsers === '1'? '1 person is' : goingUsers + ' people are'}} coming! </h2>
                             <p class="is-size-4"> {{eventi.description}} </p>
                         </div>
                     </div>
@@ -54,10 +53,8 @@
                             <span>{{eventi.clapsCount}}</span>
                         </a>
                         <a href="#" @click.stop class="button is-medium is-fullwidth">Join</a>
-
                     </div>
                 </div>
-                
             </div>
         </div>
         <div class="column">
@@ -69,31 +66,30 @@
 </template>
 
 <script>
-import chatCmp from '@/components/eventiFeed';
-import geoService from '@/services/geoService';
-import eventiMap from '@/components/eventiMap';
+import chatCmp from "@/components/eventiFeed";
+import geoService from "@/services/geoService";
+import eventiMap from "@/components/eventiMap";
 
 export default {
-  name: 'eventi-details',
+  name: "eventi-details",
   data() {
     return {
       eventi: null,
-      goingUsers: '',
-      category: ''
+      goingUsers: "",
+      category: ""
     };
   },
   created() {
     let { eventiId } = this.$route.params;
-    this.$store.dispatch({ type: 'getEventiById', eventiId }).then(eventi => {
+    this.$store.dispatch({ type: "getEventiById", eventiId }).then(eventi => {
       this.eventi = eventi;
       this.goingUsers = eventi.goingUserId.length;
     });
   },
   methods: {
     saveMessage(msg) {
-      console.log('got emit!', msg);
       let _id = this.eventi._id;
-      this.$store.dispatch({ type: 'saveMessage', msg, _id });
+      this.$store.dispatch({ type: "saveMessage", msg, _id });
     }
   },
   computed: {
@@ -125,6 +121,7 @@ export default {
 
 <style scoped lang="scss">
 .eventi-details {
+  font-family: ubuntu;
   margin-top: 1rem;
 }
 .details {
@@ -173,9 +170,6 @@ export default {
 .eventi-img {
   max-height: 300px;
 }
-.side-info {
-  float: right;
-}
 .eventi-status {
   position: absolute;
   color: white;
@@ -183,6 +177,7 @@ export default {
   right: 0;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
+  font-size: 1.3rem;
 }
 .clap-icon {
   max-width: 50px;

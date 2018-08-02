@@ -3,9 +3,12 @@ const mongoService = require('./mongoService.js');
 
 function query(query = {}) {
   // build query for mongodb
+  let mongodbQuery = {};
 
-  let mongodbQuery = {
-    location: {
+  if (!query.lng && !query.lat) {
+    mongodbQuery = query;
+  } else {
+    mongodbQuery.location = {
       $near: {
         $geometry: {
           type: 'Point',
@@ -13,18 +16,18 @@ function query(query = {}) {
         },
         $maxDistance: +query.distance
       }
-    }
-  };
+    };
+  }
 
   if (query.category) {
     mongodbQuery.category = query.category;
   }
+
   return mongoService.connect().then(db => {
     const collection = db.collection('eventi');
     return collection.find(mongodbQuery).toArray();
   });
 }
-
 function remove(eventiId) {
   eventiId = new ObjectId(eventiId);
   return mongoService.connect().then(db => {

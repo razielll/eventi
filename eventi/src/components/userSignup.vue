@@ -3,6 +3,7 @@
 	<div class="modal-background"></div>
 
 	<div class="modal-content" @keyup.esc="cancelForm">
+    <div class="has-text-centered has-text-white title">Signup</div>
 		<div class="field">
     		<p class="control has-icons-left">
 			<input class="input" v-model="user.fullName" 
@@ -44,13 +45,13 @@
 
 <script>
 export default {
-  name: "user-signup-modal",
+  name: 'user-signup-modal',
   data() {
     return {
       user: {
-        fullName: "",
-        email: "",
-        password: ""
+        fullName: '',
+        email: '',
+        password: ''
       }
     };
   },
@@ -59,16 +60,16 @@ export default {
       this.$validator.validate().then(result => {
         if (result) {
           let user = this.user;
-          this.$store.dispatch({ type: "userSignup", user }).then(() => {
+          this.$store.dispatch({ type: 'userSignup', user }).then(() => {
             this.user = {};
-            this.$emit("close-modal");
+            this.$emit('close-modal');
           });
         }
       });
     },
     cancelForm() {
       this.user = {};
-      this.$emit("close-modal", 'signup');
+      this.$emit('close-modal', 'signup');
     }
   }
 };

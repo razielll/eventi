@@ -38,11 +38,11 @@
 </template>
 
 <script>
-import userLoginModal from './userLogin';
-import userSignupModal from './userSignup';
+import userLoginModal from "./userLogin";
+import userSignupModal from "./userSignup";
 
 export default {
-  name: 'nav-bar',
+  name: "nav-bar",
   data() {
     return {
       toggledBurger: false,
@@ -52,14 +52,14 @@ export default {
   },
   methods: {
     closeModal(type) {
-      type === 'login' ? (this.userLogin = false) : (this.userSignup = false);
+      type === "login" ? (this.userLogin = false) : (this.userSignup = false);
     },
     signup() {
       this.userLogin = false;
       this.userSignup = true;
     },
     logOut() {
-      this.$store.commit({ type: 'logout' });
+      this.$store.commit({ type: "logout" });
       this.currUser = null;
     }
   },
@@ -79,6 +79,7 @@ export default {
 
 <style scoped lang="scss">
 nav {
+  height: 65px;
   &.navbar {
     // padding: 0;
     align-items: center;
@@ -117,7 +118,7 @@ nav {
       color: #42b983;
     }
     &:after {
-      content: '';
+      content: "";
       height: 3px;
       width: 0;
       position: absolute;

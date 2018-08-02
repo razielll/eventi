@@ -3,10 +3,9 @@
     <div class="columns">
         <div class="column is-8">
             <div class="image is-3by1 gallery" :style="{'background-image': galleryImage}">
-                <span class="eventi-status card-header-title">COMING UP</span>
+				<p class="eventi-status">{{ eventi.startTime | moment("ddd, hA") }} :
+				 						{{ eventi.startTime | moment("from") }}</p>
             </div>
-
-
         </div>
         <div class="column">
             <eventi-map :location="location" />
@@ -26,12 +25,13 @@
                           </div>
                           <div class="media-content">
                               <h1 class="title is-4">{{eventi.name}}</h1>
-                              <div>
+                              <div class="flex align-center space-between">
                                 <span class="tag has-text-white" :class="eventi.category">{{eventi.category}}</span>
+                                <h2 class="title is-5 is-inline-block"> {{goingUsers === 1? '1 person is' : goingUsers + ' people are'}} coming! </h2>
                               </div>
                           </div>
                         </div>
-                        
+                        .
                     </div>
                     <div class="column is-3 buttons">
                         <a class="button is-medium is-fullwidth is-primary">
@@ -49,13 +49,10 @@
                             <span>{{eventi.clapsCount}}</span>
                         </a>
                         <a href="#" @click.stop class="button is-medium is-fullwidth">Join</a>
-
                     </div>
                 </div>
-                
             </div>
             <div class="content">
-                <h2 class="title is-5"> {{goingUsers}} are coming! </h2>
                 <p class="is-size-4"> {{eventi.description}} </p>
             </div>
         </div>
@@ -90,7 +87,6 @@ export default {
   },
   methods: {
     saveMessage(msg) {
-      console.log('got emit!', msg);
       let _id = this.eventi._id;
       this.$store.dispatch({ type: 'saveMessage', msg, _id });
     }
@@ -124,6 +120,7 @@ export default {
 
 <style scoped lang="scss">
 .eventi-details {
+  font-family: ubuntu;
   margin-top: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -174,9 +171,6 @@ export default {
 .eventi-img {
   max-height: 300px;
 }
-.side-info {
-  float: right;
-}
 .eventi-status {
   position: absolute;
   color: white;
@@ -184,6 +178,7 @@ export default {
   right: 0;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
+  font-size: 1.3rem;
 }
 .clap-icon {
   max-width: 50px;

@@ -53,7 +53,7 @@ export default {
       //   throw err;
       // });
     },
-    loadUser({ commit }) {
+    loadUser({ commit, dispatch }) {
       let user = storageService.load(USER_KEY) || null;
       // load user data from storage
       if (user) {
@@ -70,7 +70,7 @@ export default {
         .catch(({ response }) => {
           if (response.status === 401) {
             storageService.remove(USER_KEY, null);
-            commit({ type: 'removeUser' });
+            dispatch({ type: 'removeUser' });
             router.push('/');
           }
         });

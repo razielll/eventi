@@ -3,7 +3,8 @@
   		<!-- <div class="card"> -->
 			<div class="card-image">
 	  			<figure class="image is-4by3">
-		  			<span class="eventi-status card-header-title">COMING UP</span>
+		  			<p class="eventi-status card-header-title">{{ eventi.startTime | moment("ddd, hA") }} :
+				 						{{ eventi.startTime | moment("from") }}</p>
 		  			<img :src="eventi.gallery" alt="eventi image">
 	  			</figure>
 			</div>

@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-transparent is-fixed-top" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand">
             <router-link to="/" class="navbar-item logo title">
@@ -82,6 +82,7 @@ nav {
   &.navbar {
     // padding: 0;
     align-items: center;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
   }
   .logo {
     letter-spacing: 3px;
@@ -142,6 +143,9 @@ nav {
     opacity: 0;
     display: block;
     height: 0;
+  }
+  .navbar-menu a::after {
+    display: none;
   }
 }
 </style>

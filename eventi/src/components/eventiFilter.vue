@@ -1,5 +1,5 @@
 <template>
-    <section class="eventi-filter ">
+    <section class="eventi-filter has-background-white">
         <hr>
         <div class="container">
             <div class="columns filters">
@@ -109,6 +109,12 @@ export default {
 };
 </script>
 <style scoped>
+.eventi-filter {
+  position: fixed;
+  position: sticky;
+  top: 65px;
+  z-index: 10;
+}
 .filters {
   align-items: center;
 }

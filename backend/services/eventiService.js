@@ -21,7 +21,7 @@ function query(query = {}) {
   }
   return mongoService.connect().then(db => {
     const collection = db.collection('eventi');
-    return collection.find(mongodbQuery).toArray();
+    return collection.find().toArray();
   });
 }
 

@@ -26,6 +26,7 @@ export default {
 .home {
   padding-left: 1rem;
   padding-right: 1rem;
+  min-height: 100vh;
 }
 h1.title.is-2 {
   margin-left: 1rem;

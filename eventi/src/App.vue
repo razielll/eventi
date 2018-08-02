@@ -1,11 +1,8 @@
 <template>
-  <div id="app" class="">
+  <div  class="">
     <navBar/>
     <section class="hero is-fullheight">
       <div class="hero-head">
-        <!-- <div v-sticky="{ zIndex: 100, stickyTop: 20, className: 'sticky-buttons' }">         -->
-        <!-- <navBar /> -->
-        <!-- </div> -->
       </div>
       <div class="hero-body">
         <div class="container banner-title">
@@ -23,7 +20,7 @@
       </div>
     </section>
     <eventiFilter />
-    <router-view/>
+    <router-view></router-view>
   </div>
 
 
@@ -35,21 +32,13 @@
 import navBar from '@/components/navBar';
 import geoService from '@/services/geoService';
 import eventiFilter from '@/components/eventiFilter';
-import VueSticky from 'vue-sticky'; // Es6 module
 
 export default {
   created() {
     this.$store.dispatch({ type: 'initStore' });
     this.$store.dispatch({ type: 'checkLogin' });
   },
-  data() {
-    return {
-      isFixed: false
-    };
-  },
-  directives: {
-    sticky: VueSticky
-  },
+
   components: {
     navBar,
     eventiFilter

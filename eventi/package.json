@@ -24,10 +24,8 @@
     "vue": "^2.5.16",
     "vue-datetime": "^1.0.0-beta.6",
     "vue-facebook-signin-button": "^1.0.1",
-    "vue-fixed-header": "^1.0.3",
     "vue-router": "^3.0.1",
     "vue-socket.io": "^2.1.1-b",
-    "vue-sticky": "^3.3.4",
     "vuex": "^3.0.1",
     "weekstart": "^1.0.0"
   },

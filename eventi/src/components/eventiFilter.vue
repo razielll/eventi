@@ -1,47 +1,47 @@
 <template>
-    <section class="eventi-filter">
+    <section class="eventi-filter has-background-white">
         <hr>
-        <div class="container">
-            <div class="columns filters">
-                <div class="column is-8-tablet">
+        <div class="container filter-container">
+            <div class="columns filters is-marginless">
+                <div class="column is-7">
                 <div class="buttons">
                     <button 
-                        @click="onFilterChange(null)"
+                        @click.stop="onFilterChange(null)"
                         class="button"
                         >All
                     </button>
                     <button 
-                        @click="onFilterChange('lecture')" 
+                        @click.stop="onFilterChange('lecture')" 
                         class="button lecture"
                         :class="{active : category === 'lecture'}"
                         >Lecture
                     </button>
                     <button 
-                        @click="onFilterChange('party')" 
+                        @click.stop="onFilterChange('party')" 
                         class="button party"
                         :class="{active : category === 'party'}"
                         >Party
                     </button>
                     <button 
-                        @click="onFilterChange('gathering')" 
+                        @click.stop="onFilterChange('gathering')" 
                         class="button gathering"
                         :class="{active : category === 'gathering'}"
                         >Gathering
                     </button>
                     <button 
-                        @click="onFilterChange('sale')" 
+                        @click.stop="onFilterChange('sale')" 
                         class="button sale"
                         :class="{active : category === 'sale'}"
                         >Sale
                     </button>
                     <button 
-                        @click="onFilterChange('needhelp')" 
+                        @click.stop="onFilterChange('needhelp')" 
                         class="button needhelp"
                         :class="{active : category === 'needhelp'}"
                         >Need Help
                     </button>
                     <button 
-                        @click="onFilterChange('lostfound')" 
+                        @click.stop="onFilterChange('lostfound')" 
                         class="button lostfound"
                         :class="{active : category === 'lostfound'}"
                         >Lost &amp; Found
@@ -64,7 +64,7 @@
                     <label for="distance-2">5000m</label>
                 </div>
                 </div>
-                <div class="column">
+                <div class="column is-2">
                 <div class="field">
                     <p class="control has-icons-left has-icons-right">
                     <input class="input" type="search" placeholder="Search for location">
@@ -109,6 +109,16 @@ export default {
 };
 </script>
 <style scoped>
+.eventi-filter {
+  position: fixed;
+  position: sticky;
+  top: 65px;
+  z-index: 10;
+}
+.filter-container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
 .filters {
   align-items: center;
 }

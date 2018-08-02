@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"eventi_db.eventi"}],"uuid":"be730e12369840d383c842611de2ad16"}
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"eventi_db.eventi"},{"v":2,"key":{"location":"2dsphere"},"name":"location_2dsphere","ns":"eventi_db.eventi","2dsphereIndexVersion":3}],"uuid":"9c5fc1765abf43ae93aa21789ee114bf"}

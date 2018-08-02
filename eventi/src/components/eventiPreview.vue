@@ -1,6 +1,6 @@
 <template>
-	<section class="eventi-preview-wrapper marginhalf" @click="eventiDetails(eventi)">
-  		<div class="card">
+	<section class="card" @click="eventiDetails(eventi)">
+  		<!-- <div class="card"> -->
 			<div class="card-image">
 	  			<figure class="image is-4by3">
 		  			<span class="eventi-status card-header-title">COMING UP</span>
@@ -17,7 +17,7 @@
 				<div class="media-content">
 					<p class="title is-4">{{eventi.name}}</p>
 					<p class="subtitle is-6 tags">
-				<span v-for="category of eventi.category" :key="category" class="tag">{{category}}</span>
+				<span class="tag">{{eventi.category}}</span>
 			  </p>
 				</div>
 	  		</div>
@@ -36,23 +36,23 @@
 			<span @click.stop class="card-footer-item" @click="joinEventiToggle(eventi._id)">
 		{{isSignedForEventi? 'Leave' : 'Join'}}
 			</span>
-			<span @click.stop class="card-footer-item">
+			<span @click.stop class="card-footer-item distance">
         <span class="icon">
           <font-awesome-icon icon="location-arrow"/>
         </span>
         <span>{{distance}}<span class="is-size-7">Km</span></span>
       </span>
 </footer>
-  		</div>
+  		<!-- </div> -->
 	</section>
 </template>
 
 <script>
-import "@/assets/scss/main.scss";
-import geoService from "@/services/geoService";
+import '@/assets/scss/main.scss';
+import geoService from '@/services/geoService';
 
 export default {
-  props: ["eventi"],
+  props: ['eventi'],
   data() {
     return {};
   },
@@ -63,7 +63,7 @@ export default {
     shortDescription() {
       let shortDesc = this.eventi.description;
       this.eventi.description.length > 40
-        ? (shortDesc = shortDesc.slice(0, 40) + "...")
+        ? (shortDesc = shortDesc.slice(0, 40) + '...')
         : (shortDesc = shortDesc);
       return shortDesc;
     },
@@ -85,14 +85,14 @@ export default {
       this.$router.push(`/eventi/${eventi._id}`);
     },
     onClapClick() {
-      if (this.$route.name === "user-profile") {
+      if (this.$route.name === 'user-profile') {
         this.$store.dispatch({
-          type: "incEventiClapFromUserProfile",
+          type: 'incEventiClapFromUserProfile',
           eventi: this.eventi
         });
       } else {
         this.$store.dispatch({
-          type: "incEventiClap",
+          type: 'incEventiClap',
           _id: this.eventi._id
         });
       }
@@ -104,13 +104,13 @@ export default {
         let userId = user._id;
         const data = { userId, eventiId };
         if (!user.eventiHistory.includes(eventiId)) {
-          console.log("toggle going");
-          this.$store.dispatch({ type: "addUser", data });
+          console.log('toggle going');
+          this.$store.dispatch({ type: 'addUser', data });
           // this.$store.dispatch({ type: "userJoinEventi", data });
         } else if (user.eventiHistory.includes(eventiId)) {
-          console.log("toggle not going");
+          console.log('toggle not going');
           const eventis = this.$store.getters.getUser.eventiHistory;
-          this.$store.dispatch({ type: "removeUser", data, eventis });
+          this.$store.dispatch({ type: 'removeUser', data, eventis });
           // this.$store.dispatch({ type: "userLeaveEventi", data, eventis });
         }
       }
@@ -120,6 +120,41 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.card-content {
+  padding: 0.5rem;
+  & .media {
+    margin-bottom: 0.3rem;
+    & .media-content span.tag {
+      margin-bottom: 0;
+    }
+  }
+  & .content p.description {
+    margin-bottom: 0;
+  }
+}
+.card-footer-item {
+  padding: 0;
+  font-weight: bold;
+  transition: all ease-in 0.2s;
+  cursor: pointer;
+  & .clap-icon {
+    max-width: 50px;
+    padding: 0.25rem;
+  }
+  &:hover {
+    color: #41b883;
+  }
+  &.distance {
+    background-color: #41b883;
+    color: #fff;
+  }
+}
 .eventi-preview-wrapper {
   font-family: ubuntu;
   margin: 1rem auto;

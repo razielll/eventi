@@ -135,6 +135,9 @@ nav {
   }
 }
 @media screen and (max-width: 1087px) {
+  .navbar-menu {
+    padding: 0;
+  }
   .navbar-menu.is-active {
     opacity: 1;
     height: 100%;

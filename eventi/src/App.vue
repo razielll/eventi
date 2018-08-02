@@ -1,7 +1,7 @@
 <template>
   <div  class="">
     <navBar/>
-    <section class="hero is-fullheight">
+    <section class="hero is-fullheight" v-if="$route.name === 'eventi-home'">
       <div class="hero-head">
       </div>
       <div class="hero-body">
@@ -19,7 +19,7 @@
       <div class="hero-foot">
       </div>
     </section>
-    <eventiFilter />
+    <eventiFilter v-if="$route.name === 'eventi-home'"/>
     <router-view></router-view>
   </div>
 
@@ -38,7 +38,11 @@ export default {
     this.$store.dispatch({ type: 'initStore' });
     this.$store.dispatch({ type: 'checkLogin' });
   },
-
+  computed: {
+    test() {
+      debugger;
+    }
+  },
   components: {
     navBar,
     eventiFilter

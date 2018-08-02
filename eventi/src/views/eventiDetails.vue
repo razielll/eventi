@@ -46,7 +46,7 @@
 
 <script>
 import chatCmp from "@/components/eventiFeed";
-import geoService from '@/services/geoService';
+import geoService from "@/services/geoService";
 
 export default {
   name: "eventi-details",
@@ -74,13 +74,15 @@ export default {
   computed: {
     distance() {
       let { lat, lng } = this.$store.getters.getPosition;
-      let [eventiLng, eventiLat] = this.eventi.location.coordinates;
-      return geoService.distance(lat, lng, eventiLat, eventiLng);
+      if (this.eventi.location) {
+        let [eventiLng, eventiLat] = this.eventi.location.coordinates;
+        return geoService.distance(lat, lng, eventiLat, eventiLng);
+      }
     }
   },
-    components: {
-	chatCmp
-  },
+  components: {
+    chatCmp
+  }
 };
 </script>
 

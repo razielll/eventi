@@ -1,11 +1,14 @@
 <template>
 <section>
   <div class="chat-container">
-    <p v-if="isConnected">Joined eventi chat!</p>
-	<p v-for="message in eventiMessages" :key="message"> {{message}}</p>
-    <p>{{socketMessage}}</p>
+    <p v-if="isConnected"><strong> Event feed! </strong></p>
+	 <div class="chat-msg-container">
+	<p class="chat-msg" v-for="(message,idx) in eventiMessages" :key="idx"> <strong> 
+		{{message.user ? message.user : 'Anonymus'}}  </strong> wrote:  {{message.txt}}</p>
+    <!-- <p class="chat-msg-holder">{{socketMessage}}</p> -->
+   </div>
   </div>
-	<input type="text" v-model="txt" placeholder="say something">
+	<input class="chat-input" type="text" v-model="txt" placeholder="say something about this event">
     <button @click.prevent="sendMessage()">send</button>
 </section>
 
@@ -32,20 +35,26 @@ export default {
       this.isConnected = false;
     },
     // Fired when the server sends something on the "messageChannel" channel.
-    messageChannel(data) {
-      this.socketMessage = data;
+    messageChannel(msg) {
+      let user = msg.user ? msg.user : "Anonymus";
+      let msgTxt = msg.txt;
+      document.querySelector(
+        ".chat-msg-container"
+      ).innerHTML += `<p class="chat-msg"><strong>${user}</strong> wrote: ${msgTxt}</p>`;
     }
   },
   methods: {
     sendMessage() {
-      this.user = this.$store.getters.getUser.fullName;
+      this.user = this.$store.getters.getUser.fullName
+        ? this.$store.getters.getUser.fullName
+        : "Anonymus";
       this.$socket.emit("SEND_MESSAGE", {
         user: this.user,
         txt: this.txt
       });
       let msg = { user: this.user, txt: this.txt };
-	  this.txt = "";
-	  this.$emit('save-message', msg)
+      this.txt = "";
+      this.$emit("save-message", msg);
     }
   }
 };
@@ -59,5 +68,11 @@ export default {
   & p {
     padding-left: 5px;
   }
+}
+p.chat-msg {
+  margin-left: 5px;
+}
+.chat-input {
+  width: 60vw;
 }
 </style>

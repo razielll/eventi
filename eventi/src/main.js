@@ -13,23 +13,23 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import FBSignInButton from 'vue-facebook-signin-button';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faEnvelope,
-  faCheck,
-  faLock,
-  faUser,
-  faExclamationTriangle,
-  faLocationArrow,
-  faSearch
+	faEnvelope,
+	faCheck,
+	faLock,
+	faUser,
+	faExclamationTriangle,
+	faLocationArrow,
+	faSearch
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
-  faLock,
-  faCheck,
-  faEnvelope,
-  faUser,
-  faExclamationTriangle,
-  faLocationArrow,
-  faSearch
+	faLock,
+	faCheck,
+	faEnvelope,
+	faUser,
+	faExclamationTriangle,
+	faLocationArrow,
+	faSearch
 );
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
@@ -45,7 +45,7 @@ Vue.use(VeeValidate);
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+	router,
+	store,
+	render: h => h(App)
 }).$mount('#app');

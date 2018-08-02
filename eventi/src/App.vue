@@ -63,8 +63,12 @@ export default {
   background-size: cover;
   background-position: center;
 }
+.hero-body {
+  flex-direction: column;
+}
 .banner-title {
-  align-self: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
 .banner-box {
   display: block;
@@ -74,7 +78,10 @@ export default {
 
 @media (min-width: 768px) {
   .banner-box {
-    width: 40%;
+    width: 60%;
+  }
+  .banner-title {
+    align-items: center;
   }
 }
 </style>

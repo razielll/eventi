@@ -4,7 +4,7 @@ export default {
   state: {
     eventis: [],
     filterBy: {
-      distance: 5000,
+      distance: 500000,
       category: null
     }
   },

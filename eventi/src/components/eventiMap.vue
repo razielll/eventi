@@ -1,5 +1,5 @@
 <template>
-    <div class="map" ref="eventiMap" style="background: red; height: 100%"></div>
+    <div class="map" ref="eventiMap"></div>
 </template>
 
 <script>

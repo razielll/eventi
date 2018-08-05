@@ -47,7 +47,11 @@
                             </span>
                             <span>{{eventi.clapsCount}}</span>
                         </a>
-                        <a href="#" @click.stop class="button is-medium is-fullwidth">Join</a>
+                        <a href="#" @click.stop class="button is-medium is-fullwidth" v-if="!isOwner">Join</a>
+                        <router-link  
+                            class="button is-medium is-fullwidth" 
+                            v-if="isOwner"
+                            :to="`/eventi/edit/${eventi._id}`">Edit</router-link>
                     </div>
                 </div>
             </div>
@@ -105,6 +109,11 @@ export default {
     },
     avatarImg() {
       return `http://i.pravatar.cc/48?u=${Math.random()}`;
+    },
+    isOwner() {
+      let user = this.$store.getters.getUser;
+      if (user) return this.eventi.ownerId === user._id;
+      else return false;
     }
   },
   components: {

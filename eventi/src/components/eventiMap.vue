@@ -18,4 +18,7 @@ export default {
 </script>
 
 <style>
+.map {
+  height: 100%;
+}
 </style>

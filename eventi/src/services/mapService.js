@@ -2,7 +2,8 @@ let map;
 
 export function connectGoogleApi() {
   if (window.google) return Promise.resolve();
-  const API_KEY = 'AIzaSyCx-pDokt9TxIWQmx5X6Eo2VSXqt2BuD0E';
+  // const API_KEY = 'AIzaSyCx-pDokt9TxIWQmx5X6Eo2VSXqt2BuD0E';
+  const API_KEY = 'AIzaSyDUX_2oeox7mXg8PfZ6ECgsE9b_8CKhXPQ';
   var elGoogleApi = document.createElement('script');
   elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`;
   elGoogleApi.async = true;

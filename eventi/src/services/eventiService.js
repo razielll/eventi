@@ -2,7 +2,6 @@ import axios from 'axios';
 const URL = process.env.NODE_ENV !== 'development' ? '' : '//localhost:3000';
 
 function addEventi(data) {
-  console.log('route data:', data);
   return axios.post(`${URL}/eventi/edit`, data).then(res => res.data);
 }
 

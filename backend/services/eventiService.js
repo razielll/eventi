@@ -3,9 +3,12 @@ const mongoService = require('./mongoService.js');
 
 function query(query = {}) {
   // build query for mongodb
+  let mongodbQuery = {};
 
-  let mongodbQuery = {
-    location: {
+  if (!query.lng && !query.lat) {
+    mongodbQuery = query;
+  } else {
+    mongodbQuery.location = {
       $near: {
         $geometry: {
           type: 'Point',
@@ -13,18 +16,18 @@ function query(query = {}) {
         },
         $maxDistance: +query.distance
       }
-    }
-  };
+    };
+  }
 
   if (query.category) {
     mongodbQuery.category = query.category;
   }
+
   return mongoService.connect().then(db => {
     const collection = db.collection('eventi');
     return collection.find(mongodbQuery).toArray();
   });
 }
-
 function remove(eventiId) {
   eventiId = new ObjectId(eventiId);
   return mongoService.connect().then(db => {
@@ -79,7 +82,6 @@ function update(_id, updateData) {
 
 function eventiAddUser({ eventiId }, { userId }) {
   const _id = new ObjectId(eventiId);
-  // console.log('working on eventi:', eventiId);
   return mongoService
     .connect()
     .then(db => db.collection('eventi'))
@@ -90,7 +92,6 @@ function eventiAddUser({ eventiId }, { userId }) {
 
 function eventiRemoveUser({ eventiId }, { userId }) {
   const _id = new ObjectId(eventiId);
-  // console.log('backend eventi Service got evId uId', eventiId, userId);
   return mongoService
     .connect()
     .then(db => db.collection('eventi'))

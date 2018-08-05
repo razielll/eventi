@@ -13,7 +13,6 @@ export default {
       state.eventis.unshift(eventi);
     },
     loadEventi(state, { eventis }) {
-      console.log('got eventis');
       state.eventis = eventis;
     },
     updateEventi(state, { _id, data }) {
@@ -47,7 +46,6 @@ export default {
       });
     },
     loadEventi({ commit, rootState, state }) {
-      console.log('loadEventi');
       let { distance, category } = state.filterBy;
       let { lng, lat } = rootState.position;
 
@@ -63,7 +61,6 @@ export default {
         });
     },
     getEventiById(context, { eventiId }) {
-      console.log('store got id', eventiId);
       return eventiService.getEventiById(eventiId);
     },
     removeEventi(context, { eventiId }) {
@@ -74,7 +71,6 @@ export default {
     updateEventi({ commit }, { _id, data }) {
       return eventiService.updateEventi(_id, data).then(updateResult => {
         if (updateResult.ok) {
-          console.log('eventi updated');
           // TODO flash message
           // return commit({ type: 'updateEventi', _id, data });
         }

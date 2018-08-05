@@ -8,21 +8,25 @@
     <!-- <p class="chat-msg-holder">{{socketMessage}}</p> -->
    </div>
   </div>
-	<input class="chat-input" type="text" v-model="txt" placeholder="say something about this event">
-    <button @click.prevent="sendMessage()">send</button>
+  <div class="field">
+    <div class="control">
+        <input  @keyup.enter="sendMessage" class="input chat-input" type="text" v-model="txt" placeholder="say something about this event">
+    </div>
+  </div>
+    <button class="button" @click.prevent="sendMessage">send</button>
 </section>
 
 </template>
 
 <script>
 export default {
-  props: ["eventiMessages"],
+  props: ['eventiMessages'],
   data() {
     return {
       isConnected: false,
-      socketMessage: "",
-      user: "",
-      txt: ""
+      socketMessage: '',
+      user: '',
+      txt: ''
     };
   },
 
@@ -36,10 +40,10 @@ export default {
     },
     // Fired when the server sends something on the "messageChannel" channel.
     messageChannel(msg) {
-      let user = msg.user ? msg.user : "Anonymus";
+      let user = msg.user ? msg.user : 'Anonymus';
       let msgTxt = msg.txt;
       document.querySelector(
-        ".chat-msg-container"
+        '.chat-msg-container'
       ).innerHTML += `<p class="chat-msg"><strong>${user}</strong> wrote: ${msgTxt}</p>`;
     }
   },
@@ -47,14 +51,14 @@ export default {
     sendMessage() {
       this.user = this.$store.getters.getUser.fullName
         ? this.$store.getters.getUser.fullName
-        : "Anonymus";
-      this.$socket.emit("SEND_MESSAGE", {
+        : 'Anonymus';
+      this.$socket.emit('SEND_MESSAGE', {
         user: this.user,
         txt: this.txt
       });
       let msg = { user: this.user, txt: this.txt };
-      this.txt = "";
-      this.$emit("save-message", msg);
+      this.txt = '';
+      this.$emit('save-message', msg);
     }
   }
 };

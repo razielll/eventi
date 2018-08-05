@@ -22,7 +22,6 @@ export default {
 	},
 	actions: {
 		saveMessage(context, payload) {
-			console.log('chat module got', payload);
 			let eventiId = payload._id
 			let msg = payload.msg
 			// if (msg.user === '') return

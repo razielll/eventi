@@ -21,6 +21,13 @@
     </section>
     <eventiFilter v-if="$route.name === 'eventi-home'"/>
     <router-view></router-view>
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>Eventi</strong> by <a @click.prevent href="#">Anton</a> & <a  @click.prevent href="#">Ariel</a>
+        </p>
+      </div>
+    </footer>
   </div>
 
 
@@ -63,7 +70,11 @@ export default {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 2rem;
 }
-
+.footer {
+  margin-top: 1rem;
+  border-top: 1px solid #ddd;
+  padding:1em;
+}
 @media (min-width: 768px) {
   .banner-box {
     width: 60%;

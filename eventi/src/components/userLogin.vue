@@ -3,6 +3,7 @@
     <div class="modal-background"></div>
 
     <div class="modal-content" @keyup.esc="cancelForm">
+        <div class="has-text-centered has-text-white title">Login</div>
         <div class="field">
             <p class="control has-icons-left has-icons-right">
                 <input class="input" v-model="user.email" v-validate="'required|email'" type="email" name="email" placeholder="email" value="asto1387@gmail.com">

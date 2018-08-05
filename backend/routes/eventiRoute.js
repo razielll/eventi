@@ -7,7 +7,6 @@ const URL = '/eventi';
 
 module.exports = app => {
   app.get(URL, (req, res) => {
-    console.log('Got query:', req.query);
     const query = req.query;
     eventiService.query(query).then(eventis => res.json(eventis));
   });
@@ -83,7 +82,6 @@ module.exports = app => {
     return eventiService
       .eventiRemoveUser(eventiId, userId)
       .then(userRemoved => {
-        // console.log('removeed user from DB')
         return res.json(userRemoved);
       });
   });
@@ -92,8 +90,7 @@ module.exports = app => {
   app.put(`${URL}/:eventiId/saveMessage`, (req, res) => {
     const eventiId = req.params;
     const msg = req.body;
-    // console.log('backend eventi route save message got', eventiId, msg);
-    // if (msg.txt === '') return false
+    if (!msg.txt) return false
     return chatService.saveMessage(eventiId, msg);
   });
 };

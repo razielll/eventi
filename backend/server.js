@@ -12,7 +12,6 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
-	console.log('a user connected');
 	socket.on('chat join', function () {
 		socket.broadcast.emit('broadcast-join-chat', 'hello friends!');
 	});
@@ -21,7 +20,7 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('SEND_MESSAGE', function (msg) {
-		console.log('server got msg from', msg.user, ' sent: ', msg.txt);
+		// console.log('server got msg from', msg.user, ' sent: ', msg.txt);
 		msg.user === undefined ? (msg.user = '') : msg.user;
 		io.emit('messageChannel', msg);
 		// io.emit('messageChannel', `${msg.user}: ${msg.txt}`);

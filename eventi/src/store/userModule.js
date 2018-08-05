@@ -2,6 +2,7 @@ import userService from '@/services/userService';
 import { USER_KEY } from '@/services/userService';
 import storageService from '@/services/storageService';
 import router from '@/router';
+import { log } from 'util';
 
 export default {
 	state: {
@@ -15,10 +16,12 @@ export default {
 			state.user = user;
 		},
 		logout(state, payload) {
+			userService.logout().then(logedout => {
+				storageService.remove('loggedInUser')
+			})
 			state.user = null;
 		},
 		updateUserEventi(state, payload) {
-			// console.log('update user attendance got payload', payload);
 			payload.eventiId
 				? state.user.eventiHistory.push(payload.eventiId)
 				: (state.user.eventiHistory = payload.eventis);
@@ -38,8 +41,6 @@ export default {
 			});
 		},
 		userLogin(context, { user }) {
-			console.log('got user', user);
-
 			return userService.userLogin(user).then(user => {
 				if (!user) {
 					throw 'no user found';
@@ -48,10 +49,6 @@ export default {
 				storageService.store(USER_KEY, user);
 				context.commit({ type: 'setUser', user });
 			});
-			// .catch(err => {
-			//   console.log(err);
-			//   throw err;
-			// });
 		},
 		loadUser({ commit, dispatch }) {
 			let user = storageService.load(USER_KEY) || null;
@@ -89,7 +86,6 @@ export default {
 			commit({ type: 'incEventiClapFromUserProfile', eventi });
 		},
 		addUser(context, { data }) {
-			// console.log('module user add eventi got payload', data);
 			userService
 				.addEventiToUser(data.userId, data.eventiId)
 				.then(eventiAdded => {
@@ -100,7 +96,6 @@ export default {
 				});
 		},
 		removeUser(context, payload) {
-			// console.log('module user leave eventi got', payload)
 			let eventis = payload.eventis.filter(
 				eventiId => eventiId !== payload.data.eventiId
 			);

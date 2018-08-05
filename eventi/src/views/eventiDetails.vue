@@ -17,25 +17,21 @@
             <div class="details">
                 <div class="columns is-mobile">
                     <div class="column">
-                        <div class="level">
-                            <div class="level-left">
-                                <div class="level-item">
-                                    <figure class="image is-48x48">
-                                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="creator image">
-                                    </figure>
-                                </div>
-                                <div class="level-item">
-                                    <h1 class="title">{{eventi.name}}</h1>
-                                </div>
-                                <div class="level-item">
-                                    <span class="tag has-text-white" :class="eventi.category">{{eventi.category}}</span>
-                                </div>
-                            </div>
+                        <div class="media">
+                          <div class="media-left">
+                              <figure class="image is-48x48">
+                                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="creator image">
+                              </figure>
+                          </div>
+                          <div class="media-content">
+                              <h1 class="title is-4">{{eventi.name}}</h1>
+                              <div class="flex align-center space-between">
+                                <span class="tag has-text-white" :class="eventi.category">{{eventi.category}}</span>
+                                <h2 class="title is-5 is-inline-block"> {{goingUsers === 1? '1 person is' : goingUsers + ' people are'}} coming! </h2>
+                              </div>
+                          </div>
                         </div>
-                        <div class="content">
-                            <h2 class="title is-5"> {{goingUsers === 1? '1 person is' : goingUsers + ' people are'}} coming! </h2>
-                            <p class="is-size-4"> {{eventi.description}} </p>
-                        </div>
+                        .
                     </div>
                     <div class="column is-3 buttons">
                         <a class="button is-medium is-fullwidth is-primary">
@@ -55,6 +51,9 @@
                         <a href="#" @click.stop class="button is-medium is-fullwidth">Join</a>
                     </div>
                 </div>
+            </div>
+            <div class="content">
+                <p class="is-size-4"> {{eventi.description}} </p>
             </div>
         </div>
         <div class="column">
@@ -123,6 +122,8 @@ export default {
 .eventi-details {
   font-family: ubuntu;
   margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .details {
   padding-top: 1rem;

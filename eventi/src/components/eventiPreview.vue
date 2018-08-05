@@ -3,7 +3,8 @@
   		<!-- <div class="card"> -->
 			<div class="card-image">
 	  			<figure class="image is-4by3">
-		  			<span class="eventi-status card-header-title">COMING UP</span>
+		  			<p class="eventi-status card-header-title">{{ eventi.startTime | moment("ddd, hA") }} :
+				 						{{ eventi.startTime | moment("from") }}</p>
 		  			<img :src="eventi.gallery" alt="eventi image">
 	  			</figure>
 			</div>
@@ -11,7 +12,7 @@
 	  		<div class="media">
 			<div class="media-left">
 				<figure class="image is-48x48">
-					<img src="https://bulma.io/images/placeholders/96x96.png" alt="creator image">
+					<img :src="avatarImg" alt="creator image">
 				</figure>
 			</div>
 				<div class="media-content">
@@ -78,6 +79,9 @@ export default {
       let { lat, lng } = this.$store.getters.getPosition;
       let [eventiLng, eventiLat] = this.eventi.location.coordinates;
       return geoService.distance(lat, lng, eventiLat, eventiLng);
+    },
+    avatarImg() {
+      return `http://i.pravatar.cc/48?u=${Math.random()}`;
     }
   },
   methods: {
@@ -104,14 +108,10 @@ export default {
         let userId = user._id;
         const data = { userId, eventiId };
         if (!user.eventiHistory.includes(eventiId)) {
-          console.log('toggle going');
           this.$store.dispatch({ type: 'addUser', data });
-          // this.$store.dispatch({ type: "userJoinEventi", data });
         } else if (user.eventiHistory.includes(eventiId)) {
-          console.log('toggle not going');
           const eventis = this.$store.getters.getUser.eventiHistory;
           this.$store.dispatch({ type: 'removeUser', data, eventis });
-          // this.$store.dispatch({ type: "userLeaveEventi", data, eventis });
         }
       }
     }
@@ -128,6 +128,10 @@ export default {
 }
 .card-content {
   padding: 0.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   & .media {
     margin-bottom: 0.3rem;
     & .media-content span.tag {

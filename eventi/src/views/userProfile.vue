@@ -40,10 +40,8 @@
                 >
                 <section v-if="showProfile" class="section">
                     <h1 class="title">Eventi History</h1>
-                    <div class="columns is-multiline">
-                        <div v-for="eventi of user.eventiHistoryData" :key="eventi._id" class="column">
-                            <eventiPreview :eventi="eventi"/>
-                        </div>
+                    <div class="eventi-list">
+                        <eventiPreview v-for="eventi of user.eventiHistoryData" :key="eventi._id" :eventi="eventi"/>
                     </div>
                 </section>
                 </transition>
@@ -55,10 +53,8 @@
                 >
                 <section v-if="!showProfile" class="section">
                     <h1 class="title">My Eventi</h1>
-                    <div class="columns is-multiline">
-                        <div v-for="eventi of user.myEventiData" :key="eventi._id" class="column">
-                            <eventiPreview :eventi="eventi"/>
-                        </div>
+                    <div class="eventi-list">
+                        <eventiPreview v-for="eventi of user.myEventiData" :key="eventi._id" :eventi="eventi"/>
                     </div>
                 </section>
                 </transition>
@@ -68,14 +64,14 @@
 </template>
 
 <script>
-import eventiPreview from "@/components/eventiPreview.vue";
+import eventiPreview from '@/components/eventiPreview.vue';
 
 export default {
   data() {
     return { showProfile: true };
   },
   created() {
-    this.$store.dispatch({ type: "loadUser" });
+    this.$store.dispatch({ type: 'loadUser' });
   },
   computed: {
     user() {
@@ -110,7 +106,12 @@ export default {
   background-color: darken(#fff, 5);
   color: darken(#4a4a4a, 5);
 }
-
+.eventi-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  width: 100%;
+  gap: 20px;
+}
 @media screen and (min-width: 769px) {
   .sidebar .box:first-child {
     margin-bottom: 1.5rem;

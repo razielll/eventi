@@ -4,7 +4,7 @@
         <div class="container filter-container">
             <div class="columns filters is-marginless">
                 <div class="column is-7">
-                    <div class="buttons is-marginless button-filter ">
+                    <div class="buttons is-marginless button-filter">
                         <button @click.stop="onFilterChange(null)" class="button">All
                         </button>
                         <button @click.stop="onFilterChange('lecture')" class="button lecture" :class="{active : category === 'lecture'}">Lecture
@@ -60,11 +60,11 @@
 </template>
 <script>
 export default {
-  name: 'eventi-filter',
+  name: "eventi-filter",
   data() {
     return {
       category: null,
-      distance: '5000'
+      distance: "5000"
     };
   },
   methods: {
@@ -72,23 +72,14 @@ export default {
       if (this.category === selectedCategory) this.category = null;
       else this.category = selectedCategory;
       this.$store.dispatch({
-        type: 'setFilterBy',
+        type: "setFilterBy",
         distance: +this.distance,
         category: this.category
       });
     },
-    // onSelectChange() {
-    //   if (this.category === '') this.category = null;
-    //   this.$store.dispatch({
-    //     type: "setFilterBy",
-    //     distance: +this.distance,
-    //     category: this.category
-    //   });
-    // },
-
     onDistanceChange() {
       this.$store.dispatch({
-        type: 'setFilterBy',
+        type: "setFilterBy",
         distance: +this.distance,
         category: this.category
       });

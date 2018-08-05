@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import eventiPreview from './eventiPreview';
+import eventiPreview from "./eventiPreview";
 export default {
-  name: 'eventi-list',
+  name: "eventi-list",
   methods: {},
   computed: {
     eventisToShow() {
@@ -31,6 +31,6 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   width: 100%;
-  gap: 20px;
+  grid-gap: 2rem;
 }
 </style>

@@ -37,15 +37,15 @@
 
 
 <script>
-import navBar from '@/components/navBar';
-import geoService from '@/services/geoService';
-import eventiFilter from '@/components/eventiFilter';
-import flashMsg from '@/components/flashMsg';
+import navBar from "@/components/navBar";
+import geoService from "@/services/geoService";
+import eventiFilter from "@/components/eventiFilter";
+import flashMsg from "@/components/flashMsg";
 
 export default {
   created() {
-    this.$store.dispatch({ type: 'initStore' });
-    this.$store.dispatch({ type: 'checkLogin' });
+    this.$store.dispatch({ type: "initStore" });
+    this.$store.dispatch({ type: "checkLogin" });
   },
   components: {
     navBar,
@@ -60,6 +60,9 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  &.is-fullheight {
+    min-height: calc(100vh - 65px);
+  }
 }
 .hero-body {
   flex-direction: column;
@@ -76,7 +79,7 @@ export default {
 .footer {
   margin-top: 1rem;
   border-top: 1px solid #ddd;
-  padding:1em;
+  padding: 1em;
 }
 @media (min-width: 768px) {
   .banner-box {

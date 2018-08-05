@@ -9,7 +9,7 @@
         <div class="container banner-title">
           <div class="banner-box box">
             <h1 class="title is-2 is-spaced is-size-3-mobile">
-              Find & Share Events in Your Community
+              Events in Your Community
             </h1>
             <h2 class="subtitle is-4">
               Find Events, Garage Sales, Lectures and more around you
@@ -37,15 +37,15 @@
 
 
 <script>
-import navBar from "@/components/navBar";
-import geoService from "@/services/geoService";
-import eventiFilter from "@/components/eventiFilter";
-import flashMsg from "@/components/flashMsg";
+import navBar from '@/components/navBar';
+import geoService from '@/services/geoService';
+import eventiFilter from '@/components/eventiFilter';
+import flashMsg from '@/components/flashMsg';
 
 export default {
   created() {
-    this.$store.dispatch({ type: "initStore" });
-    this.$store.dispatch({ type: "checkLogin" });
+    this.$store.dispatch({ type: 'initStore' });
+    this.$store.dispatch({ type: 'checkLogin' });
   },
   components: {
     navBar,

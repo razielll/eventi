@@ -16,7 +16,6 @@ io.on('connection', function (socket) {
 		socket.broadcast.emit('broadcast-join-chat', 'hello friends!');
 	});
 	socket.on('disconnect', function () {
-		console.log('user disconnected');
 	});
 
 	socket.on('SEND_MESSAGE', function (msg) {
@@ -24,7 +23,7 @@ io.on('connection', function (socket) {
 		msg.user === undefined ? (msg.user = '') : msg.user;
 		io.emit('messageChannel', msg);
 		// io.emit('messageChannel', `${msg.user}: ${msg.txt}`);
-		socket.broadcast.emit(`broadcastMsg`,`${msg.user}: ${msg.txt}`);
+		socket.broadcast.emit(`broadcastMsg`, `${msg.user}: ${msg.txt}`);
 	});
 });
 server.listen(33333);

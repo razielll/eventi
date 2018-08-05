@@ -124,7 +124,6 @@ export default {
   },
   methods: {
     onFilterChange(selectedCategory) {
-      console.log("changing", selectedCategory);
       this.category = selectedCategory;
       this.$store.dispatch({
         type: "setFilterBy",

@@ -40,7 +40,6 @@ export default {
     addEventi({ commit }, { data }) {
       return eventiService.addEventi(data).then(eventi => {
         // commit({ type: 'addEventi', eventi });
-        console.log(eventi);
         // TODO show msg and redirect to home page
         return eventi;
       });

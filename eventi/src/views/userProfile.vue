@@ -110,7 +110,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   width: 100%;
-  gap: 20px;
+  grid-gap: 2rem;
 }
 @media screen and (min-width: 769px) {
   .sidebar .box:first-child {

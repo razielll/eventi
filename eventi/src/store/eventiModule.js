@@ -1,4 +1,5 @@
 import eventiService from '@/services/eventiService.js';
+import { getDemoEventi } from '@/services/demoService';
 
 export default {
   state: {
@@ -45,6 +46,13 @@ export default {
         // TODO show msg and redirect to home page
         return eventi;
       });
+    },
+    addDemoEventi({ commit }, { eventi }) {
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+          commit({ type: 'addEventi', eventi: getDemoEventi(i) });
+        }, 10000 * i);
+      }
     },
     loadEventi({ commit, rootState, state }) {
       console.log('loadEventi');

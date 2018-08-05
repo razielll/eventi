@@ -36,14 +36,14 @@
 
 
 <script>
-import navBar from "@/components/navBar";
-import geoService from "@/services/geoService";
-import eventiFilter from "@/components/eventiFilter";
+import navBar from '@/components/navBar';
+import geoService from '@/services/geoService';
+import eventiFilter from '@/components/eventiFilter';
 
 export default {
   created() {
-    this.$store.dispatch({ type: "initStore" });
-    this.$store.dispatch({ type: "checkLogin" });
+    this.$store.dispatch({ type: 'initStore' });
+    this.$store.dispatch({ type: 'checkLogin' });
   },
   components: {
     navBar,

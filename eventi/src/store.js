@@ -26,6 +26,7 @@ export default new Vuex.Store({
       commit({ type: 'setPosition', lat, lng });
 
       dispatch({ type: 'loadEventi' });
+      dispatch({ type: 'addDemoEventi' });
     }
   },
 

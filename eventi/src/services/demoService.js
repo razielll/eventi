@@ -134,10 +134,10 @@ function _getEvntiTime() {
   let h = d.getHours();
 
   let eventiTime = {};
-  d.setHours(h + 2);
+  d.setHours(h + _getRandomIntInclusive(2, 8));
   eventiTime.startTime = d.toISOString();
 
-  d.setHours(h + 6);
+  d.setHours(h + _getRandomIntInclusive(8, 12));
   eventiTime.endTime = d.toISOString();
 
   return eventiTime;

@@ -6,7 +6,6 @@ import VeeValidate from 'vee-validate';
 import axios from 'axios';
 import VueSocketIo from 'vue-socket.io';
 import SocketIo from 'socket.io-client';
-import VueFlashMessage from 'vue-flash-message';
 import moment from 'vue-moment';
 import 'bulma/css/bulma.css';
 import 'bulma-checkradio/dist/css/bulma-checkradio.min.css';
@@ -14,7 +13,6 @@ import 'animate.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import FBSignInButton from 'vue-facebook-signin-button';
 import { library } from '@fortawesome/fontawesome-svg-core';
-
 import {
   faEnvelope,
   faCheck,
@@ -39,7 +37,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(FBSignInButton);
 Vue.use(moment);
 Vue.use(VeeValidate);
-Vue.use(VueFlashMessage);
 
 axios.defaults.withCredentials = true;
 

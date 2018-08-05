@@ -1,5 +1,6 @@
 <template>
   <div  class="">
+    <flash-msg />
     <navBar/>
     <section class="hero is-fullheight" v-if="$route.name === 'eventi-home'">
       <div class="hero-head">
@@ -39,6 +40,7 @@
 import navBar from '@/components/navBar';
 import geoService from '@/services/geoService';
 import eventiFilter from '@/components/eventiFilter';
+import flashMsg from '@/components/flashMsg';
 
 export default {
   created() {
@@ -47,7 +49,8 @@ export default {
   },
   components: {
     navBar,
-    eventiFilter
+    eventiFilter,
+    flashMsg
   }
 };
 </script>

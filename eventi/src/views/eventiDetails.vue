@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="content">
-                            <h2 class="title is-5"> {{goingUsers === '1'? '1 person is' : goingUsers + ' people are'}} coming! </h2>
+                            <h2 class="title is-5"> {{goingUsers === 1? '1 person is' : goingUsers + ' people are'}} coming! </h2>
                             <p class="is-size-4"> {{eventi.description}} </p>
                         </div>
                     </div>

@@ -25,7 +25,7 @@ io.on('connection', function (socket) {
 		msg.user === undefined ? (msg.user = '') : msg.user;
 		io.emit('messageChannel', msg);
 		// io.emit('messageChannel', `${msg.user}: ${msg.txt}`);
-		// socket.broadcast.emit(`broadcastMsg`,`${msg.user}: ${msg.txt}`);
+		socket.broadcast.emit(`broadcastMsg`,`${msg.user}: ${msg.txt}`);
 	});
 });
 server.listen(33333);

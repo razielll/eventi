@@ -9,18 +9,17 @@
         </div>
         <div class="column">
             <eventi-map :location="location" />
-            <!-- <div class="map" ref="eventiMap" style="background: red; height: 100%"></div> -->
         </div>
     </div>
     <div class="columns">
         <div class="column is-8">
             <div class="details">
-                <div class="columns is-mobile">
+                <div class="columns">
                     <div class="column">
                         <div class="media">
                           <div class="media-left">
                               <figure class="image is-48x48">
-                                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="creator image">
+                                <img :src="avatarImg" alt="creator image">
                               </figure>
                           </div>
                           <div class="media-content">
@@ -48,7 +47,11 @@
                             </span>
                             <span>{{eventi.clapsCount}}</span>
                         </a>
-                        <a href="#" @click.stop class="button is-medium is-fullwidth">Join</a>
+                        <a href="#" @click.stop class="button is-medium is-fullwidth" v-if="!isOwner">Join</a>
+                        <router-link  
+                            class="button is-medium is-fullwidth" 
+                            v-if="isOwner"
+                            :to="`/eventi/edit/${eventi._id}`">Edit</router-link>
                     </div>
                 </div>
             </div>
@@ -103,6 +106,14 @@ export default {
     location() {
       let [lng, lat] = this.eventi.location.coordinates;
       return { lng, lat };
+    },
+    avatarImg() {
+      return `http://i.pravatar.cc/48?u=${Math.random()}`;
+    },
+    isOwner() {
+      let user = this.$store.getters.getUser;
+      if (user) return this.eventi.ownerId === user._id;
+      else return false;
     }
   },
   components: {
@@ -111,12 +122,6 @@ export default {
   }
 };
 </script>
-
-
-
-
-
-
 
 <style scoped lang="scss">
 .eventi-details {
@@ -162,12 +167,6 @@ export default {
 .content .title.is-4 {
   margin: 0;
 }
-// .eventi-details {
-//   box-shadow: 0px 0px 8px black;
-//   margin: 5px auto;
-//   max-width: 95vw;
-//   padding: 5px;
-// }
 .eventi-img {
   max-height: 300px;
 }
@@ -182,5 +181,20 @@ export default {
 }
 .clap-icon {
   max-width: 50px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+}
+.buttons .button {
+  flex-basis: 0;
+}
+@media (min-width: 769px) {
+  .buttons {
+    display: block;
+  }
 }
 </style>

@@ -1,10 +1,12 @@
 import eventiService from '@/services/eventiService.js';
+import { getDemoEventi } from '@/services/demoService';
+import EventBusService, { SHOW_MSG } from '@/services/eventBus';
 
 export default {
   state: {
     eventis: [],
     filterBy: {
-      distance: 5000,
+      distance: 500000,
       category: null
     }
   },
@@ -43,6 +45,17 @@ export default {
         // TODO show msg and redirect to home page
         return eventi;
       });
+    },
+    addDemoEventi({ commit }, { eventi }) {
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+          commit({ type: 'addEventi', eventi: getDemoEventi(i) });
+          EventBusService.$emit(SHOW_MSG, {
+            txt: 'New Eventi',
+            type: 'primary'
+          });
+        }, 10000 * (i + 1));
+      }
     },
     loadEventi({ commit, rootState, state }) {
       let { distance, category } = state.filterBy;

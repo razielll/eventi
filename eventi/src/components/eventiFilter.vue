@@ -4,7 +4,7 @@
         <div class="container filter-container" v-if="!isMobile">
             <div class="columns filters is-marginless">
                 <div class="column is-7">
-                <div class="buttons">
+                <div class="buttons is-hidden-mobile">
                     <button 
                         @click.stop="onFilterChange(null)"
                         class="button"
@@ -46,6 +46,17 @@
                         :class="{active : category === 'lostfound'}"
                         >Lost &amp; Found
                     </button>
+                </div>
+                <div class="select is-hidden-tablet">
+                    <select v-model="category" @change="onSelectChange">
+                        <option value="null">All</option>
+                        <option value="lecture">Lecture</option>
+                        <option value="party">Party</option>
+                        <option value="gathering">Gathering</option>
+                        <option value="sale">Sale</option>
+                        <option value="needhelp">Need Help</option>
+                        <option value="lostfound">Lost &amp; Found</option>
+                    </select>
                 </div>
                 </div>
                 <div class="column">
@@ -124,13 +135,23 @@ export default {
   },
   methods: {
     onFilterChange(selectedCategory) {
-      this.category = selectedCategory;
+      if (this.category === selectedCategory) this.category = null;
+      else this.category = selectedCategory;
+      this.$store.dispatch({
+        type: 'setFilterBy',
+        distance: +this.distance,
+        category: this.category
+      });
+    },
+    onSelectChange() {
+      if (this.category === '') this.category = null;
       this.$store.dispatch({
         type: "setFilterBy",
         distance: +this.distance,
         category: this.category
       });
     },
+
     onDistanceChange() {
       this.$store.dispatch({
         type: "setFilterBy",
@@ -154,5 +175,8 @@ export default {
 }
 .filters {
   align-items: center;
+}
+.buttons {
+  margin-bottom: 0;
 }
 </style>

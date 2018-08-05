@@ -53,7 +53,7 @@ export default {
 </script>
 <style scoped lang="scss">
 .hero {
-  background-image: url(./assets/banner1_2.svg);
+  background-image: url(./assets/googPicEvents.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

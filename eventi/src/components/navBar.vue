@@ -20,14 +20,14 @@
         </div>
         <div class="navbar-menu" id="navBarMenu" :class="{'is-active': toggledBurger}">
             <div class="navbar-end" v-if="!user">
-                <router-link to="/" class="navbar-item">eventi</router-link>
-                <a class="navbar-item" @click="userLogin = !userLogin">login</a>
+                <router-link to="/" class="navbar-item" @click.native="toggledBurger = !toggledBurger">eventi</router-link>
+                <a class="navbar-item" @click="userLogin = !userLogin;"> login</a>
                 <a class="navbar-item" @click="userSignup = !userSignup">signup</a>
             </div>
-            <div class="navbar-end" v-if="user">
-                <router-link to="/" class="navbar-item">eventi</router-link>
-                <router-link to="/eventi/edit" class="navbar-item">New Eventi</router-link>
-                <router-link to="/user" class="navbar-item">{{user}} profile</router-link>
+            <div class="navbar-end" v-if="user" >
+                <router-link to="/" class="navbar-item" @click.native="toggledBurger = !toggledBurger">eventi</router-link>
+                <router-link to="/eventi/edit" class="navbar-item" @click.native="toggledBurger = !toggledBurger">New Eventi</router-link>
+                <router-link to="/user" class="navbar-item" @click.native="toggledBurger = !toggledBurger"> {{user}} profile</router-link>
                 <a class="navbar-item" @click="logOut">logout</a>
             </div>
             <userLoginModal :class="{'is-active': userLogin}" @close-modal="closeModal" @go-signup="signup" />
@@ -60,6 +60,7 @@ export default {
     },
     logOut() {
       this.$store.commit({ type: "logout" });
+      this.toggledBurger = false;
     }
   },
   computed: {

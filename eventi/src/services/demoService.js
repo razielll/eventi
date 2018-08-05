@@ -1,5 +1,5 @@
 export function getDemoEventi(idx) {
-  console.log('idx', idx);
+//   console.log('idx', idx);
   let eventi = eventis[idx];
   eventi = {
     ...eventi,

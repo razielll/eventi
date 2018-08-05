@@ -22,7 +22,7 @@ export function initMap(lat, lng, el) {
       center: { lat, lng },
       zoom: 15
     });
-    console.log('Map!', map);
+    // console.log('Map!', map);
   });
 }
 

@@ -60,7 +60,6 @@ export default {
     },
     logOut() {
       this.$store.commit({ type: "logout" });
-      this.currUser = null;
     }
   },
   computed: {

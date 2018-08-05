@@ -65,22 +65,22 @@
 </template>
 
 <script>
-import chatCmp from "@/components/eventiFeed";
-import geoService from "@/services/geoService";
-import eventiMap from "@/components/eventiMap";
+import chatCmp from '@/components/eventiFeed';
+import geoService from '@/services/geoService';
+import eventiMap from '@/components/eventiMap';
 
 export default {
-  name: "eventi-details",
+  name: 'eventi-details',
   data() {
     return {
       eventi: null,
-      goingUsers: "",
-      category: ""
+      goingUsers: '',
+      category: ''
     };
   },
   created() {
     let { eventiId } = this.$route.params;
-    this.$store.dispatch({ type: "getEventiById", eventiId }).then(eventi => {
+    this.$store.dispatch({ type: 'getEventiById', eventiId }).then(eventi => {
       this.eventi = eventi;
       this.goingUsers = eventi.goingUserId.length;
     });
@@ -88,7 +88,7 @@ export default {
   methods: {
     saveMessage(msg) {
       let _id = this.eventi._id;
-      this.$store.dispatch({ type: "saveMessage", msg, _id });
+      this.$store.dispatch({ type: 'saveMessage', msg, _id });
     }
   },
   computed: {

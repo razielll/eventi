@@ -33,7 +33,6 @@ library.add(
 	faSearch
 );
 Vue.component('font-awesome-icon', FontAwesomeIcon);
-
 Vue.use(FBSignInButton);
 Vue.use(moment);
 Vue.use(VeeValidate);

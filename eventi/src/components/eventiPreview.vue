@@ -32,7 +32,8 @@
 
 	<footer class="card-footer">
 			<span @click.stop="onClapClick" class="card-footer-item">
-        <img class="clap-icon" src="../assets/clap.png"/>
+        <!-- <img class="clap-icon" src="../assets/clap.png"/> -->
+		<clap-icon :eventiId="eventi._id"/>
       </span>
 			<span @click.stop class="card-footer-item" @click="joinEventiToggle(eventi._id)">
 		{{isSignedForEventi? 'Leave' : 'Join'}}
@@ -49,11 +50,12 @@
 </template>
 
 <script>
-import '@/assets/scss/main.scss';
-import geoService from '@/services/geoService';
+import "@/assets/scss/main.scss";
+import clapIcon from "./clapCmp";
+import geoService from "@/services/geoService";
 
 export default {
-  props: ['eventi'],
+  props: ["eventi"],
   data() {
     return {};
   },
@@ -64,7 +66,7 @@ export default {
     shortDescription() {
       let shortDesc = this.eventi.description;
       this.eventi.description.length > 40
-        ? (shortDesc = shortDesc.slice(0, 40) + '...')
+        ? (shortDesc = shortDesc.slice(0, 40) + "...")
         : (shortDesc = shortDesc);
       return shortDesc;
     },
@@ -89,14 +91,14 @@ export default {
       this.$router.push(`/eventi/${eventi._id}`);
     },
     onClapClick() {
-      if (this.$route.name === 'user-profile') {
+      if (this.$route.name === "user-profile") {
         this.$store.dispatch({
-          type: 'incEventiClapFromUserProfile',
+          type: "incEventiClapFromUserProfile",
           eventi: this.eventi
         });
       } else {
         this.$store.dispatch({
-          type: 'incEventiClap',
+          type: "incEventiClap",
           _id: this.eventi._id
         });
       }
@@ -108,13 +110,16 @@ export default {
         let userId = user._id;
         const data = { userId, eventiId };
         if (!user.eventiHistory.includes(eventiId)) {
-          this.$store.dispatch({ type: 'addUser', data });
+          this.$store.dispatch({ type: "addUser", data });
         } else if (user.eventiHistory.includes(eventiId)) {
           const eventis = this.$store.getters.getUser.eventiHistory;
-          this.$store.dispatch({ type: 'removeUser', data, eventis });
+          this.$store.dispatch({ type: "removeUser", data, eventis });
         }
       }
     }
+  },
+  components: {
+    clapIcon
   }
 };
 </script>

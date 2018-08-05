@@ -24,7 +24,7 @@
     <footer class="footer">
       <div class="content has-text-centered">
         <p>
-          <strong>Eventi</strong> by <a href="#">Anton</a> & <a href="#">Ariel</a>
+          <strong>Eventi</strong> by <a @click.prevent href="#">Anton</a> & <a  @click.prevent href="#">Ariel</a>
         </p>
       </div>
     </footer>
@@ -71,8 +71,9 @@ export default {
   padding: 2rem;
 }
 .footer {
-  margin-top: 2rem;
+  margin-top: 1rem;
   border-top: 1px solid #ddd;
+  padding:1em;
 }
 @media (min-width: 768px) {
   .banner-box {

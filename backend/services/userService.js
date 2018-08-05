@@ -32,7 +32,6 @@ function userLogin(userLogin) {
 }
 
 function addEventiToUser({ userId }, { eventiId }) {
-  // console.log('backend userService join eventi got', userId, eventiId);
   const _id = new ObjectId(userId);
   return mongoService
     .connect()
@@ -43,7 +42,6 @@ function addEventiToUser({ userId }, { eventiId }) {
 }
 
 function leaveEventi({ userId }, eventis) {
-  // console.log('backend userService leave eventi got', userId, eventis);
   const _id = new ObjectId(userId);
   return mongoService
     .connect()

@@ -74,7 +74,6 @@ function update(_id, updateData) {
     return collection
       .updateOne({ _id: _id }, { $set: updateData })
       .then(res => {
-        console.log('eventi updated');
         return res;
       });
   });
@@ -82,7 +81,6 @@ function update(_id, updateData) {
 
 function eventiAddUser({ eventiId }, { userId }) {
   const _id = new ObjectId(eventiId);
-  // console.log('working on eventi:', eventiId);
   return mongoService
     .connect()
     .then(db => db.collection('eventi'))
@@ -93,7 +91,6 @@ function eventiAddUser({ eventiId }, { userId }) {
 
 function eventiRemoveUser({ eventiId }, { userId }) {
   const _id = new ObjectId(eventiId);
-  // console.log('backend eventi Service got evId uId', eventiId, userId);
   return mongoService
     .connect()
     .then(db => db.collection('eventi'))

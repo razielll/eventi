@@ -105,9 +105,7 @@ export default {
     },
 
     onSignInSuccess(response) {
-      console.log('res', response);
       FB.api('/me?fields=id,name,picture,email', dude => {
-        console.log('dude', dude);
         let user = { email: dude.email, password: dude.id };
         this.$store
           .dispatch({ type: 'userLogin', user })

@@ -206,7 +206,6 @@ export default {
         if (result) {
           const action = this.isEdit ? 'updateEventi' : 'addEventi';
           let eventi = JSON.parse(JSON.stringify(this.eventi));
-          console.log(action);
           this.$store.dispatch({
             type: action,
             _id: this.eventi._id,
@@ -217,7 +216,6 @@ export default {
           //   this.$router.push('/');
           // });
         } else {
-          console.log(result);
         }
       });
     },

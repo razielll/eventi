@@ -1,7 +1,7 @@
 <template>
     <section class="eventi-filter has-background-white">
         <hr>
-        <div class="container filter-container">
+        <div class="container filter-container" v-if="!isMobile">
             <div class="columns filters is-marginless">
                 <div class="column is-7">
                 <div class="buttons">
@@ -76,31 +76,64 @@
                 </div>
             </div>
         </div>
-        
+ <div class="container filter-container has-text-centered" v-if="isMobile">
+	 <select @change="onFilterChange($event.target.value)" class="filters is-marginless">
+  <option value="">All</option>
+  <option value="lecture">Lecture</option>
+  <option value="party">Party</option>
+  <option value="gathering">Gathering</option>
+  <option value="sale">Sale</option>
+  <option value="needhelp">Need Help</option>
+  <option value="lostfound">Lost & Found</option>
+</select>
+                    <input 
+                        value="500"
+                        v-model="distance"
+                        @change="onDistanceChange"
+                        class="is-checkradio" id="distance-1" type="radio" :checked="distance === 500">
+                    <label for="distance-1">500m</label>
+                    <input 
+                        value="5000"
+                        v-model="distance"
+                        @change="onDistanceChange"
+                        class="is-checkradio" id="distance-2" type="radio" :checked="distance === 5000">
+                    <label for="distance-2">5000m</label>
+                <div class="column is-2">
+                <div class="field">
+                    <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="search" placeholder="Search for location">
+                    <span class="icon is-small is-left">
+                        <font-awesome-icon icon="search"/>
+                    </span>
+                    </p>
+                </div>
+                </div>
+            </div>
         <hr>
     </section>
 </template>
 <script>
 export default {
-  name: 'eventi-filter',
+  name: "eventi-filter",
   data() {
     return {
       category: null,
-      distance: '5000'
+      distance: "5000",
+      isMobile: window.screen.width <= 720
     };
   },
   methods: {
     onFilterChange(selectedCategory) {
       this.category = selectedCategory;
       this.$store.dispatch({
-        type: 'setFilterBy',
+        type: "setFilterBy",
         distance: +this.distance,
         category: this.category
       });
     },
     onDistanceChange() {
       this.$store.dispatch({
-        type: 'setFilterBy',
+        type: "setFilterBy",
         distance: +this.distance,
         category: this.category
       });

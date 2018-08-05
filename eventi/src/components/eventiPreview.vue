@@ -108,14 +108,10 @@ export default {
         let userId = user._id;
         const data = { userId, eventiId };
         if (!user.eventiHistory.includes(eventiId)) {
-          console.log('toggle going');
           this.$store.dispatch({ type: 'addUser', data });
-          // this.$store.dispatch({ type: "userJoinEventi", data });
         } else if (user.eventiHistory.includes(eventiId)) {
-          console.log('toggle not going');
           const eventis = this.$store.getters.getUser.eventiHistory;
           this.$store.dispatch({ type: 'removeUser', data, eventis });
-          // this.$store.dispatch({ type: "userLeaveEventi", data, eventis });
         }
       }
     }

@@ -26,11 +26,11 @@
                 </span>
             </p>
         </div>
-        <div class="field is-grouped">
+        <div class="field is-grouped is-grouped-centered is-grouped-multiline">
           <p class="control">
             <a class="user-to-register is-success" @click="goToUserSignup">register new user</a>
           </p>
-          <p class="control push-left">
+          <p class="control">
             <a class="button user-login is-success" @click="userLogin">Login</a>
           </p>
           <p class="control">
@@ -144,5 +144,10 @@ export default {
 }
 .push-left {
   margin-left: auto;
+}
+.modal-content {
+  overflow: hidden;
+}
+@media (max-width: 540px) {
 }
 </style>

@@ -91,7 +91,8 @@ export default {
   },
   methods: {
     onFilterChange(selectedCategory) {
-      this.category = selectedCategory;
+      if (this.category === selectedCategory) this.category = null;
+      else this.category = selectedCategory;
       this.$store.dispatch({
         type: 'setFilterBy',
         distance: +this.distance,

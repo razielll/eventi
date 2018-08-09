@@ -41,7 +41,7 @@
                                 <span class="is-size-7">Km</span>
                             </span>
                         </a>
-                        <a class="button is-medium is-fullwidth">
+                        <a @click.stop="onClapClick" class="button is-medium is-fullwidth">
                             <span class="icon is-small">
                                 <img class="clap-icon image is-32x32" src="../assets/clap.png" />
                             </span>
@@ -92,6 +92,16 @@ export default {
     saveMessage(msg) {
       let _id = this.eventi._id;
       this.$store.dispatch({ type: 'saveMessage', msg, _id });
+    },
+    onClapClick() {
+      this.$store
+        .dispatch({
+          type: 'incEventiClap',
+          _id: this.eventi._id
+        })
+        .then(res => {
+          if (res.ok) this.eventi.clapsCount++;
+        });
     }
   },
   computed: {
@@ -129,6 +139,7 @@ export default {
   margin-top: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
+  min-height: calc(100vh - 66px - 66px);
 }
 .details {
   padding-top: 1rem;

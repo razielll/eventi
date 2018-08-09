@@ -94,6 +94,7 @@ export default {
       const updateData = { clapsCount: eventi.clapsCount + 1 };
       return eventiService.incEventiClap(_id, updateData).then(res => {
         commit({ type: 'updateEventi', _id, data: updateData });
+        return res;
       });
     },
     incEventiClapFromUserProfile(context, { eventi }) {

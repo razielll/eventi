@@ -104,6 +104,9 @@ export default {
 .button-filter {
   display: none;
 }
+.column {
+  display: inline-block;
+}
 @media (min-width: 720px) {
   .button-filter {
     display: flex;

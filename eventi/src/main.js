@@ -45,6 +45,20 @@ Vue.use(VueSocketIo, SocketInstance, store);
 
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
+
+Vue.filter('formatCategory', function(value) {
+  const categoryMap = {
+    lecture: 'lecture',
+    party: 'party',
+    gathering: 'gathering',
+    sale: 'sale',
+    needhelp: 'need help',
+    lostfound: 'lost & found'
+  };
+
+  return categoryMap[value];
+});
+
 new Vue({
   router,
   store,

@@ -3,7 +3,7 @@
         <hr>
         <div class="container filter-container">
             <div class="columns filters is-marginless">
-                <div class="column is-7">
+                <div class="column is-8">
                     <div class="buttons is-marginless button-filter">
                         <button @click.stop="onFilterChange(null)" class="button">All
                         </button>
@@ -42,7 +42,7 @@
                         <label for="distance-2">5000m</label>
                     </div>
                 </div>
-                <div class="column is-2">
+                <!-- <div class="column is-2">
                     <div class="field">
                         <p class="control has-icons-left has-icons-right">
                             <input class="input" type="search" placeholder="Search for location">
@@ -51,7 +51,7 @@
                             </span>
                         </p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
        
@@ -60,11 +60,11 @@
 </template>
 <script>
 export default {
-  name: "eventi-filter",
+  name: 'eventi-filter',
   data() {
     return {
       category: null,
-      distance: "5000"
+      distance: '5000'
     };
   },
   methods: {
@@ -72,14 +72,14 @@ export default {
       if (this.category === selectedCategory) this.category = null;
       else this.category = selectedCategory;
       this.$store.dispatch({
-        type: "setFilterBy",
+        type: 'setFilterBy',
         distance: +this.distance,
         category: this.category
       });
     },
     onDistanceChange() {
       this.$store.dispatch({
-        type: "setFilterBy",
+        type: 'setFilterBy',
         distance: +this.distance,
         category: this.category
       });

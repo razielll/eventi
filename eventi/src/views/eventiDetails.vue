@@ -25,7 +25,7 @@
                           <div class="media-content">
                               <h1 class="title is-4">{{eventi.name}}</h1>
                               <div class="flex align-center space-between">
-                                <span class="tag has-text-white" :class="eventi.category">{{eventi.category}}</span>
+                                <span class="tag" :class="eventi.category">{{eventi.category | formatCategory}}</span>
                                 <h2 class="title is-5 is-inline-block"> {{goingUsers === 1? '1 person is' : goingUsers + ' people are'}} coming! </h2>
                               </div>
                           </div>

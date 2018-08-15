@@ -40,7 +40,11 @@ Vue.use(VeeValidate);
 axios.defaults.withCredentials = true;
 
 // export const SocketInstance = SocketIo(`//${window.location.host}`)
-export const SocketInstance = SocketIo(`http://localhost:33333`);
+const port = process.env.PORT || 3000;
+const url = process.env.PORT
+  ? `//${window.location.host}:${port}`
+  : 'http://localhost:3000';
+export const SocketInstance = SocketIo(url);
 Vue.use(VueSocketIo, SocketInstance, store);
 
 Vue.config.productionTip = false;

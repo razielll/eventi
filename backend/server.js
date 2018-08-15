@@ -7,40 +7,28 @@ const session = require('express-session');
 
 const app = express();
 
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+// var server = require('http').Server(app);
+// var io = require('socket.io')(server);
 
-io.on('connection', function (socket) {
-	socket.on('chat join', function () {
-		socket.broadcast.emit('broadcast-join-chat', 'hello friends!');
-	});
-	socket.on('disconnect', function () { });
-
-	socket.on('SEND_MESSAGE', function (msg) {
-		msg.user === undefined ? (msg.user = '') : msg.user;
-		io.emit('messageChannel', msg);
-		socket.broadcast.emit(`broadcastMsg`, `${msg.user}: ${msg.txt}`);
-	});
-});
-server.listen(33333);
+// server.listen(33333);
 
 app.use(cookieParser());
 app.use(
-	cors({
-		origin: ['http://localhost:8080'],
-		credentials: true // enable set cookie
-	})
+  cors({
+    origin: ['http://localhost:8080'],
+    credentials: true // enable set cookie
+  })
 );
 app.use(
-	session({
-		secret: 'puki muki',
-		resave: false,
-		saveUninitialized: true,
-		cookie: {
-			secure: false,
-			maxAge: 600000
-		}
-	})
+  session({
+    secret: 'puki muki',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: false,
+      maxAge: 600000
+    }
+  })
 );
 
 const addUserRoute = require('./routes/userRoute');
@@ -55,8 +43,23 @@ addEventiRoute(app);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-	console.log(`App server litening on port ${port}!`);
+const server = app.listen(port, () => {
+  console.log(`App server litening on port ${port}!`);
+});
+
+const io = require('socket.io')(server);
+
+io.on('connection', function(socket) {
+  socket.on('chat join', function() {
+    socket.broadcast.emit('broadcast-join-chat', 'hello friends!');
+  });
+  socket.on('disconnect', function() {});
+
+  socket.on('SEND_MESSAGE', function(msg) {
+    msg.user === undefined ? (msg.user = '') : msg.user;
+    io.emit('messageChannel', msg);
+    socket.broadcast.emit(`broadcastMsg`, `${msg.user}: ${msg.txt}`);
+  });
 });
 
 // var options = {

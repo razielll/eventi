@@ -3,8 +3,7 @@
   		<!-- <div class="card"> -->
 			<div class="card-image">
 	  			<figure class="image is-4by3">
-		  			<p class="eventi-status card-header-title">{{ eventi.startTime | moment("ddd, hA") }} :
-				 						{{ eventi.startTime | moment("from") }}</p>
+		  			<p class="eventi-status card-header-title" :class="{'is-now': isNow}">{{eventiTime}}</p>
 		  			<img :src="eventi.gallery" alt="eventi image">
 	  			</figure>
 			</div>
@@ -53,9 +52,10 @@
 import '@/assets/scss/main.scss';
 import clapIcon from './clapCmp';
 import geoService from '@/services/geoService';
-
+import { eventiTime } from '@/mixins/eventiTime';
 export default {
   props: ['eventi'],
+  mixins: [eventiTime],
   data() {
     return {};
   },
@@ -206,6 +206,9 @@ export default {
   right: 0;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
+  &.is-now {
+    background-color: rgba(65, 184, 131, 0.8);
+  }
 }
 .going-users {
   position: absolute;

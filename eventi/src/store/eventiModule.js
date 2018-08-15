@@ -69,6 +69,9 @@ export default {
           category
         })
         .then(eventis => {
+          eventis.sort(
+            (eventi1, eventi2) => eventi2.clapsCount - eventi1.clapsCount
+          );
           commit({ type: 'loadEventi', eventis });
         });
     },

@@ -3,8 +3,7 @@
     <div class="columns">
         <div class="column is-8">
             <div class="image is-3by1 gallery" :style="{'background-image': galleryImage}">
-				<p class="eventi-status">{{ eventi.startTime | moment("ddd, hA") }} :
-				 						{{ eventi.startTime | moment("from") }}</p>
+				<p class="eventi-status" :class="{'is-now': isNow}">{{eventiTime}}</p>
             </div>
         </div>
         <div class="column">
@@ -71,9 +70,11 @@
 import chatCmp from '@/components/eventiFeed';
 import geoService from '@/services/geoService';
 import eventiMap from '@/components/eventiMap';
+import { eventiTime } from '@/mixins/eventiTime';
 
 export default {
   name: 'eventi-details',
+  mixins: [eventiTime],
   data() {
     return {
       eventi: null,
@@ -189,6 +190,10 @@ export default {
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 1.3rem;
+  padding: 0.75rem;
+  &.is-now {
+    background-color: rgba(65, 184, 131, 0.8);
+  }
 }
 .clap-icon {
   max-width: 50px;

@@ -26,7 +26,7 @@
             </div>
             <div class="navbar-end" v-if="user" >
                 <router-link to="/" class="navbar-item" @click.native="toggledBurger = !toggledBurger">Home</router-link>
-                <router-link to="/eventi/edit" class="navbar-item" @click.native="toggledBurger = !toggledBurger">Create Eventi</router-link>
+                <router-link to="/eventi/edit" class="navbar-item" @click.native="toggledBurger = !toggledBurger">Create</router-link>
                 <router-link to="/user" class="navbar-item" @click.native="toggledBurger = !toggledBurger"> {{user}} profile</router-link>
                 <a class="navbar-item" @click="logOut">logout</a>
             </div>

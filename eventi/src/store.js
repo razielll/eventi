@@ -22,6 +22,10 @@ export default new Vuex.Store({
     async initStore({ commit, dispatch }) {
       let position = await geoService.getPosition();
       let { latitude: lat, longitude: lng } = position.coords;
+      // let { latitude: lat, longitude: lng } = {
+      //   longitude: 34.794144,
+      //   latitude: 32.07008
+      // };
 
       commit({ type: 'setPosition', lat, lng });
 

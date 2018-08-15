@@ -41,10 +41,13 @@ axios.defaults.withCredentials = true;
 
 // export const SocketInstance = SocketIo(`//${window.location.host}`)
 const port = process.env.PORT || 3000;
-const url = process.env.PORT
-  ? `//${window.location.host}:${port}`
-  : 'http://localhost:3000';
-export const SocketInstance = SocketIo(url);
+// const url = process.env.PORT
+//   ? `//${window.location.host}:${port}`
+//   : 'http://localhost:3000';
+
+const URL = process.env.NODE_ENV !== 'development' ? `/` : `//localhost:3000`;
+console.log('p:', process.env);
+export const SocketInstance = SocketIo(URL);
 Vue.use(VueSocketIo, SocketInstance, store);
 
 Vue.config.productionTip = false;

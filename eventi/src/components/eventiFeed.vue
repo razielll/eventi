@@ -77,6 +77,6 @@ p.chat-msg {
   margin-left: 5px;
 }
 .chat-input {
-  width: 60vw;
+  // width: 60vw;
 }
 </style>

@@ -5,7 +5,6 @@
 	 <div class="chat-msg-container">
 	<p class="chat-msg" v-for="(message,idx) in eventiMessages" :key="idx"> <strong> 
 		{{message.user ? message.user : 'Anonymus'}}  </strong> wrote:  {{message.txt}}</p>
-    <!-- <p class="chat-msg-holder">{{socketMessage}}</p> -->
    </div>
   </div>
   <div class="field">

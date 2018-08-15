@@ -3,12 +3,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const app = express();
 // const https = require('https');
 
-const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+
 
 io.on('connection', function (socket) {
 	socket.on('chat join', function () {
@@ -22,12 +23,12 @@ io.on('connection', function (socket) {
 		socket.broadcast.emit(`broadcastMsg`, `${msg.user}: ${msg.txt}`);
 	});
 });
-server.listen(33333);
+// server.listen(33333);
 
 app.use(cookieParser());
 app.use(
 	cors({
-		origin: ['http://localhost:8080'],
+		origin: ['http://localhost:8080','http://localhost:3000'],
 		credentials: true // enable set cookie
 	})
 );
@@ -55,7 +56,7 @@ addEventiRoute(app);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
+server.listen(port, () => {
 	console.log(`App server litening on port ${port}!`);
 });
 

@@ -25,7 +25,7 @@ export default {
 			let eventiId = payload._id
 			let msg = payload.msg
 			// if (msg.user === '') return
-			return chatService.saveMessage(eventiId, msg)
+			chatService.saveMessage(eventiId, msg)
 		}
 	}
 }

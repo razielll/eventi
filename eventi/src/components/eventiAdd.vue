@@ -148,36 +148,37 @@
 </template>
 
 <script>
-import { Datetime } from "vue-datetime";
-import "vue-datetime/dist/vue-datetime.css";
-import GoogleAutocomplete from "./googleAutocomplete";
+import { Datetime } from 'vue-datetime';
+import 'vue-datetime/dist/vue-datetime.css';
+import GoogleAutocomplete from './googleAutocomplete';
+import EventBusService, { SHOW_MSG } from '@/services/eventBus';
 
 const categoryImgMap = {
-  lecture: "https://jixifox.files.wordpress.com/2018/02/lecture.jpg",
-  party: "https://seda.college/wp-content/uploads/party.jpg",
-  gathering: "https://openclipart.org/download/281545/PicNicFamily.svg",
-  sale: "https://www.hiyabucks.com/wp-content/uploads/2018/06/SALE.jpg",
+  lecture: 'https://jixifox.files.wordpress.com/2018/02/lecture.jpg',
+  party: 'https://seda.college/wp-content/uploads/party.jpg',
+  gathering: 'https://openclipart.org/download/281545/PicNicFamily.svg',
+  sale: 'https://www.hiyabucks.com/wp-content/uploads/2018/06/SALE.jpg',
   needhelp:
-    "http://apple-of-my-eye.com/wp-content/uploads/2015/04/hhUntitled.jpg",
-  lostfound: "https://bridgechurchnyc.com/wp-content/uploads/2017/12/Day-4.jpg"
+    'http://apple-of-my-eye.com/wp-content/uploads/2015/04/hhUntitled.jpg',
+  lostfound: 'https://bridgechurchnyc.com/wp-content/uploads/2017/12/Day-4.jpg'
 };
 export default {
-  name: "eventiAdd",
+  name: 'eventiAdd',
   data() {
     return {
       eventi: {
-        name: "",
-        description: "",
+        name: '',
+        description: '',
         startTime: new Date().toISOString(),
-        endTime: "",
-        recurringEventi: "", // weekly ,monthly
+        endTime: '',
+        recurringEventi: '', // weekly ,monthly
         category: null,
         gallery: null,
         location: {
           coordinates: [],
-          type: "Point"
+          type: 'Point'
         },
-        address: ""
+        address: ''
       },
       isEdit: false
     };
@@ -186,7 +187,7 @@ export default {
     if (this.$route.params.eventiId) {
       this.$store
         .dispatch({
-          type: "getEventiById",
+          type: 'getEventiById',
           eventiId: this.$route.params.eventiId
         })
         .then(eventi => {
@@ -204,17 +205,22 @@ export default {
     onFormSubmit() {
       this.$validator.validateAll().then(result => {
         if (result) {
-          const action = this.isEdit ? "updateEventi" : "addEventi";
+          const action = this.isEdit ? 'updateEventi' : 'addEventi';
           let eventi = JSON.parse(JSON.stringify(this.eventi));
-          this.$store.dispatch({
-            type: action,
-            _id: this.eventi._id,
-            data: eventi,
-            isCommit: false
-          });
-          // .then(() => {
-          //   this.$router.push('/');
-          // });
+          this.$store
+            .dispatch({
+              type: action,
+              _id: this.eventi._id,
+              data: eventi,
+              isCommit: false
+            })
+            .then(() => {
+              EventBusService.$emit(SHOW_MSG, {
+                txt: 'New Eventi Added',
+                type: 'primary'
+              });
+              this.$router.push('/');
+            });
         } else {
         }
       });
@@ -238,7 +244,7 @@ export default {
     }
   },
   watch: {
-    "eventi.category"(newCategory, oldCategory) {
+    'eventi.category'(newCategory, oldCategory) {
       this.eventi.gallery = categoryImgMap[newCategory];
     }
   },

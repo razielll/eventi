@@ -34,7 +34,17 @@ export default new Router({
     {
       path: '/eventi/edit/:eventiId?',
       name: 'eventi-edit',
-      component: eventiAdd
+      component: eventiAdd,
+      beforeEnter: (to, from, next) => {
+        store.dispatch({ type: 'checkLogin' }).then(({ userLoggedIn }) => {
+          if (userLoggedIn) {
+            next();
+          } else {
+            // TODO show flash message
+            next('/');
+          }
+        });
+      }
     },
     {
       path: '/eventi/:eventiId',

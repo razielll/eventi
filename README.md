@@ -5,3 +5,7 @@ Built with vue.js, node.js, mongoDB and websocket
 full REST api
 Check it out!
 https://eventi-app.herokuapp.com/#/
+
+
+
+- currently broken due to google API and MongoLabs changes
